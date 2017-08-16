@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Roles";
+}
+
+<div class="row">
+
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" onclick="MostrarCrear()" class="btn btn-xs btn-primary" data-original-title="Crear Usuario" title="Crear Usuario"><i class="fa fa-plus"></i> Crear Tipo de Usuario</a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
+                    @*<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>*@
+                </div>
+                <h4 class="panel-title"> Tipo de Usuario</h4>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-bordered table-responsive table-hover" id="IdTabla" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width:20px;">Acciones</th>
+                            <th>Tipo de Usuario </th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-10 -->
+</div>
+
+
+
+@section Scripts {
+
+    <script>
+
+    function MostrarCrear()
+    {
+        LoadWaitNotification();
+        $.ajax({
+            url:  "/Role/Crear",
+            type: 'get',
+            success: function (data) {
+                $("#MyModalTitle").html("Crear Tipo de Usuario");
+                $("#MyModalBody").html(data);
+                $("#MyModal").modal("show");
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+                UnloadWaitNotification();
+            },
+            complete: function () { UnloadWaitNotification(); }
+        });
+    }
+
+    function MostrarEditar(id)
+    {
+        LoadWaitNotification();
+        $.ajax({
+            url: "/Role/Editar",
+            type: 'get',
+            data: {Id : id},
+        success: function (data) {
+            $("#MyModalTitle").html("Editar Tipo de Usuario");
+            $("#MyModalBody").html(data);
+            $("#MyModal").modal("show");
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert(textStatus);
+            UnloadWaitNotification();
+        },
+        complete: function () { UnloadWaitNotification(); }
+    });
+    }
+
+    $(document).ready(function () {
+
+        $("#IdTabla").dataTable({
+            responsive: true,
+            ajax: {
+            url: "/Role/Listar",
+            type: "GET",
+            dataSrc: function (data) {
+                return data;
+            }
+         },
+        columns: [
+            {
+                data: null,
+                render: function (data) {
+                    var opciones = '<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                    opciones += ('<li><a href="javascript:void(0);" onclick="MostrarEditar(!' + data.Id + '!)"> Editar</a></li>').replace(new RegExp("!", 'g'), "'");
+                    opciones += '</ul></div>';
+                    return opciones;
+                }
+            },
+            {
+                data: "Nombre"
+            },
+            {
+                data: null,
+                render: function (data) {
+                    return data.Estado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
+                }
+            },
+
+        ]
+    });
+
+
+    })
+    </script>
+
+}

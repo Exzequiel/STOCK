@@ -1,0 +1,58 @@
+﻿@model CASMUL.Models.Roles.CrearRolViewModel
+@using (Html.BeginForm("Crear", "Role", FormMethod.Post, new { id = "FormCrearRole" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a class="btn btn-success" onclick="CrearRole()"> Crear Rol</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+
+
+    function CrearRole() {
+
+            if (!$("#FormCrearRole").valid()) { return false; }
+
+            LoadWaitNotification();
+                $.ajax({
+                    url: "/Role/Crear",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $('#FormCrearRole').serialize(),
+                    success: function (data) {
+
+                        if (data.Estado) {
+                            ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                            new $.fn.dataTable.Api("#IdTabla").ajax.reload();
+                            $("#MyModal").modal("hide");
+                        } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert(textStatus+" : problemas de red")
+                        UnloadWaitNotification();
+                    },
+                    complete: function () { UnloadWaitNotification(); }
+                });
+
+        };
+
+
+
+
+</script>

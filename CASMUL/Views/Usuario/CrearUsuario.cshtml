@@ -1,0 +1,170 @@
+﻿@model CASMUL.Models.Usuario.CrearUsuarioViewModel
+
+@{
+    ViewBag.Title = "CrearUsuario";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
+                   
+                </div>
+                <h4 class="panel-title"> Crear Usuario</h4>
+            </div>
+
+            <div class="panel-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                     
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Identidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Identidad, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Identidad, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FechaNac, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.FechaNac, new { htmlAttributes = new { @class = "form-control" , @Value = Model.FechaNac.ToString("dd/MMMM/yyyy") } })
+                                @Html.ValidationMessageFor(model => model.FechaNac, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <hr />
+                      
+                        <div class="form-group">
+                           @Html.LabelFor(model => model.RoleUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.RoleUsuario, new SelectList(ViewBag.ListaTipoUsuario, "Value", "Text"), "", new { @class = "form-control select2", style = "width:100%;" })
+                                @Html.ValidationMessageFor(model => model.RoleUsuario, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                     
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="/Usuario/Index" class="btn btn-default"><i class="fa fa-arrow-left"></i> </a>
+                                <a class="btn btn-success" onclick="CrearUsuario()"> Crear Usuario</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-10 -->
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $("#FechaNac").datepicker({ format: 'dd/MM/yyyy' });
+        $("#Telefono").mask("9999-9999");
+        $("#Identidad").mask("9999-9999-99999");
+
+        $("#RoleUsuario").select2();
+
+        function CrearUsuario() {
+         
+            if (!$("form").valid()) { return false; }
+
+            LoadWaitNotification();
+            $.ajax({
+                url: "/Usuario/CrearUsuario",
+                type: 'POST',
+                dataType: 'json',
+                data: $('form').serialize(),
+                success: function (data) {
+                    ShowNotification(data.Estado, data.Titulo, data.Mensaje)
+                    if (data.Estado) {
+                        document.location.href = '/Usuario/Index';
+                    }
+                  
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus + ": Problemas con la red");
+                    UnloadWaitNotification();
+                },
+                complete: function () { UnloadWaitNotification(); }
+            });
+        };
+
+      
+     
+    </script>
+
+}

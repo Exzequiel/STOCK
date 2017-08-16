@@ -1,0 +1,99 @@
+﻿@model CASMUL.Models.Usuario.CrearUsuarioViewModel
+
+
+@using (Html.BeginForm("EditarInfoUsuario", "Usuario",FormMethod.Post, new { id="FormInfoUsuario"}))
+{
+
+    <div class="form-horizontal">
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Identidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Identidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Identidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaNac, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaNac, new { htmlAttributes = new { @class = "form-control", @Value = Model.FechaNac.ToString("dd/MMMM/yyyy") } })
+                @Html.ValidationMessageFor(model => model.FechaNac, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a class="btn btn-success" onclick="EditarInfoUsuario()"> Guardar</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+ @Scripts.Render("~/bundles/jqueryval")
+
+
+<script>
+    $("#FechaNac").datepicker({ format: 'dd/MM/yyyy' });
+    $("#Telefono").mask("9999-9999");
+    $("#Identidad").mask("9999-9999-99999");
+
+
+        function EditarInfoUsuario() {
+
+            if (!$("#FormInfoUsuario").valid()) { return false;}
+
+            LoadWaitNotification();
+                $.ajax({
+                    url: "/Usuario/EditarInfoUsuario",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $('#FormInfoUsuario').serialize(),
+                    success: function (data) {
+                        if (data.Estado) {
+                            ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                            new $.fn.dataTable.Api("#IdTabla").ajax.reload();
+                            $("#MyModal").modal("hide");
+                        } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert(textStatus + ": Problemas con la red");
+                        UnloadWaitNotification();
+                    },
+                    complete: function () { UnloadWaitNotification(); }
+                });
+
+        };
+
+
+
+
+</script>

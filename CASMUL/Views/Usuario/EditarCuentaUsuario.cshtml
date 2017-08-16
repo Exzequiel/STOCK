@@ -1,0 +1,91 @@
+﻿@model CASMUL.Models.Usuario.CrearUsuarioViewModel
+
+
+@using (Html.BeginForm("EditarCuentaUsuario", "Usuario", FormMethod.Post, new { id = "FormCuentaUsuario" }))
+{
+
+
+    <div class="form-horizontal">
+     
+        @Html.HiddenFor(model => model.Id)
+ 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoleUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RoleUsuario, new SelectList(ViewBag.ListaTipoUsuario, "Value", "Text"), "", new { @class = "form-control select2", style = "width:100%;" })
+                @Html.ValidationMessageFor(model => model.RoleUsuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control pull-left" , @style = "width:5%;" } })
+                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a class="btn btn-success" onclick="EditarCuentaUsuario()"> Guardar</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $("#RoleUsuario").select2();
+
+        function EditarCuentaUsuario() {
+
+            if (!$("#FormCuentaUsuario").valid()) { return false;}
+
+            LoadWaitNotification();
+                $.ajax({
+                    url: "/Usuario/EditarCuentaUsuario",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $('#FormCuentaUsuario').serialize(),
+                    success: function (data) {
+
+                        if (data.Estado) {
+                            ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                            new $.fn.dataTable.Api("#IdTabla").ajax.reload();
+                            $("#MyModal").modal("hide");
+                        } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert(textStatus + ": crear contrato");
+                        UnloadWaitNotification();
+                    },
+                    complete: function () { UnloadWaitNotification(); }
+                });
+
+        };
+
+
+
+
+</script>

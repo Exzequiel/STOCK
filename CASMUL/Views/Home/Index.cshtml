@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+<div class="panel">
+    <div class="panel-body">
+        @if (User.IsInRole("Administrador"))
+            {
+                { Html.RenderAction("Gestión de Usuarios"); }
+            }
+        @if (User.IsInRole("Supervisor"))
+            {
+                { Html.RenderAction("Stock"); }
+            }
+    </div>
+</div>

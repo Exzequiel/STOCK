@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Usuarios";
+}
+<div class="row">
+
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="~/Usuario/CrearUsuario" class="btn btn-xs btn-primary" data-original-title="Crear Usuario" title="Crear Usuario"><i class="fa fa-plus"></i> Crear Usuario</a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
+
+                </div>
+                <h4 class="panel-title">Usuarios</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-responsive table-hover" id="IdTabla" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Acciones</th>
+                            <th>Cuenta de Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Correo Electronico</th>
+                            <th>Perfil </th>
+                            <th>Estado </th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-10 -->
+</div>
+    
+
+                
+@section Scripts {
+<script>
+
+    function MostrarEditarCuenta(id)
+    {
+        LoadWaitNotification();
+        $.ajax({
+            url: "/Usuario/EditarCuentaUsuario",
+            type: 'get',
+            data: { Id: id },
+            success: function (data) {
+                $("#MyModalTitle").html("Editar Cuenta de Usuario");
+                $("#MyModalBody").html(data);
+                $("#MyModal").modal("show");
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+                UnloadWaitNotification();
+            },
+            complete: function () { UnloadWaitNotification(); }
+        });
+    }
+
+    function MostrarEditarInfo(id) {
+        LoadWaitNotification();
+        $.ajax({
+            url: "/Usuario/EditarInfoUsuario",
+            type: 'get',
+            data: { Id: id },
+            success: function (data) {
+                $("#MyModalTitle").html("Editar Informacion Personal");
+                $("#MyModalBody").html(data);
+                $("#MyModal").modal("show");
+            },
+            error: function (xhr, textStatus, errorThrown) {
+              alert("Error con la red");
+                UnloadWaitNotification();
+            },
+            complete: function () { UnloadWaitNotification(); }
+        });
+    }
+
+    function MostrarResetContrasena(id)
+    {
+        LoadWaitNotification();
+        $.ajax({
+            url: "/Usuario/ResetContrasena",
+            type: 'get',
+            data: { Id: id },
+            success: function (data) {
+                $("#MyModalTitle").html("Editar Contraseña");
+                $("#MyModalBody").html(data);
+                $("#MyModal").modal("show");
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(textStatus);
+                UnloadWaitNotification();
+            },
+            complete: function () { UnloadWaitNotification(); }
+        });
+    }
+
+
+    function GuardarSeleccion(idPersona, IdTabla, ActionName) {
+        var listcheckedrows = [];
+        var table = new $.fn.dataTable.Api("#" + IdTabla);
+        table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+            var nodo = this.node();
+            if ($(nodo).find('input').is(':checked')) listcheckedrows.push($(nodo).attr("id"));
+        });
+        LoadWaitNotification();
+        $.ajax({
+            url: "/Usuario/"+ActionName,
+            type: "POST",
+            data: { Lista: listcheckedrows, IdPersona: idPersona },
+            success: function (data) {
+                if (data.Estado) {
+                    ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                    new $.fn.dataTable.Api("#IdTabla").ajax.reload();
+                    $("#MyModal").modal("hide");
+                } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                ShowNotification(false, textStatus, ""); alert(textStatus);
+                UnloadWaitNotification();
+            },
+            complete: function () { UnloadWaitNotification(); }
+        });
+        }
+
+
+    function DeshabilitarUsuario() {
+    }
+    $(document).ready(function () {
+        $("#IdTabla").dataTable({
+        responsive: true,
+        ajax: {
+            url: "@Url.Action("ListarUsuarios", "Usuario")",
+            type: "GET",
+            dataSrc: function (data) {
+                return data;
+            }
+        },
+        columns: [
+            {
+                data: null,
+                render: function (data) {
+                    var opciones = '<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                    opciones += ('<li><a href="javascript:void(0);" onclick="MostrarEditarCuenta(!' + data.Id + '!)"> Editar Cuenta</a></li>').replace(new RegExp("!", 'g'), "'");
+                    opciones += ('<li><a href="javascript:void(0);" onclick="MostrarEditarInfo(!' + data.Id + '!)"> Editar Perfil</a></li>').replace(new RegExp("!", 'g'), "'");
+                    opciones += ('<li><a href="javascript:void(0);" onclick="MostrarResetContrasena(!' + data.Id + '!)"> Cambiar Contraseña</a></li>').replace(new RegExp("!", 'g'), "'");
+                    //opciones += data.esDoctor ? ('<li><a href="javascript:void(0);" onclick="AgregarEspecialidad(!' + data.Id + '!)"> Agregar Especialidad</a></li>').replace(new RegExp("!", 'g'), "'") : "";
+                    opciones += '</ul></div>';
+                    return opciones;
+                }
+            },
+            {
+                data: "UserName"
+            },
+            {
+                data: "Nombre"
+            },
+            {
+                data: "Apellido"
+            },
+
+            {
+                data: null,
+                render: function (data) {
+                    return moment(data.FechaNac).format("DD/MM/YYYY");
+                }
+            },
+            {
+                data: "Email"
+            },
+            {
+                data: "Perfil"
+            },
+            {
+                data: null,
+                render: function (data) {
+                     return data.Estado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
+                }
+            },
+
+
+        ]
+    });
+    })
+
+                            </script>
+                        }
