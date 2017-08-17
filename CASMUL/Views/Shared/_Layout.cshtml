@@ -36,8 +36,235 @@
     <div id="page-loader" class="fade in"><span class="spinner"></span></div>
     <!-- end #page-loader -->
     <!-- begin #page-container -->
-    @{ Html.RenderPartial("_Aside"); }
-    @RenderBody();
+
+    <div id="MyModal" class="modal fade" role="dialog" data-backdrop='static' data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"> <big>&times;</big></button>
+                    <h4 class="modal-title" id="MyModalTitle">Modal Header</h4>
+                </div>
+                <div class="modal-body" id="MyModalBody">
+                    <p>Some text in the modal.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalWaitingTime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="">
+        <div class="modal-dialog" role="document" style="margin-top: 15%;">
+            <div class="modal-body text-center">
+                <div class="material-loader">
+                    <svg class="circular" viewBox="25 25 50 50" style="color: #fff;">
+                        <circle style="color: #fff;" class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+                    </svg>
+                    <div class="message" style="color: #fff;">Cargando...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- begin #page-loader -->
+    @*<div id="page-loader" class="fade in"><span class="spinner"></span></div>*@
+    <!-- end #page-loader -->
+
+
+    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+        <!-- begin #header -->
+        <div id="header" class="header navbar navbar-default navbar-fixed-top">
+            <!-- begin container-fluid -->
+            <div class="container-fluid">
+                <!-- begin mobile sidebar expand / collapse button -->
+                <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand"><span class="navbar-logo"></span> CASMUL </a>
+                    <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- end mobile sidebar expand / collapse button -->
+                <!-- begin header navigation right -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form full-width">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter keyword" />
+                                <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="dropdown">
+
+                    </li>
+                    <li class="dropdown navbar-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/img/user-13.jpg" alt="" />
+                            @*<span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>*@
+                            <span class="hidden-xs">Bienvenido, @User.Identity.Name</span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInLeft">
+                            <li class="arrow"></li>
+
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("LogOff", "Account")">Cerrar Sesion</a></li>
+                            @*<li><a href="javascript:;">Log Out</a></li>*@
+                        </ul>
+                    </li>
+                </ul>
+                <!-- end header navigation right -->
+            </div>
+            <!-- end container-fluid -->
+        </div>
+        <!-- end #header -->
+        <!-- begin #sidebar -->
+        <div id="sidebar" class="sidebar">
+            <!-- begin sidebar scrollbar -->
+            <div data-scrollbar="true" data-height="100%">
+                <!-- begin sidebar user -->
+                <ul class="nav">
+                    <li class="nav-profile">
+                        <div class="image">
+                            <a href="javascript:;"><img src="~/assets/img/user-13.jpg" alt="" /></a>
+                        </div>
+                        <div class="info">
+                            Administrador @User.Identity.Name
+                            @*<small>Front end developer</small>*@
+                        </div>
+                    </li>
+                    <li>
+                    </li>
+                </ul>
+                <!-- end sidebar user -->
+                <!-- begin sidebar nav -->
+                <ul class="nav">
+                    @*<li class="nav-header">Operaciones</li>*@
+                    <li class="has-sub active">
+
+                    </li>
+                    <li class="has-sub">
+                        <a href="javascript:;">
+
+                        </a>
+                        <ul class="sub-menu"></ul>
+                    </li>
+
+                    @*@if (User.IsInRole("Administrador")) {*@
+                    <li class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <i class="fa fa-th"></i>
+                            <span>Gestión de Usuarios</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="@Url.Action("Index", "Usuario")" title="Lista de Usuarios"><span>Usuarios</span></a></li>
+                            <li><a href="@Url.Action("CrearUsuario", "Usuario")" title="Crear"><span>Crear Usuario</span></a></li>
+                            <li><a href="@Url.Action("Index", "Role")" title="Tipos"><span>Tipo de Usuarios</span></a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <i class="fa fa-suitcase"></i>
+                            <span>Proveedores</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="ui_general.html">Contactos</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <i class="fa fa-area-chart"></i>
+                            <span>Productos</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="chart-flot.html">Categoría</a></li>
+                            <li><a href="chart-morris.html">Unidad de Medida</a></li>
+                            <li><a href="chart-flot.html">ítems</a></li>
+                        </ul>
+                    </li>
+
+
+
+                    <li class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <i class="fa fa-map-marker"></i>
+                            <span>Zonas</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="map_vector.html">Fincas</a></li>
+                            <li><a href="map_vector.html">Grupos</a></li>
+                            <li><a href="map_google.html">Cables</a></li>
+                        </ul>
+                    </li>
+
+
+
+                    <li class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <i class="fa fa-medkit"></i>
+                            <span>Compras</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="javascript:;">Pedidos</a></li>
+                            <li><a href="javascript:;">Mercancías</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="has-sub">
+                        <a href="javascript:;">
+                            <b class="caret pull-right"></b>
+                            <i class="fa fa-align-left"></i>
+                            <span>Stock</span>
+                        </a>
+                        <ul class="sub-menu">
+
+                            <li><a href="javascript:;">Requisas</a></li>
+                            <li><a href="javascript:;">Movimientos</a></li>
+                            <li><a href="javascript:;">Entregas</a></li>
+                        </ul>
+                    </li>
+                    @*}*@
+
+
+                    <!-- begin sidebar minify button -->
+                    <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+                    <!-- end sidebar minify button -->
+                </ul>
+                <!-- end sidebar nav -->
+            </div>
+            <!-- end sidebar scrollbar -->
+        </div>
+        <div class="sidebar-bg"></div>
+        <!-- end #sidebar -->
+        <!-- begin #content -->
+        <div id="content" class="content">
+            @RenderBody();
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- end #content -->
+        <!-- begin theme-panel -->
+        <!-- end theme-panel -->
+        <!-- begin scroll to top btn -->
+        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+        <!-- end scroll to top btn -->
+    </div>
+
+
+  
     <!-- end page container -->
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="~/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
@@ -56,6 +283,10 @@
     <script src="~/assets/plugins/gritter/js/jquery.gritter.js"></script>
     <script src="~/assets/js/dashboard-v2.min.js"></script>
     <script src="~/assets/js/apps.min.js"></script>
+    <script src="~/assets/plugins/DataTables/media/js/dataTables.jqueryui.js"></script>
+    <script src="~/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+    <script src="~/assets/plugins/DataTables/media/js/dataTables.bootstrap.js"></script>
+    <script src="~/assets/plugins/DataTables/media/js/dataTables.foundation.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     @Scripts.Render("~/bundles/personalized")

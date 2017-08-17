@@ -196,6 +196,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\TipoUsuarioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DB\AspNetRoles.cs">
       <DependentUpon>ModelCasmul.tt</DependentUpon>
@@ -290,6 +291,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Roles\CrearRolViewModel.cs" />
+    <Compile Include="Models\TipoUsuario\CreateTipoUsuarioViewModel.cs" />
+    <Compile Include="Models\TipoUsuario\ListTipoUsuarioViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\Usuario\CambiarContrasenaViewModel.cs" />
     <Compile Include="Models\Usuario\CrearUsuarioViewModel.cs" />
@@ -6612,6 +6615,7 @@
     <Content Include="Views\Usuario\EditarCuentaUsuario.cshtml" />
     <Content Include="Views\Usuario\EditarInfoUsuario.cshtml" />
     <Content Include="Views\Usuario\ResetContrasena.cshtml" />
+    <Content Include="Views\TipoUsuario\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

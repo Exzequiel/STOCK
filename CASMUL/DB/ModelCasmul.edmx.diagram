@@ -23,7 +23,7 @@
         <EntityTypeShape EntityType="dbcasmulModel.solicitud_pedido" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.stock" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.sysdiagrams" Width="1.5" PointX="10.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbcasmulModel.tipo_usuario" Width="1.5" PointX="15.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbcasmulModel.tipo_usuario" Width="1.5" PointX="15.625" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.unidad_medida" Width="1.5" PointX="6" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.usuario" Width="1.5" PointX="13.25" PointY="16.625" IsExpanded="true" />
         <AssociationConnector Association="dbcasmulModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
