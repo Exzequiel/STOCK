@@ -14,12 +14,6 @@ namespace CASMUL.DB
     
     public partial class usuario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public usuario()
-        {
-            this.tipo_usuario = new HashSet<tipo_usuario>();
-        }
-    
         public int id_usuario { get; set; }
         public string IdAspnetUser { get; set; }
         public Nullable<int> id_tipo_usuario { get; set; }
@@ -33,7 +27,6 @@ namespace CASMUL.DB
         public bool activo { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tipo_usuario> tipo_usuario { get; set; }
+        public virtual tipo_usuario tipo_usuario { get; set; }
     }
 }

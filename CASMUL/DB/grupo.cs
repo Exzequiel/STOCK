@@ -18,13 +18,18 @@ namespace CASMUL.DB
         public grupo()
         {
             this.entrega = new HashSet<entrega>();
+            this.cable = new HashSet<cable>();
         }
     
         public int id_grupo { get; set; }
         public Nullable<int> id_finca { get; set; }
         public string descripcion { get; set; }
+        public Nullable<bool> activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<entrega> entrega { get; set; }
+        public virtual finca finca { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cable> cable { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace CASMUL.DB
         public finca()
         {
             this.entrega = new HashSet<entrega>();
+            this.grupo = new HashSet<grupo>();
         }
     
         public int id_finca { get; set; }
@@ -26,5 +27,7 @@ namespace CASMUL.DB
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<entrega> entrega { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<grupo> grupo { get; set; }
     }
 }
