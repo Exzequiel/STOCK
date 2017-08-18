@@ -12,16 +12,14 @@ namespace CASMUL.Controllers
         // GET: TipoUsuario
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public JsonResult GetListTipoUsuario()
-        {
             using (var contextCm = new dbcasmulEntities())
             {
-                return Json(contextCm.tipo_usuario.ToList().Select(x => new ListTipoUsuarioViewModel { Description = x.descripcion, Activo = x.activo, IdTipoUsuario = x.id_tipo_usuario }));
+                var list = contextCm.tipo_usuario.ToList().Select(x => new ListTipoUsuarioViewModel { Description = x.descripcion, Activo = x.activo, IdTipoUsuario = x.id_tipo_usuario });
+                return View(list);
             }
+
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -46,13 +44,64 @@ namespace CASMUL.Controllers
                         return View(model);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                     return View(model);
 
                 }
 
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            using (var contextCm = new dbcasmulEntities())
+            {
+                var model = contextCm.tipo_usuario.FirstOrDefault(x => x.id_tipo_usuario == id);
+                return View(new EditTipoUsuarioViewModel { IdTipoUsuario = model.id_tipo_usuario, Description = model.descripcion });
+            }
+        }
+        [HttpPost]
+        public ActionResult Edit(EditTipoUsuarioViewModel model)
+        {
+            using (var contextCm = new dbcasmulEntities())
+            {
+                try
+                {
+                    if (!ModelState.IsValid) return View(model);
+                    var modelDb = contextCm.tipo_usuario.FirstOrDefault(x => x.id_tipo_usuario == model.IdTipoUsuario);
+                    modelDb.descripcion = model.Description;
+                    var result = contextCm.SaveChanges() > 0;
+                    if (result)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "No se ha detectado ningun cambio !!");
+                        return View(model);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View(model);
+
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (var contextCm = new dbcasmulEntities())
+            {
+                var modelDb = contextCm.tipo_usuario.FirstOrDefault(x => x.id_tipo_usuario == id);
+                modelDb.activo = !modelDb.activo;
+                var result = contextCm.SaveChanges() > 0;
+                return RedirectToAction("Index");
             }
         }
     }

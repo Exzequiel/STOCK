@@ -160,7 +160,7 @@
                         <ul class="sub-menu">
                             <li><a href="@Url.Action("Index", "Usuario")" title="Lista de Usuarios"><span>Usuarios</span></a></li>
                             <li><a href="@Url.Action("CrearUsuario", "Usuario")" title="Crear"><span>Crear Usuario</span></a></li>
-                            <li><a href="@Url.Action("Index", "Role")" title="Tipos"><span>Tipo de Usuarios</span></a></li>
+                            <li><a href="@Url.Action("Index", "TipoUsuario")" title="Tipos"><span>Tipo de Usuarios</span></a></li>
 
                         </ul>
                     </li>
@@ -202,9 +202,9 @@
                             <span>Zonas</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="map_vector.html">Fincas</a></li>
-                            <li><a href="map_vector.html">Grupos</a></li>
-                            <li><a href="map_google.html">Cables</a></li>
+                            <li><a href="@Url.Action("Index","Fincas")">Fincas</a></li>
+                            <li><a href="@Url.Action("Index","Grupos")">Grupos</a></li>
+                            <li><a href="@Url.Action("Index","Cables")">Cables</a></li>
                         </ul>
                     </li>
 
@@ -288,13 +288,18 @@
     <script src="~/assets/plugins/DataTables/media/js/dataTables.bootstrap.js"></script>
     <script src="~/assets/plugins/DataTables/media/js/dataTables.foundation.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
-
     @Scripts.Render("~/bundles/personalized")
     @RenderSection("scripts", required: false)
-    <script>
+
+   <script>
+       $('table').dataTable();
+   </script>
+       <script>
         $(document).ready(function () {
+            
+
             App.init();
-            DashboardV2.init();
+
         });
     </script>
 </body>
