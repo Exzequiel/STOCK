@@ -1,20 +1,19 @@
-﻿using System;
+﻿using CASMUL.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CASMUL.DB;
-using CASMUL.Models.Cables;
-
+using CASMUL.Models.UnidadDeMedida;
 namespace CASMUL.Controllers
 {
-    public class CablesController : Controller
+    public class UnidadDeMedidaController : Controller
     {
         public ActionResult Index()
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.cable.ToList().Select(x => new ListCableViewModel { Finca = x.grupo.finca.descripcion, IdCable = x.id_cable, Hectarias = x.hectaria, Acres = x.acres, Activo = x.activo, Grupo = x.grupo.descripcion }).ToList();
+                var list = contextCm.unidad_medida.ToList().Select(x => new ListUnidadViewModel { Descripcion = x.descripcion, Abreviatura = x.abreviatura, Activo = x.activo, IdUnidad = x.id_unidad_medida });
                 return View(list);
             }
 
@@ -23,22 +22,17 @@ namespace CASMUL.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            using (var contextCm = new dbcasmulEntities())
-            {
-                ViewBag.SelectGrupos = contextCm.grupo.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
-                return View();
-            }
+            return View();
         }
         [HttpPost]
-        public ActionResult Create(CreateCableViewModel model)
+        public ActionResult Create(CreateUnidadViewModel model)
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                ViewBag.SelectGrupos = contextCm.grupo.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    contextCm.cable.Add(new cable {  hectaria = model.Hectarias, acres=model.Acres, activo = true, id_grupo = model.IdGrupo });
+                    contextCm.unidad_medida.Add(new unidad_medida { descripcion = model.Descripcion, abreviatura = model.Abreviatura, activo = true });
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {
@@ -64,24 +58,21 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                ViewBag.SelectGrupos = contextCm.grupo.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
-                var model = contextCm.cable.FirstOrDefault(x => x.id_cable == id);
-                return View(new EditCableViewModel { IdCable = model.id_cable, Acres= model.acres, Hectarias= model.hectaria, IdGrupo = model.id_grupo });
+                var model = contextCm.unidad_medida.FirstOrDefault(x => x.id_unidad_medida == id);
+                return View(new EditUnidadViewModel { IdUnidad = model.id_unidad_medida, Descripcion = model.descripcion, Abreviatura = model.abreviatura });
             }
         }
         [HttpPost]
-        public ActionResult Edit(EditCableViewModel model)
+        public ActionResult Edit(EditUnidadViewModel model)
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                ViewBag.SelectGrupos = contextCm.grupo.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    var modelDb = contextCm.cable.FirstOrDefault(x => x.id_cable == model.IdCable);
-                    modelDb.hectaria = model.Hectarias;
-                    modelDb.acres = model.Acres;
-                    modelDb.id_grupo = model.IdGrupo;
+                    var modelDb = contextCm.unidad_medida.FirstOrDefault(x => x.id_unidad_medida == model.IdUnidad);
+                    modelDb.descripcion = model.Descripcion;
+                    modelDb.abreviatura = model.Abreviatura;
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {
@@ -107,7 +98,7 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var modelDb = contextCm.cable.FirstOrDefault(x => x.id_cable == id);
+                var modelDb = contextCm.unidad_medida.FirstOrDefault(x => x.id_unidad_medida == id);
                 modelDb.activo = !modelDb.activo;
                 var result = contextCm.SaveChanges() > 0;
                 return RedirectToAction("Index");

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CASMUL.Models.Categorias.ListCategoriaViewModel>
+
+
+
+<div class="row">
+
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="~/Categorias/Create" class="btn btn-xs btn-primary" data-original-title="Crear Usuario" title="Crear Usuario"><i class="fa fa-plus"></i> Nuevo</a>
+                </div>
+                <h4 class="panel-title">Categorias de Producto</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table" data-class="dataTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Descripcion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Abreviatura)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Abreviatura)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdCategoria }) |
+                                    @if (Convert.ToBoolean(item.Activo))
+                                    {
+
+                                        @Html.ActionLink("Desactivar", "Delete", new { id = item.IdCategoria })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Activar", "Delete", new { id = item.IdCategoria })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>

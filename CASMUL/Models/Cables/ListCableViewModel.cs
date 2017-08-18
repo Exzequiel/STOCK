@@ -10,5 +10,6 @@ namespace CASMUL.Models.Cables
         public int IdCable { get; set; }
         public string Grupo { get; set; }
         public bool? Activo { get; set; }
+        public string Finca { get; set; }
     }
 }

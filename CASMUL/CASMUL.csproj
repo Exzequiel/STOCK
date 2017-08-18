@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CablesController.cs" />
+    <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\FincasController.cs" />
     <Compile Include="Controllers\GruposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TipoUsuarioController.cs" />
+    <Compile Include="Controllers\UnidadDeMedidaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DB\AspNetRoles.cs">
       <DependentUpon>dbcasmul.tt</DependentUpon>
@@ -294,6 +296,9 @@
     <Compile Include="Models\Cables\CreateCableViewModel.cs" />
     <Compile Include="Models\Cables\EditCableViewModel.cs" />
     <Compile Include="Models\Cables\ListCableViewModel.cs" />
+    <Compile Include="Models\Categorias\CreateCategoriaViewModel.cs" />
+    <Compile Include="Models\Categorias\EditCategoriaViewModel.cs" />
+    <Compile Include="Models\Categorias\ListCategoriaViewModel.cs" />
     <Compile Include="Models\Grupos\CreateGrupoViewModel.cs" />
     <Compile Include="Models\Fincas\CreateFincasViewModel.cs" />
     <Compile Include="Models\Fincas\EditFincasViewModel.cs" />
@@ -306,6 +311,9 @@
     <Compile Include="Models\TipoUsuario\CreateTipoUsuarioViewModel.cs" />
     <Compile Include="Models\TipoUsuario\EditTipoUsuarioViewModel.cs" />
     <Compile Include="Models\TipoUsuario\ListTipoUsuarioViewModel.cs" />
+    <Compile Include="Models\UnidadDeMedida\CreateUnidadViewModel.cs" />
+    <Compile Include="Models\UnidadDeMedida\EditUnidadViewModel.cs" />
+    <Compile Include="Models\UnidadDeMedida\ListUnidadViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\Usuario\CambiarContrasenaViewModel.cs" />
     <Compile Include="Models\Usuario\CrearUsuarioViewModel.cs" />
@@ -6643,6 +6651,12 @@
     <Content Include="Views\Cables\Create.cshtml" />
     <Content Include="Views\Cables\Edit.cshtml" />
     <Content Include="Views\Cables\Index.cshtml" />
+    <Content Include="Views\Categorias\Create.cshtml" />
+    <Content Include="Views\Categorias\Edit.cshtml" />
+    <Content Include="Views\Categorias\Index.cshtml" />
+    <Content Include="Views\UnidadDeMedida\Create.cshtml" />
+    <Content Include="Views\UnidadDeMedida\Edit.cshtml" />
+    <Content Include="Views\UnidadDeMedida\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
