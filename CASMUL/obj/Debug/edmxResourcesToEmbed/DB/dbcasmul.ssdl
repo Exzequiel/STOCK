@@ -120,7 +120,7 @@
     <Key>
       <PropertyRef Name="id_item" />
     </Key>
-    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="id_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_categoria" Type="int" />
     <Property Name="id_unidad_medida" Type="int" />
     <Property Name="id_stock" Type="int" />
@@ -405,6 +405,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_item_unidad_medida">
+    <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="0..1" />
+    <End Role="item" Type="Self.item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="unidad_medida">
+        <PropertyRef Name="id_unidad_medida" />
+      </Principal>
+      <Dependent Role="item">
+        <PropertyRef Name="id_unidad_medida" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_mercaderia_recibida_categoria">
     <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
     <End Role="mercaderia_recibida" Type="Self.mercaderia_recibida" Multiplicity="*" />
@@ -626,6 +638,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_item_categoria" Association="Self.FK_item_categoria">
       <End Role="categoria" EntitySet="categoria" />
+      <End Role="item" EntitySet="item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_item_unidad_medida" Association="Self.FK_item_unidad_medida">
+      <End Role="unidad_medida" EntitySet="unidad_medida" />
       <End Role="item" EntitySet="item" />
     </AssociationSet>
     <AssociationSet Name="FK_mercaderia_recibida_categoria" Association="Self.FK_mercaderia_recibida_categoria">

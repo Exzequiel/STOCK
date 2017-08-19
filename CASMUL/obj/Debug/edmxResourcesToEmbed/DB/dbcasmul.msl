@@ -116,19 +116,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="item">
-      <EntityTypeMapping TypeName="dbcasmulModel.item">
-        <MappingFragment StoreEntitySet="item">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="cant_inicial" ColumnName="cant_inicial" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="id_stock" ColumnName="id_stock" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="mercaderia_recibida">
       <EntityTypeMapping TypeName="dbcasmulModel.mercaderia_recibida">
         <MappingFragment StoreEntitySet="mercaderia_recibida">
@@ -284,5 +271,18 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="item">
+      <EntityTypeMapping TypeName="dbcasmulModel.item">
+        <MappingFragment StoreEntitySet="item">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="cant_inicial" ColumnName="cant_inicial" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_stock" ColumnName="id_stock" />
+          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <ScalarProperty Name="id_item" ColumnName="id_item" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

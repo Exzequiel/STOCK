@@ -204,6 +204,7 @@
     <Compile Include="Controllers\FincasController.cs" />
     <Compile Include="Controllers\GruposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -306,6 +307,9 @@
     <Compile Include="Models\Grupos\EditGrupoViewModel.cs" />
     <Compile Include="Models\Grupos\ListGruposViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Item\CreateItemVIewModel.cs" />
+    <Compile Include="Models\Item\EditItemViewModel.cs" />
+    <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Roles\CrearRolViewModel.cs" />
     <Compile Include="Models\TipoUsuario\CreateTipoUsuarioViewModel.cs" />
@@ -6657,6 +6661,9 @@
     <Content Include="Views\UnidadDeMedida\Create.cshtml" />
     <Content Include="Views\UnidadDeMedida\Edit.cshtml" />
     <Content Include="Views\UnidadDeMedida\Index.cshtml" />
+    <Content Include="Views\Item\Create.cshtml" />
+    <Content Include="Views\Item\Edit.cshtml" />
+    <Content Include="Views\Item\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
