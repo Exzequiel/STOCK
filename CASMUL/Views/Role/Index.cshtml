@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<CASMUL.Models.Roles.CrearRolViewModel>
+@{
     ViewBag.Title = "Roles";
 }
 
@@ -22,10 +23,20 @@
                         <tr>
                             <th style="width:20px;">Acciones</th>
                             <th>Tipo de Usuario </th>
-                            <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach (var rol in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn btn-warning btn-xs" onclick="MostrarEditar('@rol.Id')">Editar</a>
+                                </td>
+                                <td>@rol.Nombre</td>
+                      
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -38,11 +49,13 @@
 
 @section Scripts {
 
+
     <script>
+     $('table').dataTable();
 
     function MostrarCrear()
     {
-        LoadWaitNotification();
+       LoadWaitNotification();
         $.ajax({
             url:  "/Role/Crear",
             type: 'get',
@@ -79,43 +92,6 @@
         complete: function () { UnloadWaitNotification(); }
     });
     }
-
-    $(document).ready(function () {
-
-        $("#IdTabla").dataTable({
-            responsive: true,
-            ajax: {
-            url: "/Role/Listar",
-            type: "GET",
-            dataSrc: function (data) {
-                return data;
-            }
-         },
-        columns: [
-            {
-                data: null,
-                render: function (data) {
-                    var opciones = '<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
-                    opciones += ('<li><a href="javascript:void(0);" onclick="MostrarEditar(!' + data.Id + '!)"> Editar</a></li>').replace(new RegExp("!", 'g'), "'");
-                    opciones += '</ul></div>';
-                    return opciones;
-                }
-            },
-            {
-                data: "Nombre"
-            },
-            {
-                data: null,
-                render: function (data) {
-                    return data.Estado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
-                }
-            },
-
-        ]
-    });
-
-
-    })
     </script>
 
 }

@@ -39,7 +39,7 @@
 
                         if (data.Estado) {
                             ShowNotification(data.Estado, data.Titulo, data.Mensaje);
-                            new $.fn.dataTable.Api("#IdTabla").ajax.reload();
+                            location.reload();
                             $("#MyModal").modal("hide");
                         } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
                     },

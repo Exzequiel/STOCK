@@ -92,6 +92,8 @@ namespace CRIPCO.Controllers
                             nro_telefono = model.Telefono,
                             identidad = model.Identidad,
                             activo=true,
+                            cuenta_usuario = model.UserName,
+                            email = model.Email
                           
                         });
 

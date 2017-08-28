@@ -160,7 +160,7 @@
                         <ul class="sub-menu">
                             <li><a href="@Url.Action("Index", "Usuario")" title="Lista de Usuarios"><span>Usuarios</span></a></li>
                             <li><a href="@Url.Action("CrearUsuario", "Usuario")" title="Crear"><span>Crear Usuario</span></a></li>
-                            <li><a href="@Url.Action("Index", "TipoUsuario")" title="Tipos"><span>Tipo de Usuarios</span></a></li>
+                            <li><a href="@Url.Action("Index", "Role")" title="Tipos"><span>Tipo de Usuarios</span></a></li>
 
                         </ul>
                     </li>
@@ -267,7 +267,7 @@
   
     <!-- end page container -->
     <!-- ================== BEGIN BASE JS ================== -->
-    <script src="~/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+    @*<script src="~/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
     <script src="~/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
     <script src="~/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
     <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -287,13 +287,11 @@
     <script src="~/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
     <script src="~/assets/plugins/DataTables/media/js/dataTables.bootstrap.js"></script>
     <script src="~/assets/plugins/DataTables/media/js/dataTables.foundation.js"></script>
-    <!-- ================== END PAGE LEVEL JS ================== -->
+    <!-- ================== END PAGE LEVEL JS ================== -->*@
     @Scripts.Render("~/bundles/personalized")
+    @Scripts.Render("~/bundles/ColorAdmin")
     @RenderSection("scripts", required: false)
 
-   <script>
-       $('table').dataTable();
-   </script>
        <script>
         $(document).ready(function () {
             

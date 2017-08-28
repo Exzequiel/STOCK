@@ -16,19 +16,12 @@ namespace CASMUL.Controllers
         // GET: Role
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Listar()
-        {
             using (var context = new dbcasmulEntities())
             {
-                var jsonResult = Json(context.AspNetRoles.Select(x => new CrearRolViewModel { Id = x.Id, Nombre = x.Name, Estado = x.activo??false }).ToList(), JsonRequestBehavior.AllowGet);
-                jsonResult.MaxJsonLength = Int32.MaxValue;
-                return jsonResult;
-            }
+                return View(context.AspNetRoles.Select(x => new CrearRolViewModel { Id = x.Id, Nombre = x.Name, Estado = x.activo??false }).ToList());
+            }             
         }
+
 
         [HttpGet]
         public ActionResult Crear()
@@ -42,7 +35,7 @@ namespace CASMUL.Controllers
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
             if (roleManager.RoleExists(model.Nombre.Trim())) return Json(new MensajeRespuestaViewModel { Titulo = "Crear Rol", Mensaje = "El Rol ya Existe", Estado = false }, JsonRequestBehavior.AllowGet);
             var result = roleManager.Create(new IdentityRole { Name = model.Nombre.Trim() });
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 using (var context = new dbcasmulEntities())
                 {
