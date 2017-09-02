@@ -132,39 +132,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="cable">
-      <EntityTypeMapping TypeName="dbcasmulModel.cable">
-        <MappingFragment StoreEntitySet="cable">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="acres" ColumnName="acres" />
-          <ScalarProperty Name="hectaria" ColumnName="hectaria" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-          <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
-          <ScalarProperty Name="id_cable" ColumnName="id_cable" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="finca">
-      <EntityTypeMapping TypeName="dbcasmulModel.finca">
-        <MappingFragment StoreEntitySet="finca">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="grupo">
-      <EntityTypeMapping TypeName="dbcasmulModel.grupo">
-        <MappingFragment StoreEntitySet="grupo">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="item">
       <EntityTypeMapping TypeName="dbcasmulModel.item">
         <MappingFragment StoreEntitySet="item">
@@ -272,6 +239,38 @@
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
           <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
           <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cable">
+      <EntityTypeMapping TypeName="dbcasmulModel.cable">
+        <MappingFragment StoreEntitySet="cable">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="acres" ColumnName="acres" />
+          <ScalarProperty Name="hectaria" ColumnName="hectaria" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
+          <ScalarProperty Name="id_cable" ColumnName="id_cable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="finca">
+      <EntityTypeMapping TypeName="dbcasmulModel.finca">
+        <MappingFragment StoreEntitySet="finca">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="grupo">
+      <EntityTypeMapping TypeName="dbcasmulModel.grupo">
+        <MappingFragment StoreEntitySet="grupo">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

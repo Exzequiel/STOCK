@@ -30,9 +30,7 @@ namespace CASMUL.DB
         public Nullable<bool> activo { get; set; }
     
         public virtual finca finca { get; set; }
-        public virtual finca finca1 { get; set; }
         public virtual grupo grupo { get; set; }
-        public virtual grupo grupo1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<entrega> entrega { get; set; }
     }

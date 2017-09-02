@@ -12,8 +12,8 @@ namespace CASMUL.Models.Grupos
         [Required]
         public string Description { get; set; }
 
-        [Display(Name = "Finca")]
-        [Required]
-        public int? IdFinca { get; set; }
+        //[Display(Name = "Finca")]
+        //[Required]
+        //public int? IdFinca { get; set; }
     }
 }

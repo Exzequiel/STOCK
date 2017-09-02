@@ -116,7 +116,6 @@
       <PropertyRef Name="id_grupo" />
     </Key>
     <Property Name="id_grupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_finca" Type="int" />
     <Property Name="descripcion" Type="varchar" MaxLength="50" />
     <Property Name="activo" Type="bit" />
   </EntityType>
@@ -406,18 +405,6 @@
       </Principal>
       <Dependent Role="entrega">
         <PropertyRef Name="id_unidad_medida" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_grupo_finca">
-    <End Role="finca" Type="Self.finca" Multiplicity="0..1" />
-    <End Role="grupo" Type="Self.grupo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="finca">
-        <PropertyRef Name="id_finca" />
-      </Principal>
-      <Dependent Role="grupo">
-        <PropertyRef Name="id_finca" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -778,10 +765,6 @@
     <AssociationSet Name="FK_entrega_unidad_medida" Association="Self.FK_entrega_unidad_medida">
       <End Role="unidad_medida" EntitySet="unidad_medida" />
       <End Role="entrega" EntitySet="entrega" />
-    </AssociationSet>
-    <AssociationSet Name="FK_grupo_finca" Association="Self.FK_grupo_finca">
-      <End Role="finca" EntitySet="finca" />
-      <End Role="grupo" EntitySet="grupo" />
     </AssociationSet>
     <AssociationSet Name="FK_item_categoria" Association="Self.FK_item_categoria">
       <End Role="categoria" EntitySet="categoria" />
