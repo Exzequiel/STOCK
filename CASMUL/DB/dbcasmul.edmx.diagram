@@ -54,6 +54,14 @@
         <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_proveedor" />
         <AssociationConnector Association="dbcasmulModel.FK_requisa_unidad_medida" />
         <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_unidad_medida" />
+        <EntityTypeShape EntityType="dbcasmulModel.cable" Width="1.5" PointX="3.75" PointY="20.25" />
+        <EntityTypeShape EntityType="dbcasmulModel.grupo" Width="1.5" PointX="1.5" PointY="23.875" />
+        <AssociationConnector Association="dbcasmulModel.FK_cable_finca" />
+        <AssociationConnector Association="dbcasmulModel.FK_cable_finca1" />
+        <AssociationConnector Association="dbcasmulModel.FK_cable_grupo" />
+        <AssociationConnector Association="dbcasmulModel.FK_cable_grupo1" />
+        <AssociationConnector Association="dbcasmulModel.FK_entrega_cable" />
+        <AssociationConnector Association="dbcasmulModel.FK_entrega_grupo" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
