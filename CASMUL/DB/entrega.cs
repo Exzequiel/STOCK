@@ -33,5 +33,7 @@ namespace CASMUL.DB
         public virtual finca finca { get; set; }
         public virtual item item { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
+        public virtual cable cable { get; set; }
+        public virtual grupo grupo { get; set; }
     }
 }

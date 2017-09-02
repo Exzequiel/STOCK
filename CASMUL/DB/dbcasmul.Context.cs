@@ -43,5 +43,7 @@ namespace CASMUL.DB
         public virtual DbSet<requisa> requisa { get; set; }
         public virtual DbSet<solicitud_pedido> solicitud_pedido { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
+        public virtual DbSet<cable> cable { get; set; }
+        public virtual DbSet<grupo> grupo { get; set; }
     }
 }

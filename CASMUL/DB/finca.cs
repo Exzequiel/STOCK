@@ -22,6 +22,8 @@ namespace CASMUL.DB
             this.movimiento = new HashSet<movimiento>();
             this.requisa = new HashSet<requisa>();
             this.solicitud_pedido = new HashSet<solicitud_pedido>();
+            this.cable = new HashSet<cable>();
+            this.cable1 = new HashSet<cable>();
         }
     
         public int id_finca { get; set; }
@@ -38,5 +40,9 @@ namespace CASMUL.DB
         public virtual ICollection<requisa> requisa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<solicitud_pedido> solicitud_pedido { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cable> cable { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cable> cable1 { get; set; }
     }
 }
