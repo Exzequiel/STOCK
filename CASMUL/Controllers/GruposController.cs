@@ -17,7 +17,6 @@ namespace CASMUL.Controllers
                 var list = contextCm.grupo.ToList().Select(x => new ListGruposViewModel { IdGrupo =x.id_grupo, Description = x.descripcion, Activo = x.activo, IdFinca = x.finca.id_finca, Finca = x.finca.descripcion }).ToList();
                 return View(list);
             }
-
         }
 
         [HttpGet]
