@@ -14,7 +14,7 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.cable.ToList().Select(x => new ListCableViewModel { Finca = x.grupo.finca.descripcion, IdCable = x.id_cable, Hectarias = x.hectaria, Acres = x.acres, Activo = x.activo, Grupo = x.grupo.descripcion }).ToList();
+                var list = contextCm.cable.ToList().Select(x => new ListCableViewModel { Finca = x.grupo.finca.descripcion, IdCable = x.id_cable, Hectarias = x.hectaria, Acres = x.acres, Descripcion = x.descripcion, Activo =  x.activo, Grupo = x.grupo.descripcion }).ToList();
                 return View(list);
             }
 
@@ -38,7 +38,7 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    contextCm.cable.Add(new cable {  hectaria = model.Hectarias, acres=model.Acres, activo = true, id_grupo = model.IdGrupo });
+                    contextCm.cable.Add(new cable {  hectaria = model.Hectarias, acres = model.Acres, descripcion = model.Descripcion,  activo = true, id_grupo = model.IdGrupo });
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {
@@ -66,7 +66,7 @@ namespace CASMUL.Controllers
             {
                 ViewBag.SelectGrupos = contextCm.grupo.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
                 var model = contextCm.cable.FirstOrDefault(x => x.id_cable == id);
-                return View(new EditCableViewModel { IdCable = model.id_cable, Acres= model.acres, Hectarias= model.hectaria, IdGrupo = model.id_grupo });
+                return View(new EditCableViewModel { IdCable = model.id_cable, Acres= model.acres, Hectarias= model.hectaria, Descripcion = model.descripcion, IdGrupo = model.id_grupo });
             }
         }
         [HttpPost]
@@ -81,6 +81,7 @@ namespace CASMUL.Controllers
                     var modelDb = contextCm.cable.FirstOrDefault(x => x.id_cable == model.IdCable);
                     modelDb.hectaria = model.Hectarias;
                     modelDb.acres = model.Acres;
+                    modelDb.descripcion = model.Descripcion;
                     modelDb.id_grupo = model.IdGrupo;
                     var result = contextCm.SaveChanges() > 0;
                     if (result)

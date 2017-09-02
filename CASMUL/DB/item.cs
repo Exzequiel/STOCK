@@ -18,16 +18,18 @@ namespace CASMUL.DB
         public item()
         {
             this.entrega = new HashSet<entrega>();
+            this.mercaderia_recibida = new HashSet<mercaderia_recibida>();
+            this.movimiento = new HashSet<movimiento>();
+            this.requisa = new HashSet<requisa>();
             this.solicitud_pedido = new HashSet<solicitud_pedido>();
-            this.stock = new HashSet<stock>();
         }
     
         public int id_item { get; set; }
         public Nullable<int> id_categoria { get; set; }
         public Nullable<int> id_unidad_medida { get; set; }
-        public Nullable<int> id_stock { get; set; }
         public string descripcion { get; set; }
         public Nullable<int> cant_inicial { get; set; }
+        public Nullable<int> cant_disponible { get; set; }
         public Nullable<bool> activo { get; set; }
     
         public virtual categoria categoria { get; set; }
@@ -35,8 +37,12 @@ namespace CASMUL.DB
         public virtual ICollection<entrega> entrega { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<solicitud_pedido> solicitud_pedido { get; set; }
+        public virtual ICollection<mercaderia_recibida> mercaderia_recibida { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<stock> stock { get; set; }
+        public virtual ICollection<movimiento> movimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<requisa> requisa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<solicitud_pedido> solicitud_pedido { get; set; }
     }
 }

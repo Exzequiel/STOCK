@@ -15,6 +15,7 @@ namespace CASMUL.DB
     public partial class mercaderia_recibida
     {
         public int id_mercaderia_recibida { get; set; }
+        public string nro_mercaderia { get; set; }
         public Nullable<int> id_solicitud_pedido { get; set; }
         public Nullable<int> id_item { get; set; }
         public Nullable<int> id_categoria { get; set; }
@@ -28,7 +29,10 @@ namespace CASMUL.DB
         public Nullable<int> periodo { get; set; }
     
         public virtual categoria categoria { get; set; }
+        public virtual finca finca { get; set; }
+        public virtual item item { get; set; }
         public virtual proveedor proveedor { get; set; }
         public virtual solicitud_pedido solicitud_pedido { get; set; }
+        public virtual unidad_medida unidad_medida { get; set; }
     }
 }

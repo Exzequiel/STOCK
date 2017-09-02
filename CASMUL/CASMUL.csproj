@@ -274,9 +274,6 @@
     <Compile Include="DB\solicitud_pedido.cs">
       <DependentUpon>dbcasmul.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\stock.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\sysdiagrams.cs">
       <DependentUpon>dbcasmul.tt</DependentUpon>
     </Compile>

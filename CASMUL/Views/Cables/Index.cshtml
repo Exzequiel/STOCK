@@ -24,6 +24,9 @@
                                 @Html.DisplayNameFor(model => model.Hectarias)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.Descripcion)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.IdGrupo)
                             </th>
                             <th>
@@ -42,7 +45,10 @@
                                 <td>
                                     @Html.DisplayFor(model => item.Hectarias)
                                 </td>
-                                <td>
+                                <th>
+                                    @Html.DisplayFor(model => item.Descripcion)
+                                </th>
+                                <td>s 
                                     @Html.DisplayFor(model => item.Grupo)
                                 </td>
                                 <td>
