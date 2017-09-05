@@ -18,22 +18,13 @@ namespace CASMUL.DB
         public string nro_entrega { get; set; }
         public Nullable<System.DateTime> fecha_transaccion { get; set; }
         public Nullable<int> id_item { get; set; }
-        public Nullable<int> id_categoria { get; set; }
-        public Nullable<int> id_unidad_medida { get; set; }
-        public Nullable<int> id_finca { get; set; }
-        public Nullable<int> id_grupo { get; set; }
         public Nullable<int> id_cable { get; set; }
-        public Nullable<int> cant_disponible { get; set; }
-        public Nullable<int> cant_solicitada { get; set; }
         public Nullable<int> cant_aentregar { get; set; }
+        public Nullable<bool> confirmado { get; set; }
         public Nullable<int> semana { get; set; }
         public Nullable<int> periodo { get; set; }
     
-        public virtual categoria categoria { get; set; }
-        public virtual item item { get; set; }
-        public virtual unidad_medida unidad_medida { get; set; }
         public virtual cable cable { get; set; }
-        public virtual finca finca { get; set; }
-        public virtual grupo grupo { get; set; }
+        public virtual item item { get; set; }
     }
 }

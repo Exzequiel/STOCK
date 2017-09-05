@@ -14,7 +14,7 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.grupo.ToList().Select(x => new ListGruposViewModel { IdGrupo =x.id_grupo, Description = x.descripcion, Activo = x.activo }).ToList();
+                var list = contextCm.grupo.ToList().Select(x => new ListGruposViewModel { IdGrupo =x.id_grupo, Description = x.descripcion, Activo = x.activo, NombreFinca = x.finca.descripcion }).ToList();
                 return View(list);
             }
         }
@@ -37,7 +37,7 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    contextCm.grupo.Add(new grupo { descripcion = model.Description, activo = true });
+                    contextCm.grupo.Add(new grupo { descripcion = model.Description, activo = true, id_finca = model.IdFinca });
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {
@@ -65,7 +65,7 @@ namespace CASMUL.Controllers
             {
                 ViewBag.SelectFincas = contextCm.finca.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
                 var model = contextCm.grupo.FirstOrDefault(x => x.id_grupo == id);
-                return View(new EditGrupoViewModel { Description = model.descripcion, IdGrupo = model.id_grupo });
+                return View(new EditGrupoViewModel { Description = model.descripcion, IdGrupo = model.id_grupo, IdFinca = model.id_finca });
             }
         }
         [HttpPost]
@@ -78,6 +78,7 @@ namespace CASMUL.Controllers
                     if (!ModelState.IsValid) return View(model);
                     var modelDb = contextCm.grupo.FirstOrDefault(x => x.id_grupo == model.IdGrupo);
                     modelDb.descripcion = model.Description;
+                    modelDb.id_finca = model.IdFinca;
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {
