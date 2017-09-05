@@ -93,6 +93,7 @@
     <Property Name="id_item" Type="int" />
     <Property Name="id_cable" Type="int" />
     <Property Name="cant_aentregar" Type="int" />
+    <Property Name="confirmado" Type="bit" />
     <Property Name="semana" Type="int" />
     <Property Name="periodo" Type="int" />
   </EntityType>
@@ -130,7 +131,7 @@
     </Key>
     <Property Name="id_mercaderia_recibida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_mercaderia" Type="varchar" MaxLength="50" />
-    <Property Name="id_solicitud_pedido" Type="int" />
+    <Property Name="id_pedido" Type="int" />
     <Property Name="fecha_transaccion" Type="date" />
     <Property Name="cant_recibida" Type="int" />
     <Property Name="semana" Type="int" />
@@ -179,9 +180,9 @@
   </EntityType>
   <EntityType Name="solicitud_pedido">
     <Key>
-      <PropertyRef Name="id_solicitud_pedido" />
+      <PropertyRef Name="id_pedido" />
     </Key>
-    <Property Name="id_solicitud_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_pedido" Type="varchar" MaxLength="50" />
     <Property Name="id_item" Type="int" />
     <Property Name="id_finca" Type="int" />
@@ -367,10 +368,10 @@
     <End Role="mercaderia_recibida" Type="Self.mercaderia_recibida" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="solicitud_pedido">
-        <PropertyRef Name="id_solicitud_pedido" />
+        <PropertyRef Name="id_pedido" />
       </Principal>
       <Dependent Role="mercaderia_recibida">
-        <PropertyRef Name="id_solicitud_pedido" />
+        <PropertyRef Name="id_pedido" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
