@@ -17,10 +17,10 @@ namespace CASMUL.DB
         public int id_mercaderia_recibida { get; set; }
         public string nro_mercaderia { get; set; }
         public Nullable<int> id_pedido { get; set; }
-        public Nullable<System.DateTime> fecha_transaccion { get; set; }
-        public Nullable<int> cant_recibida { get; set; }
-        public Nullable<int> semana { get; set; }
-        public Nullable<int> periodo { get; set; }
+        public System.DateTime fecha_transaccion { get; set; }
+        public int cant_recibida { get; set; }
+        public int semana { get; set; }
+        public int periodo { get; set; }
     
         public virtual solicitud_pedido solicitud_pedido { get; set; }
     }

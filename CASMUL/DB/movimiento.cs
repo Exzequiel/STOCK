@@ -17,10 +17,10 @@ namespace CASMUL.DB
         public int id_movimiento { get; set; }
         public string nro_movimiento { get; set; }
         public Nullable<int> id_requisa { get; set; }
-        public Nullable<System.DateTime> fecha_transaccion { get; set; }
-        public Nullable<int> cant_enviada { get; set; }
-        public Nullable<int> semana { get; set; }
-        public Nullable<int> periodo { get; set; }
+        public System.DateTime fecha_transaccion { get; set; }
+        public int cant_enviada { get; set; }
+        public int semana { get; set; }
+        public int periodo { get; set; }
     
         public virtual requisa requisa { get; set; }
     }

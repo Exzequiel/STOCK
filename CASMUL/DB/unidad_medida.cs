@@ -23,7 +23,7 @@ namespace CASMUL.DB
         public int id_unidad_medida { get; set; }
         public string abreviatura { get; set; }
         public string descripcion { get; set; }
-        public Nullable<bool> activo { get; set; }
+        public bool activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<item> item { get; set; }

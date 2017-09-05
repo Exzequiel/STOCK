@@ -17,7 +17,7 @@ namespace CASMUL.Controllers
             
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.cable.ToList().Select(x => new ListCableViewModel { IdCable = x.id_cable, Hectarias = x.hectaria, Acres = x.acres, Descripcion = x.descripcion, Activo = x.activo, Grupo = x.grupo.descripcion}).ToList();
+                var list = contextCm.cable.ToList().Select(x => new ListCableViewModel { IdCable = x.id_cable, Hectarias = x.hectaria, Acres = x.acres, Descripcion = x.descripcion, Activo = x.activo, Grupo = x.grupo.descripcion, Finca = x.grupo.finca.descripcion }).ToList();
                 return View(list);
             }
         }
@@ -28,7 +28,7 @@ namespace CASMUL.Controllers
             using (var contextCm = new dbcasmulEntities())
             {
                 ViewBag.SelectFincas = contextCm.finca.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
-                ViewBag.SelectGrupos = contextCm.grupo.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_grupo.ToString(), Text = v.descripcion }).ToList();
+                //ViewBag.SelectGrupos = contextCm.grupo.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_grupo.ToString(), Text = v.descripcion }).ToList();
 
                 return View();
             }
@@ -39,7 +39,7 @@ namespace CASMUL.Controllers
             using (var contextCm = new dbcasmulEntities())
             {
                 ViewBag.SelectFincas = contextCm.finca.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
-                ViewBag.SelectGrupos = contextCm.grupo.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_grupo.ToString(), Text = v.descripcion }).ToList();
+                //ViewBag.SelectGrupos = contextCm.grupo.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_grupo.ToString(), Text = v.descripcion }).ToList();
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
@@ -69,7 +69,7 @@ namespace CASMUL.Controllers
             using (var contextCm = new dbcasmulEntities())
             {
                 ViewBag.SelectGrupos = contextCm.grupo.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_grupo.ToString(), Text = c.descripcion }).ToList();
-                ViewBag.SelectFincas = contextCm.finca.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_finca.ToString(), Text = v.descripcion }).ToList();
+                //ViewBag.SelectFincas = contextCm.finca.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_finca.ToString(), Text = v.descripcion }).ToList();
                 var model = contextCm.cable.FirstOrDefault(x => x.id_cable == id);
                 return View(new EditCableViewModel { IdCable = model.id_cable, Acres= model.acres, Hectarias= model.hectaria, Descripcion = model.descripcion, IdGrupo = model.id_grupo });
             }
@@ -80,7 +80,7 @@ namespace CASMUL.Controllers
             using (var contextCm = new dbcasmulEntities())
             {
                 ViewBag.SelectGrupos = contextCm.grupo.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_grupo.ToString(), Text = c.descripcion }).ToList();
-                ViewBag.SelectFincas = contextCm.finca.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_finca.ToString(), Text = v.descripcion }).ToList();
+                //ViewBag.SelectFincas = contextCm.finca.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_finca.ToString(), Text = v.descripcion }).ToList();
                 try
                 {
                     if (!ModelState.IsValid) return View(model);

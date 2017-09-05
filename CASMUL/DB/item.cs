@@ -27,7 +27,7 @@ namespace CASMUL.DB
         public Nullable<int> id_unidad_medida { get; set; }
         public string descripcion { get; set; }
         public Nullable<int> cant_disponible { get; set; }
-        public Nullable<bool> activo { get; set; }
+        public bool activo { get; set; }
     
         public virtual categoria categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

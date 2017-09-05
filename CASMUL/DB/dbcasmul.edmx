@@ -73,42 +73,41 @@
           </Key>
           <Property Name="id_cable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_grupo" Type="int" />
-          <Property Name="id_usuario" Type="int" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="hectaria" Type="decimal" Precision="8" Scale="4" />
           <Property Name="acres" Type="decimal" Precision="8" Scale="4" />
-          <Property Name="activo" Type="bit" />
+          <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="id_categoria" />
           </Key>
           <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="abreviatura" Type="varchar" MaxLength="50" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" />
-          <Property Name="activo" Type="bit" />
+          <Property Name="abreviatura" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="entrega">
           <Key>
             <PropertyRef Name="id_entrega" />
           </Key>
           <Property Name="id_entrega" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nro_entrega" Type="varchar" MaxLength="50" />
-          <Property Name="fecha_transaccion" Type="date" />
+          <Property Name="nro_entrega" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha_transaccion" Type="date" Nullable="false" />
           <Property Name="id_item" Type="int" />
           <Property Name="id_cable" Type="int" />
-          <Property Name="cant_aentregar" Type="int" />
-          <Property Name="confirmado" Type="bit" />
-          <Property Name="semana" Type="int" />
-          <Property Name="periodo" Type="int" />
+          <Property Name="cant_aentregar" Type="int" Nullable="false" />
+          <Property Name="confirmado" Type="bit" Nullable="false" />
+          <Property Name="semana" Type="int" Nullable="false" />
+          <Property Name="periodo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="finca">
           <Key>
             <PropertyRef Name="id_finca" />
           </Key>
           <Property Name="id_finca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" />
-          <Property Name="activo" Type="bit" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="grupo">
           <Key>
@@ -116,8 +115,8 @@
           </Key>
           <Property Name="id_grupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_finca" Type="int" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" />
-          <Property Name="activo" Type="bit" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="item">
           <Key>
@@ -126,48 +125,48 @@
           <Property Name="id_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_categoria" Type="int" />
           <Property Name="id_unidad_medida" Type="int" />
-          <Property Name="descripcion" Type="nchar" MaxLength="150" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="cant_disponible" Type="int" />
-          <Property Name="activo" Type="bit" />
+          <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="mercaderia_recibida">
           <Key>
             <PropertyRef Name="id_mercaderia_recibida" />
           </Key>
           <Property Name="id_mercaderia_recibida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nro_mercaderia" Type="varchar" MaxLength="50" />
+          <Property Name="nro_mercaderia" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="id_pedido" Type="int" />
-          <Property Name="fecha_transaccion" Type="date" />
-          <Property Name="cant_recibida" Type="int" />
-          <Property Name="semana" Type="int" />
-          <Property Name="periodo" Type="int" />
+          <Property Name="fecha_transaccion" Type="date" Nullable="false" />
+          <Property Name="cant_recibida" Type="int" Nullable="false" />
+          <Property Name="semana" Type="int" Nullable="false" />
+          <Property Name="periodo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="movimiento">
           <Key>
             <PropertyRef Name="id_movimiento" />
           </Key>
           <Property Name="id_movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nro_movimiento" Type="varchar" MaxLength="50" />
+          <Property Name="nro_movimiento" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="id_requisa" Type="int" />
-          <Property Name="fecha_transaccion" Type="date" />
-          <Property Name="cant_enviada" Type="int" />
-          <Property Name="semana" Type="int" />
-          <Property Name="periodo" Type="int" />
+          <Property Name="fecha_transaccion" Type="date" Nullable="false" />
+          <Property Name="cant_enviada" Type="int" Nullable="false" />
+          <Property Name="semana" Type="int" Nullable="false" />
+          <Property Name="periodo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="proveedor">
           <Key>
             <PropertyRef Name="id_proveedor" />
           </Key>
           <Property Name="id_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre_proveedor" Type="varchar" MaxLength="150" />
-          <Property Name="direccion" Type="varchar" MaxLength="200" />
-          <Property Name="telefono" Type="varchar" MaxLength="20" />
-          <Property Name="email" Type="nvarchar" MaxLength="256" />
-          <Property Name="rtn" Type="nvarchar" MaxLength="200" />
-          <Property Name="contacto" Type="varchar" MaxLength="150" />
-          <Property Name="giro" Type="varchar" MaxLength="150" />
-          <Property Name="razon_social" Type="varchar" MaxLength="150" />
-          <Property Name="ciudad" Type="varchar" MaxLength="150" />
+          <Property Name="nombre_proveedor" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="rtn" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contacto" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="giro" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="razon_social" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="activo" Type="bit" />
         </EntityType>
         <EntityType Name="requisa">
@@ -175,27 +174,27 @@
             <PropertyRef Name="id_requisa" />
           </Key>
           <Property Name="id_requisa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nro_requisa" Type="varchar" MaxLength="50" />
+          <Property Name="nro_requisa" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="id_item" Type="int" />
           <Property Name="id_finca" Type="int" />
-          <Property Name="fecha_transaccion" Type="date" />
-          <Property Name="cant_solicitada" Type="int" />
-          <Property Name="semana" Type="int" />
-          <Property Name="periodo" Type="int" />
+          <Property Name="fecha_transaccion" Type="date" Nullable="false" />
+          <Property Name="cant_solicitada" Type="int" Nullable="false" />
+          <Property Name="semana" Type="int" Nullable="false" />
+          <Property Name="periodo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="solicitud_pedido">
           <Key>
             <PropertyRef Name="id_pedido" />
           </Key>
           <Property Name="id_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nro_pedido" Type="varchar" MaxLength="50" />
+          <Property Name="nro_pedido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="id_item" Type="int" />
           <Property Name="id_finca" Type="int" />
           <Property Name="id_proveedor" Type="int" />
-          <Property Name="fecha_transaccion" Type="date" />
-          <Property Name="cant_solicitada" Type="int" />
-          <Property Name="semana" Type="int" />
-          <Property Name="periodo" Type="int" />
+          <Property Name="fecha_transaccion" Type="date" Nullable="false" />
+          <Property Name="cant_solicitada" Type="int" Nullable="false" />
+          <Property Name="semana" Type="int" Nullable="false" />
+          <Property Name="periodo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -220,9 +219,9 @@
             <PropertyRef Name="id_unidad_medida" />
           </Key>
           <Property Name="id_unidad_medida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="abreviatura" Type="varchar" MaxLength="50" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" />
-          <Property Name="activo" Type="bit" />
+          <Property Name="abreviatura" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="usuario">
           <Key>
@@ -231,6 +230,7 @@
           <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdAspnetUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="id_tipo_usuario" Type="int" />
+          <Property Name="id_finca" Type="int" />
           <Property Name="identidad" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="apellido" Type="varchar" MaxLength="150" Nullable="false" />
@@ -464,6 +464,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_usuario_finca">
+          <End Role="finca" Type="Self.finca" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="finca">
+              <PropertyRef Name="id_finca" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="id_finca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_usuario_tipo_usuario">
           <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="0..1" />
           <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
@@ -570,6 +582,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
+          <AssociationSet Name="FK_usuario_finca" Association="Self.FK_usuario_finca">
+            <End Role="finca" EntitySet="finca" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
           <AssociationSet Name="FK_usuario_tipo_usuario" Association="Self.FK_usuario_tipo_usuario">
             <End Role="tipo_usuario" EntitySet="tipo_usuario" />
             <End Role="usuario" EntitySet="usuario" />
@@ -585,7 +601,6 @@
           <EntitySet Name="AspNetUserClaims" EntityType="dbcasmulModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="dbcasmulModel.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="dbcasmulModel.AspNetUsers" />
-          <EntitySet Name="cable" EntityType="dbcasmulModel.cable" />
           <EntitySet Name="categoria" EntityType="dbcasmulModel.categoria" />
           <EntitySet Name="entrega" EntityType="dbcasmulModel.entrega" />
           <EntitySet Name="finca" EntityType="dbcasmulModel.finca" />
@@ -612,14 +627,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
-          <AssociationSet Name="FK_cable_grupo" Association="dbcasmulModel.FK_cable_grupo">
-            <End Role="grupo" EntitySet="grupo" />
-            <End Role="cable" EntitySet="cable" />
-          </AssociationSet>
-          <AssociationSet Name="FK_entrega_cable" Association="dbcasmulModel.FK_entrega_cable">
-            <End Role="cable" EntitySet="cable" />
-            <End Role="entrega" EntitySet="entrega" />
-          </AssociationSet>
           <AssociationSet Name="FK_item_categoria" Association="dbcasmulModel.FK_item_categoria">
             <End Role="categoria" EntitySet="categoria" />
             <End Role="item" EntitySet="item" />
@@ -639,6 +646,10 @@
           <AssociationSet Name="FK_solicitud_pedido_finca" Association="dbcasmulModel.FK_solicitud_pedido_finca">
             <End Role="finca" EntitySet="finca" />
             <End Role="solicitud_pedido" EntitySet="solicitud_pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_finca" Association="dbcasmulModel.FK_usuario_finca">
+            <End Role="finca" EntitySet="finca" />
+            <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
           <AssociationSet Name="FK_item_unidad_medida" Association="dbcasmulModel.FK_item_unidad_medida">
             <End Role="unidad_medida" EntitySet="unidad_medida" />
@@ -671,6 +682,15 @@
           <AssociationSet Name="AspNetUserRoles" Association="dbcasmulModel.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="cable" EntityType="dbcasmulModel.cable" />
+          <AssociationSet Name="FK_cable_grupo" Association="dbcasmulModel.FK_cable_grupo">
+            <End Role="grupo" EntitySet="grupo" />
+            <End Role="cable" EntitySet="cable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entrega_cable" Association="dbcasmulModel.FK_entrega_cable">
+            <End Role="cable" EntitySet="cable" />
+            <End Role="entrega" EntitySet="entrega" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -734,28 +754,14 @@
           <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_AspNetUsers" FromRole="AspNetUsers" ToRole="usuario" />
           <NavigationProperty Name="AspNetRoles" Relationship="dbcasmulModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="cable">
-          <Key>
-            <PropertyRef Name="id_cable" />
-          </Key>
-          <Property Name="id_cable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_grupo" Type="Int32" />
-          <Property Name="id_usuario" Type="Int32" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="hectaria" Type="Decimal" Precision="8" Scale="4" />
-          <Property Name="acres" Type="Decimal" Precision="8" Scale="4" />
-          <Property Name="activo" Type="Boolean" />
-          <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="cable" ToRole="grupo" />
-          <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="cable" ToRole="entrega" />
-        </EntityType>
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="id_categoria" />
           </Key>
           <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="abreviatura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" />
+          <Property Name="abreviatura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_item_categoria" FromRole="categoria" ToRole="item" />
         </EntityType>
         <EntityType Name="entrega">
@@ -763,27 +769,28 @@
             <PropertyRef Name="id_entrega" />
           </Key>
           <Property Name="id_entrega" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_entrega" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fecha_transaccion" Type="DateTime" Precision="0" />
+          <Property Name="nro_entrega" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_item" Type="Int32" />
           <Property Name="id_cable" Type="Int32" />
-          <Property Name="cant_aentregar" Type="Int32" />
-          <Property Name="confirmado" Type="Boolean" />
-          <Property Name="semana" Type="Int32" />
-          <Property Name="periodo" Type="Int32" />
-          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="entrega" ToRole="cable" />
+          <Property Name="cant_aentregar" Type="Int32" Nullable="false" />
+          <Property Name="confirmado" Type="Boolean" Nullable="false" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_entrega_item" FromRole="entrega" ToRole="item" />
+          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="entrega" ToRole="cable" />
         </EntityType>
         <EntityType Name="finca">
           <Key>
             <PropertyRef Name="id_finca" />
           </Key>
           <Property Name="id_finca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="finca" ToRole="grupo" />
           <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_requisa_finca" FromRole="finca" ToRole="requisa" />
           <NavigationProperty Name="solicitud_pedido" Relationship="dbcasmulModel.FK_solicitud_pedido_finca" FromRole="finca" ToRole="solicitud_pedido" />
+          <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_finca" FromRole="finca" ToRole="usuario" />
         </EntityType>
         <EntityType Name="grupo">
           <Key>
@@ -791,10 +798,10 @@
           </Key>
           <Property Name="id_grupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_finca" Type="Int32" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" />
-          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="grupo" ToRole="finca" />
+          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
         </EntityType>
         <EntityType Name="item">
           <Key>
@@ -803,9 +810,9 @@
           <Property Name="id_item" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_categoria" Type="Int32" />
           <Property Name="id_unidad_medida" Type="Int32" />
-          <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="cant_disponible" Type="Int32" />
-          <Property Name="activo" Type="Boolean" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="categoria" Relationship="dbcasmulModel.FK_item_categoria" FromRole="item" ToRole="categoria" />
           <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_item" FromRole="item" ToRole="entrega" />
           <NavigationProperty Name="unidad_medida" Relationship="dbcasmulModel.FK_item_unidad_medida" FromRole="item" ToRole="unidad_medida" />
@@ -817,12 +824,12 @@
             <PropertyRef Name="id_mercaderia_recibida" />
           </Key>
           <Property Name="id_mercaderia_recibida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_mercaderia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nro_mercaderia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_pedido" Type="Int32" />
-          <Property Name="fecha_transaccion" Type="DateTime" Precision="0" />
-          <Property Name="cant_recibida" Type="Int32" />
-          <Property Name="semana" Type="Int32" />
-          <Property Name="periodo" Type="Int32" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cant_recibida" Type="Int32" Nullable="false" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="solicitud_pedido" Relationship="dbcasmulModel.FK_mercaderia_recibida_solicitud_pedido" FromRole="mercaderia_recibida" ToRole="solicitud_pedido" />
         </EntityType>
         <EntityType Name="movimiento">
@@ -830,12 +837,12 @@
             <PropertyRef Name="id_movimiento" />
           </Key>
           <Property Name="id_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_movimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nro_movimiento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_requisa" Type="Int32" />
-          <Property Name="fecha_transaccion" Type="DateTime" Precision="0" />
-          <Property Name="cant_enviada" Type="Int32" />
-          <Property Name="semana" Type="Int32" />
-          <Property Name="periodo" Type="Int32" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cant_enviada" Type="Int32" Nullable="false" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="movimiento" ToRole="requisa" />
         </EntityType>
         <EntityType Name="proveedor">
@@ -843,15 +850,15 @@
             <PropertyRef Name="id_proveedor" />
           </Key>
           <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre_proveedor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="rtn" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="contacto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="giro" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="razon_social" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="ciudad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_proveedor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rtn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contacto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="giro" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="razon_social" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ciudad" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="activo" Type="Boolean" />
           <NavigationProperty Name="solicitud_pedido" Relationship="dbcasmulModel.FK_solicitud_pedido_proveedor" FromRole="proveedor" ToRole="solicitud_pedido" />
         </EntityType>
@@ -860,13 +867,13 @@
             <PropertyRef Name="id_requisa" />
           </Key>
           <Property Name="id_requisa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_requisa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nro_requisa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_item" Type="Int32" />
           <Property Name="id_finca" Type="Int32" />
-          <Property Name="fecha_transaccion" Type="DateTime" Precision="0" />
-          <Property Name="cant_solicitada" Type="Int32" />
-          <Property Name="semana" Type="Int32" />
-          <Property Name="periodo" Type="Int32" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cant_solicitada" Type="Int32" Nullable="false" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_requisa_finca" FromRole="requisa" ToRole="finca" />
           <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_requisa_item" FromRole="requisa" ToRole="item" />
           <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="requisa" ToRole="movimiento" />
@@ -876,14 +883,14 @@
             <PropertyRef Name="id_pedido" />
           </Key>
           <Property Name="id_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_pedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nro_pedido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_item" Type="Int32" />
           <Property Name="id_finca" Type="Int32" />
           <Property Name="id_proveedor" Type="Int32" />
-          <Property Name="fecha_transaccion" Type="DateTime" Precision="0" />
-          <Property Name="cant_solicitada" Type="Int32" />
-          <Property Name="semana" Type="Int32" />
-          <Property Name="periodo" Type="Int32" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cant_solicitada" Type="Int32" Nullable="false" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_solicitud_pedido_finca" FromRole="solicitud_pedido" ToRole="finca" />
           <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_solicitud_pedido_item" FromRole="solicitud_pedido" ToRole="item" />
           <NavigationProperty Name="mercaderia_recibida" Relationship="dbcasmulModel.FK_mercaderia_recibida_solicitud_pedido" FromRole="solicitud_pedido" ToRole="mercaderia_recibida" />
@@ -913,9 +920,9 @@
             <PropertyRef Name="id_unidad_medida" />
           </Key>
           <Property Name="id_unidad_medida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="abreviatura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" />
+          <Property Name="abreviatura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_item_unidad_medida" FromRole="unidad_medida" ToRole="item" />
         </EntityType>
         <EntityType Name="usuario">
@@ -925,6 +932,7 @@
           <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdAspnetUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="id_tipo_usuario" Type="Int32" />
+          <Property Name="id_finca" Type="Int32" />
           <Property Name="identidad" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="apellido" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -934,6 +942,7 @@
           <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="dbcasmulModel.FK_usuario_AspNetUsers" FromRole="usuario" ToRole="AspNetUsers" />
+          <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_usuario_finca" FromRole="usuario" ToRole="finca" />
           <NavigationProperty Name="tipo_usuario" Relationship="dbcasmulModel.FK_usuario_tipo_usuario" FromRole="usuario" ToRole="tipo_usuario" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -973,30 +982,6 @@
             </Principal>
             <Dependent Role="usuario">
               <PropertyRef Name="IdAspnetUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_cable_grupo">
-          <End Type="dbcasmulModel.grupo" Role="grupo" Multiplicity="0..1" />
-          <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="grupo">
-              <PropertyRef Name="id_grupo" />
-            </Principal>
-            <Dependent Role="cable">
-              <PropertyRef Name="id_grupo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_entrega_cable">
-          <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="0..1" />
-          <End Type="dbcasmulModel.entrega" Role="entrega" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cable">
-              <PropertyRef Name="id_cable" />
-            </Principal>
-            <Dependent Role="entrega">
-              <PropertyRef Name="id_cable" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1056,6 +1041,18 @@
               <PropertyRef Name="id_finca" />
             </Principal>
             <Dependent Role="solicitud_pedido">
+              <PropertyRef Name="id_finca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_finca">
+          <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="0..1" />
+          <End Type="dbcasmulModel.usuario" Role="usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="finca">
+              <PropertyRef Name="id_finca" />
+            </Principal>
+            <Dependent Role="usuario">
               <PropertyRef Name="id_finca" />
             </Dependent>
           </ReferentialConstraint>
@@ -1148,6 +1145,43 @@
           <End Type="dbcasmulModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="dbcasmulModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
+        <EntityType Name="cable">
+          <Key>
+            <PropertyRef Name="id_cable" />
+          </Key>
+          <Property Name="id_cable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_grupo" Type="Int32" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hectaria" Type="Decimal" Precision="8" Scale="4" />
+          <Property Name="acres" Type="Decimal" Precision="8" Scale="4" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="cable" ToRole="grupo" />
+          <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="cable" ToRole="entrega" />
+        </EntityType>
+        <Association Name="FK_cable_grupo">
+          <End Type="dbcasmulModel.grupo" Role="grupo" Multiplicity="0..1" />
+          <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupo">
+              <PropertyRef Name="id_grupo" />
+            </Principal>
+            <Dependent Role="cable">
+              <PropertyRef Name="id_grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_entrega_cable">
+          <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="0..1" />
+          <End Type="dbcasmulModel.entrega" Role="entrega" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cable">
+              <PropertyRef Name="id_cable" />
+            </Principal>
+            <Dependent Role="entrega">
+              <PropertyRef Name="id_cable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1207,19 +1241,6 @@
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cable">
-            <EntityTypeMapping TypeName="dbcasmulModel.cable">
-              <MappingFragment StoreEntitySet="cable">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="acres" ColumnName="acres" />
-                <ScalarProperty Name="hectaria" ColumnName="hectaria" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
-                <ScalarProperty Name="id_cable" ColumnName="id_cable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1392,6 +1413,7 @@
                 <ScalarProperty Name="apellido" ColumnName="apellido" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="identidad" ColumnName="identidad" />
+                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
                 <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
                 <ScalarProperty Name="IdAspnetUser" ColumnName="IdAspnetUser" />
                 <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
@@ -1406,6 +1428,18 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="cable">
+            <EntityTypeMapping TypeName="dbcasmulModel.cable">
+              <MappingFragment StoreEntitySet="cable">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="acres" ColumnName="acres" />
+                <ScalarProperty Name="hectaria" ColumnName="hectaria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
+                <ScalarProperty Name="id_cable" ColumnName="id_cable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

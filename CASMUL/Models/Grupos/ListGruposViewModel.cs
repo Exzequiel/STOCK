@@ -8,7 +8,7 @@ namespace CASMUL.Models.Grupos
     public class ListGruposViewModel : CreateGrupoViewModel
     {
         public int IdGrupo { get; set; }
-        public string NombreFinca { get; set; }
+        public string Finca { get; set; }
         public bool? Activo { get; set; }
     }
 }

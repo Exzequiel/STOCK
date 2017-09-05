@@ -30,7 +30,6 @@ namespace CASMUL.DB
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<cable> cable { get; set; }
         public virtual DbSet<categoria> categoria { get; set; }
         public virtual DbSet<entrega> entrega { get; set; }
         public virtual DbSet<finca> finca { get; set; }
@@ -45,5 +44,6 @@ namespace CASMUL.DB
         public virtual DbSet<tipo_usuario> tipo_usuario { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<cable> cable { get; set; }
     }
 }
