@@ -85,7 +85,6 @@
         <MappingFragment StoreEntitySet="entrega">
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="confirmado" ColumnName="confirmado" />
           <ScalarProperty Name="cant_aentregar" ColumnName="cant_aentregar" />
           <ScalarProperty Name="id_cable" ColumnName="id_cable" />
           <ScalarProperty Name="id_item" ColumnName="id_item" />
@@ -133,7 +132,7 @@
           <ScalarProperty Name="semana" ColumnName="semana" />
           <ScalarProperty Name="cant_recibida" ColumnName="cant_recibida" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-          <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+          <ScalarProperty Name="id_solicitud_pedido" ColumnName="id_solicitud_pedido" />
           <ScalarProperty Name="nro_mercaderia" ColumnName="nro_mercaderia" />
           <ScalarProperty Name="id_mercaderia_recibida" ColumnName="id_mercaderia_recibida" />
         </MappingFragment>
@@ -194,7 +193,7 @@
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
           <ScalarProperty Name="id_item" ColumnName="id_item" />
           <ScalarProperty Name="nro_pedido" ColumnName="nro_pedido" />
-          <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+          <ScalarProperty Name="id_solicitud_pedido" ColumnName="id_solicitud_pedido" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
