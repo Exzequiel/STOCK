@@ -23,7 +23,7 @@ namespace CASMUL.DB
         public int id_grupo { get; set; }
         public Nullable<int> id_finca { get; set; }
         public string descripcion { get; set; }
-        public Nullable<bool> activo { get; set; }
+        public bool activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cable> cable { get; set; }

@@ -17,6 +17,7 @@ namespace CASMUL.DB
         public int id_usuario { get; set; }
         public string IdAspnetUser { get; set; }
         public Nullable<int> id_tipo_usuario { get; set; }
+        public Nullable<int> id_finca { get; set; }
         public string identidad { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
@@ -27,6 +28,7 @@ namespace CASMUL.DB
         public bool activo { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual finca finca { get; set; }
         public virtual tipo_usuario tipo_usuario { get; set; }
     }
 }

@@ -16,13 +16,13 @@ namespace CASMUL.DB
     {
         public int id_entrega { get; set; }
         public string nro_entrega { get; set; }
-        public Nullable<System.DateTime> fecha_transaccion { get; set; }
+        public System.DateTime fecha_transaccion { get; set; }
         public Nullable<int> id_item { get; set; }
         public Nullable<int> id_cable { get; set; }
-        public Nullable<int> cant_aentregar { get; set; }
-        public Nullable<bool> confirmado { get; set; }
-        public Nullable<int> semana { get; set; }
-        public Nullable<int> periodo { get; set; }
+        public int cant_aentregar { get; set; }
+        public bool confirmado { get; set; }
+        public int semana { get; set; }
+        public int periodo { get; set; }
     
         public virtual cable cable { get; set; }
         public virtual item item { get; set; }
