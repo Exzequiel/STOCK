@@ -4,63 +4,46 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="199f52ac26cc44e99a15fb0cf6199ed7" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="dbcasmulModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="13.875" />
-        <EntityTypeShape EntityType="dbcasmulModel.AspNetRoles" Width="1.5" PointX="7.75" PointY="9.875" />
-        <EntityTypeShape EntityType="dbcasmulModel.AspNetUserClaims" Width="1.5" PointX="12.25" PointY="15.375" />
-        <EntityTypeShape EntityType="dbcasmulModel.AspNetUserLogins" Width="1.5" PointX="12.25" PointY="12.75" />
-        <EntityTypeShape EntityType="dbcasmulModel.AspNetUsers" Width="1.5" PointX="10" PointY="8.75" />
-        <EntityTypeShape EntityType="dbcasmulModel.categoria" Width="1.5" PointX="0.75" PointY="13.25" />
-        <EntityTypeShape EntityType="dbcasmulModel.sysdiagrams" Width="1.5" PointX="12.75" PointY="3.875" />
-        <EntityTypeShape EntityType="dbcasmulModel.tipo_usuario" Width="1.5" PointX="10" PointY="5.875" />
-        <EntityTypeShape EntityType="dbcasmulModel.usuario" Width="1.5" PointX="12.25" PointY="8" />
+      <Diagram DiagramId="199f52ac26cc44e99a15fb0cf6199ed7" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="dbcasmulModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="2.875" />
+        <EntityTypeShape EntityType="dbcasmulModel.AspNetRoles" Width="1.5" PointX="9.75" PointY="15.875" />
+        <EntityTypeShape EntityType="dbcasmulModel.AspNetUserClaims" Width="1.5" PointX="14.25" PointY="14.5" />
+        <EntityTypeShape EntityType="dbcasmulModel.AspNetUserLogins" Width="1.5" PointX="14.25" PointY="21.5" />
+        <EntityTypeShape EntityType="dbcasmulModel.AspNetUsers" Width="1.5" PointX="12" PointY="14.75" />
+        <EntityTypeShape EntityType="dbcasmulModel.cable" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="dbcasmulModel.categoria" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="dbcasmulModel.entrega" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="dbcasmulModel.finca" Width="1.5" PointX="1.5" PointY="13" />
+        <EntityTypeShape EntityType="dbcasmulModel.grupo" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="dbcasmulModel.item" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="dbcasmulModel.mercaderia_recibida" Width="1.5" PointX="10.5" PointY="7.875" />
+        <EntityTypeShape EntityType="dbcasmulModel.movimiento" Width="1.5" PointX="7.5" PointY="11.875" />
+        <EntityTypeShape EntityType="dbcasmulModel.proveedor" Width="1.5" PointX="6" PointY="16.5" />
+        <EntityTypeShape EntityType="dbcasmulModel.requisa" Width="1.5" PointX="5.25" PointY="7.5" />
+        <EntityTypeShape EntityType="dbcasmulModel.solicitud_pedido" Width="1.5" PointX="8.25" PointY="7.375" />
+        <EntityTypeShape EntityType="dbcasmulModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="2.875" />
+        <EntityTypeShape EntityType="dbcasmulModel.tipo_usuario" Width="1.5" PointX="15" PointY="17.875" />
+        <EntityTypeShape EntityType="dbcasmulModel.unidad_medida" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="dbcasmulModel.usuario" Width="1.5" PointX="17.25" PointY="15" />
         <AssociationConnector Association="dbcasmulModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="dbcasmulModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="dbcasmulModel.FK_usuario_AspNetUsers" />
-        <AssociationConnector Association="dbcasmulModel.FK_usuario_tipo_usuario" />
-        <AssociationConnector Association="dbcasmulModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="dbcasmulModel.entrega" Width="1.5" PointX="8.25" PointY="16.75" />
-        <AssociationConnector Association="dbcasmulModel.FK_entrega_categoria" />
-        <EntityTypeShape EntityType="dbcasmulModel.item" Width="1.5" PointX="6" PointY="17.375" />
-        <EntityTypeShape EntityType="dbcasmulModel.mercaderia_recibida" Width="1.5" PointX="11.25" PointY="18.5" />
-        <EntityTypeShape EntityType="dbcasmulModel.movimiento" Width="1.5" PointX="14.25" PointY="18.75" />
-        <EntityTypeShape EntityType="dbcasmulModel.proveedor" Width="1.5" PointX="9" PointY="28.125" />
-        <EntityTypeShape EntityType="dbcasmulModel.requisa" Width="1.5" PointX="15.25" PointY="13.875" />
-        <EntityTypeShape EntityType="dbcasmulModel.solicitud_pedido" Width="1.5" PointX="8.25" PointY="22.75" />
-        <EntityTypeShape EntityType="dbcasmulModel.unidad_medida" Width="1.5" PointX="3.75" PointY="15.75" />
-        <AssociationConnector Association="dbcasmulModel.FK_item_categoria" />
-        <AssociationConnector Association="dbcasmulModel.FK_mercaderia_recibida_categoria" />
-        <AssociationConnector Association="dbcasmulModel.FK_movimiento_categoria" />
-        <AssociationConnector Association="dbcasmulModel.FK_requisa_categoria" />
-        <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_categoria" />
-        <AssociationConnector Association="dbcasmulModel.FK_entrega_item" />
-        <AssociationConnector Association="dbcasmulModel.FK_entrega_unidad_medida" />
-        <AssociationConnector Association="dbcasmulModel.FK_item_unidad_medida" />
-        <AssociationConnector Association="dbcasmulModel.FK_mercaderia_recibida_item" />
-        <AssociationConnector Association="dbcasmulModel.FK_movimiento_item" />
-        <AssociationConnector Association="dbcasmulModel.FK_requisa_item" />
-        <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_item" />
-        <AssociationConnector Association="dbcasmulModel.FK_mercaderia_recibida_proveedor" />
-        <AssociationConnector Association="dbcasmulModel.FK_mercaderia_recibida_solicitud_pedido" />
-        <AssociationConnector Association="dbcasmulModel.FK_mercaderia_recibida_unidad_medida" />
-        <AssociationConnector Association="dbcasmulModel.FK_movimiento_requisa" />
-        <AssociationConnector Association="dbcasmulModel.FK_movimiento_unidad_medida" />
-        <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_proveedor" />
-        <AssociationConnector Association="dbcasmulModel.FK_requisa_unidad_medida" />
-        <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_unidad_medida" />
-        <EntityTypeShape EntityType="dbcasmulModel.cable" Width="1.5" PointX="11.25" PointY="23.875" />
-        <EntityTypeShape EntityType="dbcasmulModel.finca" Width="1.5" PointX="4.75" PointY="24.125" />
-        <EntityTypeShape EntityType="dbcasmulModel.grupo" Width="1.5" PointX="9" PointY="32.5" />
-        <AssociationConnector Association="dbcasmulModel.FK_cable_finca" />
         <AssociationConnector Association="dbcasmulModel.FK_cable_grupo" />
         <AssociationConnector Association="dbcasmulModel.FK_entrega_cable" />
-        <AssociationConnector Association="dbcasmulModel.FK_entrega_finca" />
-        <AssociationConnector Association="dbcasmulModel.FK_entrega_grupo" />
-        <AssociationConnector Association="dbcasmulModel.FK_mercaderia_recibida_finca" />
-        <AssociationConnector Association="dbcasmulModel.FK_movimiento_finca" />
+        <AssociationConnector Association="dbcasmulModel.FK_item_categoria" />
+        <AssociationConnector Association="dbcasmulModel.FK_entrega_item" />
+        <AssociationConnector Association="dbcasmulModel.FK_grupo_finca" />
         <AssociationConnector Association="dbcasmulModel.FK_requisa_finca" />
         <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_finca" />
-        </Diagram>
+        <AssociationConnector Association="dbcasmulModel.FK_item_unidad_medida" />
+        <AssociationConnector Association="dbcasmulModel.FK_requisa_item" />
+        <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_item" />
+        <AssociationConnector Association="dbcasmulModel.FK_mercaderia_recibida_solicitud_pedido" />
+        <AssociationConnector Association="dbcasmulModel.FK_movimiento_requisa" />
+        <AssociationConnector Association="dbcasmulModel.FK_solicitud_pedido_proveedor" />
+        <AssociationConnector Association="dbcasmulModel.FK_usuario_tipo_usuario" />
+        <AssociationConnector Association="dbcasmulModel.AspNetUserRoles" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
