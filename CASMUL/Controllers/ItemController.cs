@@ -13,7 +13,7 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.item.ToList().Select(x => new ListaItemViewModel { Unidad = x.unidad_medida.descripcion, Descripcion = x.descripcion, Categoria = x.categoria.descripcion, Activo = x.activo, IdItem = x.id_item}).ToList();
+                var list = contextCm.item.ToList().Select(x => new ListaItemViewModel { Unidad = x.unidad_medida.descripcion, Descripcion = x.descripcion, Categoria = x.categoria.descripcion, Activo = x.activo, IdItem = x.id_item, CantidadInicial = x.cant_inicial }).ToList();
                 return View(list);
             }
 
@@ -39,7 +39,7 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    contextCm.item.Add(new item { descripcion = model.Descripcion, id_categoria = model.IdCategoria, id_unidad_medida = model.IdUnidad, activo = true});
+                    contextCm.item.Add(new item { descripcion = model.Descripcion, id_categoria = model.IdCategoria, id_unidad_medida = model.IdUnidad, activo = true, cant_inicial = model.CantidadInicial });
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {

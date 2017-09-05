@@ -17,9 +17,8 @@ namespace CASMUL.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public finca()
         {
+            this.entrega = new HashSet<entrega>();
             this.grupo = new HashSet<grupo>();
-            this.requisa = new HashSet<requisa>();
-            this.solicitud_pedido = new HashSet<solicitud_pedido>();
         }
     
         public int id_finca { get; set; }
@@ -27,10 +26,8 @@ namespace CASMUL.DB
         public Nullable<bool> activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<entrega> entrega { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<grupo> grupo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<requisa> requisa { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<solicitud_pedido> solicitud_pedido { get; set; }
     }
 }
