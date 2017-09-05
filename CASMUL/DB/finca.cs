@@ -19,7 +19,6 @@ namespace CASMUL.DB
         {
             this.cable = new HashSet<cable>();
             this.entrega = new HashSet<entrega>();
-            this.grupo = new HashSet<grupo>();
             this.mercaderia_recibida = new HashSet<mercaderia_recibida>();
             this.movimiento = new HashSet<movimiento>();
             this.requisa = new HashSet<requisa>();
@@ -34,8 +33,6 @@ namespace CASMUL.DB
         public virtual ICollection<cable> cable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<entrega> entrega { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<grupo> grupo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mercaderia_recibida> mercaderia_recibida { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

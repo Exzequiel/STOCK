@@ -28,9 +28,9 @@ namespace CASMUL.DB
         public Nullable<int> periodo { get; set; }
     
         public virtual categoria categoria { get; set; }
-        public virtual finca finca { get; set; }
         public virtual item item { get; set; }
         public virtual requisa requisa { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
+        public virtual finca finca { get; set; }
     }
 }

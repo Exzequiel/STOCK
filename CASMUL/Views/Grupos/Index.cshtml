@@ -20,9 +20,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Description)
                             </th>
-                            <th>
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.IdFinca)
-                            </th>
+                            </th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -33,9 +33,9 @@
                                 <td>
                                     @Html.DisplayFor(model => item.Description)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(model => item.Finca)
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.IdGrupo }) |
                                     @if (Convert.ToBoolean(item.Activo))

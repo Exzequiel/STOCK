@@ -32,10 +32,10 @@ namespace CASMUL.DB
         public Nullable<int> periodo { get; set; }
     
         public virtual categoria categoria { get; set; }
-        public virtual finca finca { get; set; }
         public virtual item item { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<movimiento> movimiento { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
+        public virtual finca finca { get; set; }
     }
 }
