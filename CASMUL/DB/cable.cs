@@ -22,6 +22,8 @@ namespace CASMUL.DB
     
         public int id_cable { get; set; }
         public Nullable<int> id_grupo { get; set; }
+        public Nullable<int> id_usuario { get; set; }
+        public string descripcion { get; set; }
         public Nullable<decimal> hectaria { get; set; }
         public Nullable<decimal> acres { get; set; }
         public Nullable<bool> activo { get; set; }

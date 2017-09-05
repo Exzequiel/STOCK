@@ -14,10 +14,9 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.grupo.ToList().Select(x => new ListGruposViewModel { IdGrupo =x.id_grupo, Description = x.descripcion, Activo = x.activo, IdFinca = x.finca.id_finca, Finca = x.finca.descripcion }).ToList();
+                var list = contextCm.grupo.ToList().Select(x => new ListGruposViewModel { IdGrupo =x.id_grupo, Description = x.descripcion ?? "", Activo = x.activo, NombreFinca = x.finca.descripcion ?? "" }).ToList();
                 return View(list);
             }
-
         }
 
         [HttpGet]
@@ -66,7 +65,7 @@ namespace CASMUL.Controllers
             {
                 ViewBag.SelectFincas = contextCm.finca.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
                 var model = contextCm.grupo.FirstOrDefault(x => x.id_grupo == id);
-                return View(new EditGrupoViewModel { IdFinca = model.id_finca, Description = model.descripcion, IdGrupo = model.id_grupo });
+                return View(new EditGrupoViewModel { Description = model.descripcion, IdGrupo = model.id_grupo, IdFinca = model.id_finca });
             }
         }
         [HttpPost]

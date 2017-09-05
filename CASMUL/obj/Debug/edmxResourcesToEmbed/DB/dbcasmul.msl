@@ -63,6 +63,8 @@
           <ScalarProperty Name="activo" ColumnName="activo" />
           <ScalarProperty Name="acres" ColumnName="acres" />
           <ScalarProperty Name="hectaria" ColumnName="hectaria" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
           <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
           <ScalarProperty Name="id_cable" ColumnName="id_cable" />
         </MappingFragment>
@@ -83,16 +85,12 @@
         <MappingFragment StoreEntitySet="entrega">
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="cant_entregada" ColumnName="cant_entregada" />
-          <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
-          <ScalarProperty Name="id_stock" ColumnName="id_stock" />
+          <ScalarProperty Name="confirmado" ColumnName="confirmado" />
+          <ScalarProperty Name="cant_aentregar" ColumnName="cant_aentregar" />
           <ScalarProperty Name="id_cable" ColumnName="id_cable" />
-          <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
           <ScalarProperty Name="id_item" ColumnName="id_item" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+          <ScalarProperty Name="nro_entrega" ColumnName="nro_entrega" />
           <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -116,20 +114,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="item">
+      <EntityTypeMapping TypeName="dbcasmulModel.item">
+        <MappingFragment StoreEntitySet="item">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="cant_disponible" ColumnName="cant_disponible" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <ScalarProperty Name="id_item" ColumnName="id_item" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="mercaderia_recibida">
       <EntityTypeMapping TypeName="dbcasmulModel.mercaderia_recibida">
         <MappingFragment StoreEntitySet="mercaderia_recibida">
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
           <ScalarProperty Name="cant_recibida" ColumnName="cant_recibida" />
-          <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-          <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
-          <ScalarProperty Name="id_solicitud_pedido" ColumnName="id_solicitud_pedido" />
+          <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+          <ScalarProperty Name="nro_mercaderia" ColumnName="nro_mercaderia" />
           <ScalarProperty Name="id_mercaderia_recibida" ColumnName="id_mercaderia_recibida" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -140,13 +145,9 @@
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
           <ScalarProperty Name="cant_enviada" ColumnName="cant_enviada" />
-          <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
           <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
+          <ScalarProperty Name="nro_movimiento" ColumnName="nro_movimiento" />
           <ScalarProperty Name="id_movimiento" ColumnName="id_movimiento" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -176,9 +177,8 @@
           <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
           <ScalarProperty Name="id_item" ColumnName="id_item" />
+          <ScalarProperty Name="nro_requisa" ColumnName="nro_requisa" />
           <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -192,27 +192,9 @@
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
           <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
           <ScalarProperty Name="id_item" ColumnName="id_item" />
-          <ScalarProperty Name="id_solicitud_pedido" ColumnName="id_solicitud_pedido" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="stock">
-      <EntityTypeMapping TypeName="dbcasmulModel.stock">
-        <MappingFragment StoreEntitySet="stock">
-          <ScalarProperty Name="modificado_por" ColumnName="modificado_por" />
-          <ScalarProperty Name="fecha_modificado" ColumnName="fecha_modificado" />
-          <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
-          <ScalarProperty Name="periodo" ColumnName="periodo" />
-          <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="cant_stock" ColumnName="cant_stock" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
-          <ScalarProperty Name="id_stock" ColumnName="id_stock" />
+          <ScalarProperty Name="nro_pedido" ColumnName="nro_pedido" />
+          <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -271,18 +253,5 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="item">
-      <EntityTypeMapping TypeName="dbcasmulModel.item">
-        <MappingFragment StoreEntitySet="item">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="cant_inicial" ColumnName="cant_inicial" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="id_stock" ColumnName="id_stock" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
