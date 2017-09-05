@@ -12,26 +12,20 @@ namespace CASMUL.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class requisa
+    public partial class stock
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public requisa()
-        {
-            this.movimiento = new HashSet<movimiento>();
-        }
-    
-        public int id_requisa { get; set; }
+        public int id_stock { get; set; }
         public Nullable<int> id_item { get; set; }
         public Nullable<int> id_categoria { get; set; }
         public Nullable<int> id_unidad_medida { get; set; }
         public Nullable<int> id_finca { get; set; }
-        public Nullable<System.DateTime> fecha_transaccion { get; set; }
-        public Nullable<int> cant_solicitada { get; set; }
+        public Nullable<short> cant_stock { get; set; }
         public Nullable<int> semana { get; set; }
         public Nullable<int> periodo { get; set; }
+        public Nullable<System.DateTime> fecha_registro { get; set; }
+        public Nullable<System.DateTime> fecha_modificado { get; set; }
+        public string modificado_por { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<movimiento> movimiento { get; set; }
-        public virtual unidad_medida unidad_medida { get; set; }
+        public virtual item item { get; set; }
     }
 }

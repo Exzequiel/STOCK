@@ -17,6 +17,7 @@ namespace CASMUL.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public proveedor()
         {
+            this.mercaderia_recibida = new HashSet<mercaderia_recibida>();
             this.solicitud_pedido = new HashSet<solicitud_pedido>();
         }
     
@@ -32,6 +33,8 @@ namespace CASMUL.DB
         public string ciudad { get; set; }
         public Nullable<bool> activo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mercaderia_recibida> mercaderia_recibida { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<solicitud_pedido> solicitud_pedido { get; set; }
     }

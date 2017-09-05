@@ -15,13 +15,20 @@ namespace CASMUL.DB
     public partial class mercaderia_recibida
     {
         public int id_mercaderia_recibida { get; set; }
-        public string nro_mercaderia { get; set; }
-        public Nullable<int> id_pedido { get; set; }
+        public Nullable<int> id_solicitud_pedido { get; set; }
+        public Nullable<int> id_item { get; set; }
+        public Nullable<int> id_categoria { get; set; }
+        public Nullable<int> id_unidad_medida { get; set; }
+        public Nullable<int> id_finca { get; set; }
+        public Nullable<int> id_proveedor { get; set; }
         public Nullable<System.DateTime> fecha_transaccion { get; set; }
+        public Nullable<int> cant_solicitada { get; set; }
         public Nullable<int> cant_recibida { get; set; }
         public Nullable<int> semana { get; set; }
         public Nullable<int> periodo { get; set; }
     
+        public virtual categoria categoria { get; set; }
+        public virtual proveedor proveedor { get; set; }
         public virtual solicitud_pedido solicitud_pedido { get; set; }
     }
 }

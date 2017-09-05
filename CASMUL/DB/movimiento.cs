@@ -15,13 +15,18 @@ namespace CASMUL.DB
     public partial class movimiento
     {
         public int id_movimiento { get; set; }
-        public string nro_movimiento { get; set; }
         public Nullable<int> id_requisa { get; set; }
+        public Nullable<int> id_item { get; set; }
+        public Nullable<int> id_categoria { get; set; }
+        public Nullable<int> id_unidad_medida { get; set; }
+        public Nullable<int> id_finca { get; set; }
         public Nullable<System.DateTime> fecha_transaccion { get; set; }
+        public Nullable<int> cant_solicitada { get; set; }
         public Nullable<int> cant_enviada { get; set; }
         public Nullable<int> semana { get; set; }
         public Nullable<int> periodo { get; set; }
     
         public virtual requisa requisa { get; set; }
+        public virtual unidad_medida unidad_medida { get; set; }
     }
 }
