@@ -207,7 +207,6 @@
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TipoUsuarioController.cs" />
     <Compile Include="Controllers\UnidadDeMedidaController.cs" />
@@ -309,7 +308,6 @@
     <Compile Include="Models\Item\EditItemViewModel.cs" />
     <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Proveedores\ListaProveedorViewModel.cs" />
     <Compile Include="Models\Roles\CrearRolViewModel.cs" />
     <Compile Include="Models\TipoUsuario\CreateTipoUsuarioViewModel.cs" />
     <Compile Include="Models\TipoUsuario\EditTipoUsuarioViewModel.cs" />
@@ -6663,11 +6661,6 @@
     <Content Include="Views\Item\Create.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
-    <Content Include="Views\Proveedores\Create.cshtml" />
-    <Content Include="Views\Proveedores\Delete.cshtml" />
-    <Content Include="Views\Proveedores\Details.cshtml" />
-    <Content Include="Views\Proveedores\Edit.cshtml" />
-    <Content Include="Views\Proveedores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
