@@ -189,6 +189,7 @@
     <Property Name="id_item" Type="Int32" />
     <Property Name="id_cable" Type="Int32" />
     <Property Name="cant_aentregar" Type="Int32" />
+    <Property Name="confirmado" Type="Boolean" />
     <Property Name="semana" Type="Int32" />
     <Property Name="periodo" Type="Int32" />
     <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="entrega" ToRole="cable" />
@@ -238,7 +239,7 @@
     </Key>
     <Property Name="id_mercaderia_recibida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nro_mercaderia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="id_solicitud_pedido" Type="Int32" />
+    <Property Name="id_pedido" Type="Int32" />
     <Property Name="fecha_transaccion" Type="DateTime" Precision="0" />
     <Property Name="cant_recibida" Type="Int32" />
     <Property Name="semana" Type="Int32" />
@@ -293,9 +294,9 @@
   </EntityType>
   <EntityType Name="solicitud_pedido">
     <Key>
-      <PropertyRef Name="id_solicitud_pedido" />
+      <PropertyRef Name="id_pedido" />
     </Key>
-    <Property Name="id_solicitud_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nro_pedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="id_item" Type="Int32" />
     <Property Name="id_finca" Type="Int32" />
@@ -521,10 +522,10 @@
     <End Type="dbcasmulModel.mercaderia_recibida" Role="mercaderia_recibida" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="solicitud_pedido">
-        <PropertyRef Name="id_solicitud_pedido" />
+        <PropertyRef Name="id_pedido" />
       </Principal>
       <Dependent Role="mercaderia_recibida">
-        <PropertyRef Name="id_solicitud_pedido" />
+        <PropertyRef Name="id_pedido" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
