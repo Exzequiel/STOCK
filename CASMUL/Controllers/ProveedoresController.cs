@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CASMUL.DB;
+using CASMUL.Models.Proveedores;
 
 namespace CASMUL.Controllers
 {
@@ -58,6 +59,35 @@ namespace CASMUL.Controllers
             return View(proveedor);
         }
 
+        public ActionResult ListarProveedores()
+        {
+            try
+            {
+                using (var context = new dbcasmulEntities())
+                {
+                    var listaProveedores = context.proveedor.Select(x => new ListaProveedorViewModel
+                    {
+                        Id = x.id_proveedor,
+                        nombre_proveedor = x.nombre_proveedor,
+                        Direccion = x.direccion,
+                        Telefono = x.telefono,
+                        Contacto = x.contacto,
+                        Estado = x.activo ?? true,
+                        Email = x.email
+                    }).ToList();
+
+                    var jsonResult = Json(listaProveedores, JsonRequestBehavior.AllowGet);
+                    jsonResult.MaxJsonLength = Int32.MaxValue;
+                    return jsonResult;
+                }
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+
+
         // GET: Proveedores/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -70,7 +100,7 @@ namespace CASMUL.Controllers
             {
                 return HttpNotFound();
             }
-            return View(proveedor);
+            return PartialView(proveedor);
         }
 
         // POST: Proveedores/Edit/5

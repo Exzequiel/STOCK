@@ -309,6 +309,7 @@
     <Compile Include="Models\Item\EditItemViewModel.cs" />
     <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Proveedores\ListaProveedorViewModel.cs" />
     <Compile Include="Models\Roles\CrearRolViewModel.cs" />
     <Compile Include="Models\TipoUsuario\CreateTipoUsuarioViewModel.cs" />
     <Compile Include="Models\TipoUsuario\EditTipoUsuarioViewModel.cs" />

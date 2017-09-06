@@ -4,21 +4,16 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>proveedor</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id_proveedor)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.nombre_proveedor, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Nombre del Proveedor", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.nombre_proveedor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.nombre_proveedor, "", new { @class = "text-danger" })
@@ -26,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Dirección", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
@@ -34,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Telefóno", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
@@ -42,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Correo Electrónico", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
@@ -50,7 +45,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.rtn, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Registro Tributario", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.rtn, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.rtn, "", new { @class = "text-danger" })
@@ -58,7 +53,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.contacto, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Contacto Directo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.contacto, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.contacto, "", new { @class = "text-danger" })
@@ -66,7 +61,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.giro, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Giro o Rubro", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.giro, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.giro, "", new { @class = "text-danger" })
@@ -74,7 +69,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.razon_social, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Razón Social", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.razon_social, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.razon_social, "", new { @class = "text-danger" })
@@ -82,7 +77,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ciudad, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Ciudad Localizada", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ciudad, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ciudad, "", new { @class = "text-danger" })
@@ -90,7 +85,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.activo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Estado Activo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.activo)
@@ -111,6 +106,5 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+@Scripts.Render("~/bundles/jqueryval")
