@@ -25,7 +25,6 @@ namespace CASMUL.Models.Cables
         public int? IdGrupo { get; set; }
 
         [Display(Name = "Finca")]
-        [Required]
         public int? IdFinca { get; set; }
     }
 }

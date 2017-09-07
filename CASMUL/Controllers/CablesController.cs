@@ -17,7 +17,7 @@ namespace CASMUL.Controllers
             
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.cable.ToList().Select(x => new ListCableViewModel { IdCable = x.id_cable, Hectarias = x.hectaria, Acres = x.acres, Descripcion = x.descripcion, Activo = x.activo, Grupo = x.grupo.descripcion}).ToList();
+                var list = contextCm.cable.ToList().Select(x => new ListCableViewModel { Finca = x.grupo.finca.descripcion, IdCable = x.id_cable, Hectarias = x.hectaria, Acres = x.acres, Descripcion = x.descripcion, Activo = x.activo, Grupo = x.grupo.descripcion}).ToList();
                 return View(list);
             }
         }

@@ -26,7 +26,7 @@
                                 @Html.DisplayNameFor(model => model.IdUnidad)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CantidadInicial)
+                                @Html.DisplayNameFor(model => model.CantidadDisponible)
                             </th>
                             <th></th>
                         </tr>
@@ -45,18 +45,18 @@
                                     @Html.DisplayFor(modelItem => item.Unidad)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CantidadInicial)
+                                    @Html.DisplayFor(modelItem => item.CantidadDisponible)
                                 </td>
                                 <td>
-                                   @* @Html.ActionLink("Edit", "Edit", new { id = item.IdItem }) |*@
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.IdItem }) |
                                     @if (Convert.ToBoolean(item.Activo))
                                     {
 
-                                        @Html.ActionLink("Desactivar", "Delete", new { id = item.IdItem })
+                                    @Html.ActionLink("Desactivar", "Delete", new { id = item.IdItem })
                                     }
                                     else
                                     {
-                                        @Html.ActionLink("Activar", "Delete", new { id = item.IdItem })
+                                    @Html.ActionLink("Activar", "Delete", new { id = item.IdItem })
                                     }
                                 </td>
                             </tr>
