@@ -54,7 +54,7 @@
             <!-- end brand -->
 
             <div class="login-content">
-                @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "margin-bottom-0" }))
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "margin-bottom-0" }))
                 {
                     @Html.ValidationSummary(true, "", new { @class = "control-label text-danger padding-10 text-center" })
                     @*<form action="index.html" method="POST" class="margin-bottom-0">*@
@@ -77,9 +77,9 @@
                     <div class="login-buttons">
                         <button type="submit" class="btn btn-success btn-block btn-lg">Iniciar Sesión</button>
                     </div>
-                    <div class="m-t-20">
+                    @*<div class="m-t-20">
                         Not a member yet? Click <a href="#">here</a> to register.
-                    </div>
+                    </div>*@
                     @*</form>*@
                 }
             </div>

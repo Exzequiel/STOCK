@@ -1,4 +1,6 @@
-﻿namespace CASMUL.Models.Usuario
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CASMUL.Models.Usuario
 {
     public class DetalleUsuarioViewModel
     {
@@ -10,5 +12,11 @@
         public System.DateTime FechaNac { get; set; }
         public string Telefono { get; set; }
         public bool Activo { get; set; }
+
+        [Display(Name = "Tipo de Usuario")]
+        public string TipoUsuario { get; set; }
+
+        [Display(Name = "Finca")]
+        public string NombreFinca { get; set; }
     }
 }

@@ -205,87 +205,85 @@
     <Compile Include="Controllers\GruposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\TipoUsuarioController.cs" />
     <Compile Include="Controllers\UnidadDeMedidaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DB\AspNetRoles.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\AspNetUserClaims.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\AspNetUserLogins.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\AspNetUsers.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\cable.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\categoria.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\C__MigrationHistory.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\dbcasmul.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbcasmul.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\dbcasmul.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbcasmul.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\dbcasmul.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbcasmul.edmx</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\entrega.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\finca.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\grupo.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\item.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\mercaderia_recibida.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="DB\movimiento.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\proveedor.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\requisa.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\solicitud_pedido.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\sysdiagrams.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\tipo_usuario.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\unidad_medida.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\usuario.cs">
-      <DependentUpon>dbcasmul.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5740,15 +5738,15 @@
     <Content Include="assets\plugins\tether\js\tether.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DB\dbcasmul.Context.tt">
+    <Content Include="DB\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbcasmul.edmx</DependentUpon>
-      <LastGenOutput>dbcasmul.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DB\dbcasmul.tt">
+    <Content Include="DB\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbcasmul.edmx</DependentUpon>
-      <LastGenOutput>dbcasmul.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -6577,12 +6575,12 @@
     <Content Include="assets\plugins\summernote\font\summernote.eot" />
     <Content Include="assets\plugins\summernote\font\summernote.ttf" />
     <Content Include="assets\plugins\summernote\font\summernote.woff" />
-    <EntityDeploy Include="DB\dbcasmul.edmx">
+    <EntityDeploy Include="DB\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbcasmul.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DB\dbcasmul.edmx.diagram">
-      <DependentUpon>dbcasmul.edmx</DependentUpon>
+    <Content Include="DB\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -6634,7 +6632,6 @@
     <Content Include="Views\Role\Crear.cshtml" />
     <Content Include="Views\Role\Editar.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\TipoUsuario\Create.cshtml" />
     <Content Include="Views\Usuario\CrearUsuario.cshtml" />
     <Content Include="Views\Usuario\DetalleUsuario.cshtml" />
     <Content Include="Views\Usuario\EditarCuentaUsuario.cshtml" />
@@ -6643,8 +6640,6 @@
     <Content Include="Views\Usuario\ResetContrasena.cshtml" />
     <Content Include="Views\Shared\_aside.cshtml" />
     <Content Include="Views\Shared\_Layout-OriginalMVC.cshtml" />
-    <Content Include="Views\TipoUsuario\Index.cshtml" />
-    <Content Include="Views\TipoUsuario\Edit.cshtml" />
     <Content Include="Views\Fincas\Create.cshtml" />
     <Content Include="Views\Fincas\Edit.cshtml" />
     <Content Include="Views\Fincas\Index.cshtml" />

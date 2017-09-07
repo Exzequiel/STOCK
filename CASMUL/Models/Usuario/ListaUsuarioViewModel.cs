@@ -28,5 +28,8 @@ namespace CASMUL.Models.Usuario
 
         [Display(Name = "Estado")]
         public bool Estado { get; set; }
+
+        [Display(Name = "Finca")]
+        public string NombreFinca { get; set; }
     }
 }

@@ -57,7 +57,7 @@ namespace CASMUL.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            //ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -66,26 +66,22 @@ namespace CASMUL.Controllers
         [HttpPost]
         [AllowAnonymous]
        // [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             using (var db = new dbcasmulEntities())
             {
-                try
+                if (!ModelState.IsValid) return View(model);
+                var user = await UserManager.FindByNameAsync(model.UserName);
+                if (user == null) { ModelState.AddModelError("", "Usuario Invalido"); return View(model); }
+                if (!VerificarUsuarioEstaHabilitado(user.Id)) { ModelState.AddModelError("", "Usuario Deshabilitado"); return View(model); }
+                var LoginResult = await SignInManager.PasswordSignInAsync(model.UserName.Trim(), model.Password.Trim(), model.RememberMe, shouldLockout: false);
+                if (LoginResult == SignInStatus.Success)
                 {
-                    var usuario = db.AspNetUsers.Where(x => x.Email == model.UserName).FirstOrDefault();
-                    if (usuario.Email != "")
-                    {
-                        Session["USUARIO"] = usuario.UserName;
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Contraseña Invalida");
-                        return View(model);
-                    }
-
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
+                    if (!string.IsNullOrEmpty(returnUrl)) RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 }
-                catch (Exception ex)
+                else
                 {
                     ModelState.AddModelError("", "Contraseña Invalida");
                     return View(model);
@@ -93,23 +89,8 @@ namespace CASMUL.Controllers
 
             }
 
-            //    if (!ModelState.IsValid) return View(model);
-            //    var user = await UserManager.FindByNameAsync(model.UserName);
-            //    if (user == null) { ModelState.AddModelError("", "Usuario Invalido"); return View(model); }
-            //    if (!VerificarUsuarioEstaHabilitado(user.Id)) { ModelState.AddModelError("", "Usuario Deshabilitado"); return View(model); }
-            //    var LoginResult = await SignInManager.PasswordSignInAsync(model.UserName.Trim(), model.Password.Trim(), model.RememberMe, shouldLockout: false);
-            //    if (LoginResult == SignInStatus.Success)
-            //    {
-            //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
-            //        if (!string.IsNullOrEmpty(returnUrl)) RedirectToLocal(returnUrl);
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "Contraseña Invalida");
-            //        return View(model);
-            //    }
-            }
+
+        }
 
         public bool VerificarUsuarioEstaHabilitado(string IdAspNetUser)
         {

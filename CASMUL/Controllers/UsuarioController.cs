@@ -46,6 +46,7 @@ namespace CRIPCO.Controllers
                         Estado = x.activo,
                         Perfil = x.AspNetUsers.AspNetRoles.Any() ? x.AspNetUsers.AspNetRoles.FirstOrDefault().Name : "",
                         UserName = x.AspNetUsers.UserName,
+                        NombreFinca = x.finca!=null?x.finca.descripcion:""
                         //esAdmin = x.AspNetUsers.AspNetRoles.Any(z=>z.Name=="Administrador")
                     }).ToList();
 
@@ -66,6 +67,7 @@ namespace CRIPCO.Controllers
             using (var context = new dbcasmulEntities())
             {
                 ViewBag.ListaTipoUsuario = context.AspNetRoles.Where(x=>x.activo??false).Select(x => new SelectListItem { Value = x.Id, Text = x.Name }).ToList();
+                ViewBag.ListaFinca = context.finca.Where(x => x.activo).Select(x => new SelectListItem {Value=x.id_finca.ToString(), Text=x.descripcion }).ToList();
                 return View(new CrearUsuarioViewModel { FechaNac = DateTime.Now });
             }
            
@@ -93,7 +95,8 @@ namespace CRIPCO.Controllers
                             identidad = model.Identidad,
                             activo=true,
                             cuenta_usuario = model.UserName,
-                            email = model.Email
+                            email = model.Email,
+                            id_finca = model.IdFinca
                           
                         });
 
@@ -126,7 +129,8 @@ namespace CRIPCO.Controllers
                     Apellido = usuario.apellido,
                     FechaNac = usuario.fecha_nacimiento,
                     Telefono = usuario.nro_telefono,
-                    Identidad = usuario.identidad
+                    Identidad = usuario.identidad,
+                  
                 });
             }
         }
@@ -154,13 +158,13 @@ namespace CRIPCO.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> EditarCuentaUsuario(int Id)
+        public  ActionResult EditarCuentaUsuario(int Id)
         {
             using (var context = new dbcasmulEntities())
             {
                 ViewBag.ListaTipoUsuario = context.AspNetRoles.Where(x=>x.activo??false).Select(x => new SelectListItem { Value = x.Id, Text = x.Name }).ToList();
+                ViewBag.ListaFinca = context.finca.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_finca.ToString(), Text = x.descripcion }).ToList();
                 var usuario = context.usuario.Find(Id);
-                var roles = await UserManager.GetRolesAsync(usuario.IdAspnetUser);
                 return PartialView(new CrearUsuarioViewModel
                 {
                     Id = usuario.id_usuario,
@@ -168,7 +172,8 @@ namespace CRIPCO.Controllers
                     Email = usuario.AspNetUsers.Email,
                     IdAspNetUser = usuario.IdAspnetUser,
                     RoleUsuario = usuario.AspNetUsers.AspNetRoles.FirstOrDefault()?.Id??"",  
-                    Estado = usuario.activo               
+                    Estado = usuario.activo,
+                    IdFinca = usuario.id_finca
                 });
 
             }
@@ -186,7 +191,8 @@ namespace CRIPCO.Controllers
                     usuario.AspNetUsers.UserName = model.UserName;
                     usuario.AspNetUsers.Email = model.Email;
                     usuario.activo = model.Estado;
-                    context.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
+                    usuario.id_finca = model.IdFinca;
+                    context.Entry(usuario).State = EntityState.Modified;
                     var roles = await UserManager.GetRolesAsync(usuario.AspNetUsers.Id);
                     await UserManager.RemoveFromRolesAsync(usuario.AspNetUsers.Id, roles.ToArray());
                     var result2 = await UserManager.AddToRoleAsync(usuario.AspNetUsers.Id, context.AspNetRoles.Find(model.RoleUsuario).Name);

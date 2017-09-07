@@ -24,7 +24,7 @@ namespace CASMUL.DB
         public int semana { get; set; }
         public int periodo { get; set; }
     
-        public virtual item item { get; set; }
         public virtual cable cable { get; set; }
+        public virtual item item { get; set; }
     }
 }

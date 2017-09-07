@@ -29,7 +29,8 @@ namespace CASMUL
                  "~/assets/plugins/bootstrap-daterangepicker/daterangepicker.css",
                  "~/assets/plugins/select2/dist/css/select2.min.css",
                  "~/assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
-                 "~/assets/plugins/fullcalendar/fullcalendar.css"
+                 "~/assets/plugins/fullcalendar/fullcalendar.css",
+                 "~/assets/plugin/bootstrap-sweetalert/sweetalert.css"
                 ));
                      
 
@@ -61,16 +62,14 @@ namespace CASMUL
                        "~/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js",
                        "~/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js",
                        "~/assets/plugins/fullcalendar/fullcalendar.min.js",
-                    
+                       "~/assets/plugin/bootstrap-sweetalert/sweetalert.min.js",
+
                        "~/assets/Layout.js "
                        
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                       "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

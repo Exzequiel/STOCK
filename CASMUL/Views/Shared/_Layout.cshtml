@@ -12,23 +12,23 @@
 
     @Styles.Render("~/bundles/CSS")
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    @*<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="~/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/assets/css/animate.min.css" rel="stylesheet" />
     <link href="~/assets/css/style.min.css" rel="stylesheet" />
     <link href="~/assets/css/style-responsive.min.css" rel="stylesheet" />
-    <link href="~/assets/css/theme/default.css" rel="stylesheet" id="theme" />
+    <link href="~/assets/css/theme/default.css" rel="stylesheet" id="theme" />*@
     <!-- ================== END BASE CSS STYLE ================== -->
     <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
-    <link href="~/assets/plugins/jquery-jvectormap/jquery-jvectormap.css" rel="stylesheet" />
+    @*<link href="~/assets/plugins/jquery-jvectormap/jquery-jvectormap.css" rel="stylesheet" />
     <link href="~/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet" />
     <link href="~/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
-    <link href="~/assets/plugins/morris/morris.css" rel="stylesheet" />
+    <link href="~/assets/plugins/morris/morris.css" rel="stylesheet" />*@
     <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
     <!-- ================== BEGIN BASE JS ================== -->
-    <script src="~/assets/plugins/pace/pace.min.js"></script>
+    @*<script src="~/assets/plugins/pace/pace.min.js"></script>*@
     <!-- ================== END BASE JS ================== -->
 </head>
 <body>
@@ -129,7 +129,8 @@
                             <a href="javascript:;"><img src="~/assets/img/user-13.jpg" alt="" /></a>
                         </div>
                         <div class="info">
-                            Administrador @User.Identity.Name
+                            @User.Identity.Name <br />
+                           
                             @*<small>Front end developer</small>*@
                         </div>
                     </li>
@@ -251,7 +252,7 @@
         <!-- end #sidebar -->
         <!-- begin #content -->
         <div id="content" class="content">
-            @RenderBody();
+            @RenderBody()
             <!-- end row -->
             <!-- end row -->
         </div>

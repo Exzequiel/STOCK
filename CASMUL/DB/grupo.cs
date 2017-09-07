@@ -25,8 +25,8 @@ namespace CASMUL.DB
         public string descripcion { get; set; }
         public bool activo { get; set; }
     
-        public virtual finca finca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cable> cable { get; set; }
+        public virtual finca finca { get; set; }
     }
 }
