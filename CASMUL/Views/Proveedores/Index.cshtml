@@ -1,0 +1,147 @@
+﻿@model IEnumerable<CASMUL.DB.proveedor>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="~/Proveedores/Create" class="btn btn-xs btn-primary" data-original-title="Crear Proveedor" title="Crear Proveedor"><i class="fa fa-plus"></i> Crear Proveedor</a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
+
+                </div>
+                <h4 class="panel-title">Proveedores</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-responsive table-hover" id="IdTabla" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Acciones</th>
+                            <th>Proveedor</th>
+                            <th>Dirección</th>
+                            <th>Telefono</th>
+                            <th>Correo Electrónico</th>
+                            <th>Contacto </th>
+                            <th>Estado </th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-10 -->
+</div>
+
+
+
+@section Scripts {
+    <script>
+
+        function MostrarEditarCuenta(id) {
+            LoadWaitNotification();
+            $.ajax({
+                url: "/Proveedores/Edit",
+                type: 'get',
+                data: { Id: id },
+                success: function (data) {
+                    $("#MyModalTitle").html("Editar Cuenta de Proveedor");
+                    $("#MyModalBody").html(data);
+                    $("#MyModal").modal("show");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                    UnloadWaitNotification();
+                },
+                complete: function () { UnloadWaitNotification(); }
+            });
+        }
+
+
+    function GuardarSeleccion(idProveedor, IdTabla, ActionName) {
+        var listcheckedrows = [];
+        var table = new $.fn.dataTable.Api("#" + IdTabla);
+        table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+            var nodo = this.node();
+            if ($(nodo).find('input').is(':checked')) listcheckedrows.push($(nodo).attr("id"));
+        });
+        LoadWaitNotification();
+        $.ajax({
+            url: "/Proveedor/"+ActionName,
+            type: "POST",
+            data: { Lista: listcheckedrows, IdProveedor: idProveedor },
+            success: function (data) {
+                if (data.Estado) {
+                    ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+                    new $.fn.dataTable.Api("#IdTabla").ajax.reload();
+                    $("#MyModal").modal("hide");
+                } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                ShowNotification(false, textStatus, ""); alert(textStatus);
+                UnloadWaitNotification();
+            },
+            complete: function () { UnloadWaitNotification(); }
+        });
+        }
+
+
+    function DeshabilitarUsuario() {
+    }
+
+
+
+    $(document).ready(function () {
+        $("#IdTabla").dataTable({
+            responsive: true,
+            ajax: {
+                url: "@Url.Action("ListarProveedores", "Proveedores")",
+                type: "GET",
+                dataSrc: function (data) {
+                    return data;
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data) {
+                        //var opciones = '<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                        var opciones = ('<div class="btn-group m-r-5 m-b-5 "><a href="javascript:void(0);" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" onclick="MostrarEditarCuenta(!' + data.Id + '!)"> Editar Cuenta</a></li>').replace(new RegExp("!", 'g'), "'");
+                        opciones += '</ul></div>';
+                        return opciones;
+                    }
+                },
+                {
+                    data: "nombre_proveedor"
+                },
+                {
+                    data: "Direccion"
+                },
+                {
+                    data: "Telefono"
+                },
+                {
+                    data: "Email"
+                },
+                {
+                    data: "Contacto"
+                },
+                {
+                    data: null,
+                    render: function (data) {
+                        return data.Estado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
+                    }
+                }
+            ]
+        });
+    });
+
+    </script>
+}

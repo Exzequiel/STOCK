@@ -57,6 +57,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+=======
+    <EntitySetMapping Name="cable">
+      <EntityTypeMapping TypeName="dbcasmulModel.cable">
+        <MappingFragment StoreEntitySet="cable">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="acres" ColumnName="acres" />
+          <ScalarProperty Name="hectaria" ColumnName="hectaria" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
+          <ScalarProperty Name="id_cable" ColumnName="id_cable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> refs/remotes/origin/ProveedorCRUD
     <EntitySetMapping Name="categoria">
       <EntityTypeMapping TypeName="dbcasmulModel.categoria">
         <MappingFragment StoreEntitySet="categoria">
@@ -241,6 +256,7 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+<<<<<<< HEAD
     <EntitySetMapping Name="cable">
       <EntityTypeMapping TypeName="dbcasmulModel.cable">
         <MappingFragment StoreEntitySet="cable">
@@ -253,5 +269,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+=======
+>>>>>>> refs/remotes/origin/ProveedorCRUD
   </EntityContainerMapping>
 </Mapping>

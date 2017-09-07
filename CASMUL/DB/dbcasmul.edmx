@@ -754,6 +754,22 @@
           <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_AspNetUsers" FromRole="AspNetUsers" ToRole="usuario" />
           <NavigationProperty Name="AspNetRoles" Relationship="dbcasmulModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
+<<<<<<< HEAD
+=======
+        <EntityType Name="cable">
+          <Key>
+            <PropertyRef Name="id_cable" />
+          </Key>
+          <Property Name="id_cable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_grupo" Type="Int32" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hectaria" Type="Decimal" Precision="8" Scale="4" />
+          <Property Name="acres" Type="Decimal" Precision="8" Scale="4" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="cable" ToRole="grupo" />
+          <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="cable" ToRole="entrega" />
+        </EntityType>
+>>>>>>> refs/remotes/origin/ProveedorCRUD
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="id_categoria" />
@@ -777,6 +793,10 @@
           <Property Name="confirmado" Type="Boolean" Nullable="false" />
           <Property Name="semana" Type="Int32" Nullable="false" />
           <Property Name="periodo" Type="Int32" Nullable="false" />
+<<<<<<< HEAD
+=======
+          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="entrega" ToRole="cable" />
+>>>>>>> refs/remotes/origin/ProveedorCRUD
           <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_entrega_item" FromRole="entrega" ToRole="item" />
           <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="entrega" ToRole="cable" />
         </EntityType>
@@ -800,6 +820,10 @@
           <Property Name="id_finca" Type="Int32" />
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
+<<<<<<< HEAD
+=======
+          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
+>>>>>>> refs/remotes/origin/ProveedorCRUD
           <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="grupo" ToRole="finca" />
           <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
         </EntityType>
@@ -1244,6 +1268,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+<<<<<<< HEAD
+=======
+          <EntitySetMapping Name="cable">
+            <EntityTypeMapping TypeName="dbcasmulModel.cable">
+              <MappingFragment StoreEntitySet="cable">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="acres" ColumnName="acres" />
+                <ScalarProperty Name="hectaria" ColumnName="hectaria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
+                <ScalarProperty Name="id_cable" ColumnName="id_cable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+>>>>>>> refs/remotes/origin/ProveedorCRUD
           <EntitySetMapping Name="categoria">
             <EntityTypeMapping TypeName="dbcasmulModel.categoria">
               <MappingFragment StoreEntitySet="categoria">

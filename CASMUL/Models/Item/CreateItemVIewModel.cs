@@ -11,15 +11,17 @@ namespace CASMUL.Models.Item
         [Display(Name = "Descripcion")]
         [Required]
         public string Descripcion { get; set; }
+
         [Display(Name = "Categoria")]
         [Required]
         public int IdCategoria { get; set; }
+
         [Display(Name = "Unidad de Medida")]
         [Required]
         public int IdUnidad { get; set; }
 
-        [Display(Name = "Cantidad Inicial")]
+        [Display(Name = "Cantidad Disponible")]
         [Required]
-        public int? CantidadInicial { get; set; }
+        public int? CantidadDisponible { get; set; }
     }
 }

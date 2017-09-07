@@ -6,6 +6,10 @@
     <EntitySet Name="AspNetUserClaims" EntityType="dbcasmulModel.AspNetUserClaims" />
     <EntitySet Name="AspNetUserLogins" EntityType="dbcasmulModel.AspNetUserLogins" />
     <EntitySet Name="AspNetUsers" EntityType="dbcasmulModel.AspNetUsers" />
+<<<<<<< HEAD
+=======
+    <EntitySet Name="cable" EntityType="dbcasmulModel.cable" />
+>>>>>>> refs/remotes/origin/ProveedorCRUD
     <EntitySet Name="categoria" EntityType="dbcasmulModel.categoria" />
     <EntitySet Name="entrega" EntityType="dbcasmulModel.entrega" />
     <EntitySet Name="finca" EntityType="dbcasmulModel.finca" />
@@ -32,6 +36,17 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="usuario" EntitySet="usuario" />
     </AssociationSet>
+<<<<<<< HEAD
+=======
+    <AssociationSet Name="FK_cable_grupo" Association="dbcasmulModel.FK_cable_grupo">
+      <End Role="grupo" EntitySet="grupo" />
+      <End Role="cable" EntitySet="cable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_entrega_cable" Association="dbcasmulModel.FK_entrega_cable">
+      <End Role="cable" EntitySet="cable" />
+      <End Role="entrega" EntitySet="entrega" />
+    </AssociationSet>
+>>>>>>> refs/remotes/origin/ProveedorCRUD
     <AssociationSet Name="FK_item_categoria" Association="dbcasmulModel.FK_item_categoria">
       <End Role="categoria" EntitySet="categoria" />
       <End Role="item" EntitySet="item" />
@@ -88,6 +103,7 @@
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
+<<<<<<< HEAD
     <EntitySet Name="cable" EntityType="dbcasmulModel.cable" />
     <AssociationSet Name="FK_cable_grupo" Association="dbcasmulModel.FK_cable_grupo">
       <End Role="grupo" EntitySet="grupo" />
@@ -97,6 +113,8 @@
       <End Role="cable" EntitySet="cable" />
       <End Role="entrega" EntitySet="entrega" />
     </AssociationSet>
+=======
+>>>>>>> refs/remotes/origin/ProveedorCRUD
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -159,6 +177,22 @@
     <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_AspNetUsers" FromRole="AspNetUsers" ToRole="usuario" />
     <NavigationProperty Name="AspNetRoles" Relationship="dbcasmulModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
   </EntityType>
+<<<<<<< HEAD
+=======
+  <EntityType Name="cable">
+    <Key>
+      <PropertyRef Name="id_cable" />
+    </Key>
+    <Property Name="id_cable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_grupo" Type="Int32" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hectaria" Type="Decimal" Precision="8" Scale="4" />
+    <Property Name="acres" Type="Decimal" Precision="8" Scale="4" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="cable" ToRole="grupo" />
+    <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="cable" ToRole="entrega" />
+  </EntityType>
+>>>>>>> refs/remotes/origin/ProveedorCRUD
   <EntityType Name="categoria">
     <Key>
       <PropertyRef Name="id_categoria" />
@@ -182,8 +216,13 @@
     <Property Name="confirmado" Type="Boolean" Nullable="false" />
     <Property Name="semana" Type="Int32" Nullable="false" />
     <Property Name="periodo" Type="Int32" Nullable="false" />
+<<<<<<< HEAD
     <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_entrega_item" FromRole="entrega" ToRole="item" />
     <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="entrega" ToRole="cable" />
+=======
+    <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_entrega_cable" FromRole="entrega" ToRole="cable" />
+    <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_entrega_item" FromRole="entrega" ToRole="item" />
+>>>>>>> refs/remotes/origin/ProveedorCRUD
   </EntityType>
   <EntityType Name="finca">
     <Key>
@@ -205,8 +244,13 @@
     <Property Name="id_finca" Type="Int32" />
     <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="activo" Type="Boolean" Nullable="false" />
+<<<<<<< HEAD
     <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="grupo" ToRole="finca" />
     <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
+=======
+    <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
+    <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="grupo" ToRole="finca" />
+>>>>>>> refs/remotes/origin/ProveedorCRUD
   </EntityType>
   <EntityType Name="item">
     <Key>
@@ -390,6 +434,33 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
+=======
+  <Association Name="FK_cable_grupo">
+    <End Type="dbcasmulModel.grupo" Role="grupo" Multiplicity="0..1" />
+    <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="grupo">
+        <PropertyRef Name="id_grupo" />
+      </Principal>
+      <Dependent Role="cable">
+        <PropertyRef Name="id_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_entrega_cable">
+    <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="0..1" />
+    <End Type="dbcasmulModel.entrega" Role="entrega" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cable">
+        <PropertyRef Name="id_cable" />
+      </Principal>
+      <Dependent Role="entrega">
+        <PropertyRef Name="id_cable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+>>>>>>> refs/remotes/origin/ProveedorCRUD
   <Association Name="FK_item_categoria">
     <End Type="dbcasmulModel.categoria" Role="categoria" Multiplicity="0..1" />
     <End Type="dbcasmulModel.item" Role="item" Multiplicity="*" />
@@ -550,6 +621,7 @@
     <End Type="dbcasmulModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
     <End Type="dbcasmulModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
   </Association>
+<<<<<<< HEAD
   <EntityType Name="cable">
     <Key>
       <PropertyRef Name="id_cable" />
@@ -587,4 +659,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+=======
+>>>>>>> refs/remotes/origin/ProveedorCRUD
 </Schema>

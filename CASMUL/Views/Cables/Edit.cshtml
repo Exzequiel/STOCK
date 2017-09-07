@@ -39,6 +39,7 @@
                                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.IdGrupo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -46,7 +47,12 @@
                                 @Html.ValidationMessageFor(model => model.IdGrupo, "", new { @class = "text-danger" })
                             </div>
                         </div>
+<<<<<<< HEAD
                         @*<div class="form-group">
+=======
+
+                        <div class="form-group">
+>>>>>>> refs/remotes/origin/ProveedorCRUD
                             @Html.LabelFor(model => model.IdFinca, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.DropDownListFor(model => model.IdFinca, new SelectList(ViewBag.SelectFincas, "Value", "Text"), new { @class = "form-control" })
