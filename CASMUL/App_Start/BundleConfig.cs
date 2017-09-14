@@ -72,10 +72,9 @@ namespace CASMUL
                       "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                "~/assets/InputFormat.js ",
+                "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/personalized").Include(
-                        "~/js/Layout.js"));
 
             bundles.Add(new StyleBundle("~/bundles/LoginCSS").Include(
                     "~/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css",

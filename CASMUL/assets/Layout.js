@@ -1,7 +1,5 @@
 ﻿$(document).ready(function () {
-    moment.locale("es");
-
-
+   
     $.extend($.gritter.options, {
        // class_name: 'gritter-light', // for light notifications (can be added directly to $.gritter.add too)
        // position: 'bottom-left', // possibilities: bottom-left, bottom-right, top-left, top-right
@@ -39,15 +37,16 @@ function UnloadWaitNotification() {
     $('#statusID').hide();
 }
 
+$(document).bind("ajaxSend", function () {
+    LoadWaitNotification();
 
-$("*[data-class='ClassNumber']").on("keypress", function (e) {
-    if (!isNumberKey(e)) e.preventDefault();
-})
+}).bind("ajaxComplete", function () {
+    UnloadWaitNotification();
+});
 
-function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : event.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
-    return true;
+
+function str2bool(strvalue) {
+    return (strvalue && typeof strvalue == 'string') ? (strvalue.toLowerCase() == 'true') : (strvalue == true);
 }
 
 

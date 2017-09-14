@@ -12,33 +12,32 @@ namespace CASMUL.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class entrega
+    public partial class pedido
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public entrega()
+        public pedido()
         {
-            this.cable_por_entrega = new HashSet<cable_por_entrega>();
-            this.entrega_detalle = new HashSet<entrega_detalle>();
+            this.mercaderia = new HashSet<mercaderia>();
+            this.pedido_detalle = new HashSet<pedido_detalle>();
         }
     
-        public int id_entrega { get; set; }
-        public string nro_entrega { get; set; }
-        public System.DateTime fecha_transaccion { get; set; }
+        public int id_pedido { get; set; }
+        public string nro_pedido { get; set; }
         public int id_item { get; set; }
-        public int id_cable { get; set; }
         public int id_finca { get; set; }
-        public int cant_aentregar { get; set; }
-        public bool confirmado { get; set; }
-        public string solicitante { get; set; }
+        public int id_proveedor { get; set; }
+        public System.DateTime fecha_transaccion { get; set; }
+        public int cant_solicitada { get; set; }
         public int semana { get; set; }
         public int periodo { get; set; }
         public bool activo { get; set; }
     
-        public virtual cable cable { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cable_por_entrega> cable_por_entrega { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<entrega_detalle> entrega_detalle { get; set; }
+        public virtual finca finca { get; set; }
         public virtual item item { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mercaderia> mercaderia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pedido_detalle> pedido_detalle { get; set; }
+        public virtual proveedor proveedor { get; set; }
     }
 }

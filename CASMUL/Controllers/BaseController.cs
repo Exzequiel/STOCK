@@ -21,7 +21,7 @@ namespace CASMUL.Controllers
             return new MensajeRespuestaViewModel
             {
                 Titulo = Titulo,
-                Mensaje = resultado ? "Accion exitosa" : "Error",
+                Mensaje = resultado ? "Se guardo exitosamente" : "Error al guardar",
                 Estado = resultado
             };
         }
@@ -45,5 +45,23 @@ namespace CASMUL.Controllers
 
             }
         }
+
+        public string getConfiguracion(string Nombre)
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                return context.configuracion.Where(x => x.nombre == Nombre)?.FirstOrDefault()?.valor ?? "No hay configuracion";
+            }
+        }
+
+        public int getIdFincaPorUsuario()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                return context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_finca ?? 0; 
+            }
+        }
+
+
     }
 }

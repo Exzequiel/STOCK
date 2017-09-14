@@ -22,6 +22,6 @@ namespace CASMUL.Models.Item
 
         [Display(Name = "Cantidad Disponible")]
         [Required]
-        public int? CantidadDisponible { get; set; }
+        public int CantidadDisponible { get; set; }
     }
 }

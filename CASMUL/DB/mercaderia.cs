@@ -12,28 +12,27 @@ namespace CASMUL.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class solicitud_pedido
+    public partial class mercaderia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public solicitud_pedido()
+        public mercaderia()
         {
-            this.mercaderia_recibida = new HashSet<mercaderia_recibida>();
+            this.mercaderia_detalle = new HashSet<mercaderia_detalle>();
         }
     
+        public int id_mercaderia { get; set; }
+        public string nro_mercaderia { get; set; }
         public int id_pedido { get; set; }
-        public string nro_pedido { get; set; }
-        public Nullable<int> id_item { get; set; }
-        public Nullable<int> id_finca { get; set; }
-        public Nullable<int> id_proveedor { get; set; }
+        public int id_finca { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
-        public int cant_solicitada { get; set; }
+        public int cant_recibida { get; set; }
         public int semana { get; set; }
         public int periodo { get; set; }
+        public bool activo { get; set; }
     
         public virtual finca finca { get; set; }
-        public virtual item item { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mercaderia_recibida> mercaderia_recibida { get; set; }
-        public virtual proveedor proveedor { get; set; }
+        public virtual ICollection<mercaderia_detalle> mercaderia_detalle { get; set; }
+        public virtual pedido pedido { get; set; }
     }
 }

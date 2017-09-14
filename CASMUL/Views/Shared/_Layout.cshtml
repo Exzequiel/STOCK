@@ -234,7 +234,7 @@
 
                             <li><a href="javascript:;">Requisas</a></li>
                             <li><a href="javascript:;">Movimientos</a></li>
-                            <li><a href="javascript:;">Entregas</a></li>
+                            <li><a href="@Url.Action("Index","Entrega")">Entregas</a></li>
                         </ul>
                     </li>
                     @*}*@
@@ -289,16 +289,12 @@
     <script src="~/assets/plugins/DataTables/media/js/dataTables.bootstrap.js"></script>
     <script src="~/assets/plugins/DataTables/media/js/dataTables.foundation.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->*@
-    @Scripts.Render("~/bundles/personalized")
     @Scripts.Render("~/bundles/ColorAdmin")
     @RenderSection("scripts", required: false)
 
        <script>
         $(document).ready(function () {
-            
-
             App.init();
-
         });
     </script>
 </body>

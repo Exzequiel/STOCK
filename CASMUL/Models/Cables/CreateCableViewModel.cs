@@ -10,11 +10,11 @@ namespace CASMUL.Models.Cables
     {
         [Display(Name = "Acres")]
         [Required]
-        public decimal? Acres { get; set; }
+        public decimal Acres { get; set; }
 
         [Display(Name = "Hectarias")]
         [Required]
-        public decimal? Hectarias { get; set; }
+        public decimal Hectarias { get; set; }
 
         [Display(Name = "Cable")]
         [Required]
@@ -22,9 +22,7 @@ namespace CASMUL.Models.Cables
 
         [Display(Name = "Grupo")]
         [Required]
-        public int? IdGrupo { get; set; }
+        public int IdGrupo { get; set; }
 
-        [Display(Name = "Finca")]
-        public int? IdFinca { get; set; }
     }
 }

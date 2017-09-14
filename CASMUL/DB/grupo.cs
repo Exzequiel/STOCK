@@ -21,7 +21,7 @@ namespace CASMUL.DB
         }
     
         public int id_grupo { get; set; }
-        public Nullable<int> id_finca { get; set; }
+        public int id_finca { get; set; }
         public string descripcion { get; set; }
         public bool activo { get; set; }
     

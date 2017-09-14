@@ -18,8 +18,10 @@ namespace CASMUL.DB
         public finca()
         {
             this.grupo = new HashSet<grupo>();
+            this.mercaderia = new HashSet<mercaderia>();
+            this.movimiento = new HashSet<movimiento>();
+            this.pedido = new HashSet<pedido>();
             this.requisa = new HashSet<requisa>();
-            this.solicitud_pedido = new HashSet<solicitud_pedido>();
             this.usuario = new HashSet<usuario>();
         }
     
@@ -30,9 +32,13 @@ namespace CASMUL.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<grupo> grupo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<requisa> requisa { get; set; }
+        public virtual ICollection<mercaderia> mercaderia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<solicitud_pedido> solicitud_pedido { get; set; }
+        public virtual ICollection<movimiento> movimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pedido> pedido { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<requisa> requisa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuario> usuario { get; set; }
     }

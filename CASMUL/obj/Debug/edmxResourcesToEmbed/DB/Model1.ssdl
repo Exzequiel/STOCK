@@ -67,11 +67,19 @@
       <PropertyRef Name="id_cable" />
     </Key>
     <Property Name="id_cable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_grupo" Type="int" />
+    <Property Name="id_grupo" Type="int" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="hectaria" Type="decimal" Precision="8" Scale="4" />
-    <Property Name="acres" Type="decimal" Precision="8" Scale="4" />
+    <Property Name="hectaria" Type="decimal" Precision="8" Scale="4" Nullable="false" />
+    <Property Name="acres" Type="decimal" Precision="8" Scale="4" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cable_por_entrega">
+    <Key>
+      <PropertyRef Name="id_cablePorEntrega" />
+    </Key>
+    <Property Name="id_cablePorEntrega" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_entrega" Type="int" Nullable="false" />
+    <Property Name="id_cable" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="categoria">
     <Key>
@@ -82,6 +90,15 @@
     <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="configuracion">
+    <Key>
+      <PropertyRef Name="id_configuracion" />
+    </Key>
+    <Property Name="id_configuracion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="observacion" Type="varchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="entrega">
     <Key>
       <PropertyRef Name="id_entrega" />
@@ -89,12 +106,25 @@
     <Property Name="id_entrega" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_entrega" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
-    <Property Name="id_item" Type="int" />
-    <Property Name="id_cable" Type="int" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="id_cable" Type="int" Nullable="false" />
+    <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="cant_aentregar" Type="int" Nullable="false" />
     <Property Name="confirmado" Type="bit" Nullable="false" />
+    <Property Name="solicitante" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="entrega_detalle">
+    <Key>
+      <PropertyRef Name="id_detalle_entrega" />
+    </Key>
+    <Property Name="id_detalle_entrega" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_entrega" Type="int" Nullable="false" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="cant_aentregar" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="finca">
     <Key>
@@ -109,7 +139,7 @@
       <PropertyRef Name="id_grupo" />
     </Key>
     <Property Name="id_grupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_finca" Type="int" />
+    <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
@@ -118,23 +148,35 @@
       <PropertyRef Name="id_item" />
     </Key>
     <Property Name="id_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_categoria" Type="int" />
-    <Property Name="id_unidad_medida" Type="int" />
+    <Property Name="id_categoria" Type="int" Nullable="false" />
+    <Property Name="id_unidad_medida" Type="int" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="cant_disponible" Type="int" />
+    <Property Name="cant_disponible" Type="int" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
-  <EntityType Name="mercaderia_recibida">
+  <EntityType Name="mercaderia">
     <Key>
-      <PropertyRef Name="id_mercaderia_recibida" />
+      <PropertyRef Name="id_mercaderia" />
     </Key>
-    <Property Name="id_mercaderia_recibida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_mercaderia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_mercaderia" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="id_pedido" Type="int" />
+    <Property Name="id_pedido" Type="int" Nullable="false" />
+    <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
     <Property Name="cant_recibida" Type="int" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mercaderia_detalle">
+    <Key>
+      <PropertyRef Name="id_detalle_mercaderia" />
+    </Key>
+    <Property Name="id_detalle_mercaderia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_mercaderia" Type="int" Nullable="false" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="cant_recibida" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="movimiento">
     <Key>
@@ -142,11 +184,48 @@
     </Key>
     <Property Name="id_movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_movimiento" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="id_requisa" Type="int" />
+    <Property Name="id_requisa" Type="int" Nullable="false" />
+    <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
     <Property Name="cant_enviada" Type="int" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movimiento_detalle">
+    <Key>
+      <PropertyRef Name="id_detalle_movimiento" />
+    </Key>
+    <Property Name="id_detalle_movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_movimiento" Type="int" Nullable="false" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="cant_enviada" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pedido">
+    <Key>
+      <PropertyRef Name="id_pedido" />
+    </Key>
+    <Property Name="id_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nro_pedido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="id_finca" Type="int" Nullable="false" />
+    <Property Name="id_proveedor" Type="int" Nullable="false" />
+    <Property Name="fecha_transaccion" Type="date" Nullable="false" />
+    <Property Name="cant_solicitada" Type="int" Nullable="false" />
+    <Property Name="semana" Type="int" Nullable="false" />
+    <Property Name="periodo" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pedido_detalle">
+    <Key>
+      <PropertyRef Name="id_detalle_pedido" />
+    </Key>
+    <Property Name="id_detalle_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_pedido" Type="int" Nullable="false" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="cant_solicitada" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="proveedor">
     <Key>
@@ -170,26 +249,23 @@
     </Key>
     <Property Name="id_requisa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_requisa" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="id_item" Type="int" />
-    <Property Name="id_finca" Type="int" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
     <Property Name="cant_solicitada" Type="int" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
-  <EntityType Name="solicitud_pedido">
+  <EntityType Name="requisa_detalle">
     <Key>
-      <PropertyRef Name="id_pedido" />
+      <PropertyRef Name="id_detail_requisa" />
     </Key>
-    <Property Name="id_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nro_pedido" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="id_item" Type="int" />
-    <Property Name="id_finca" Type="int" />
-    <Property Name="id_proveedor" Type="int" />
-    <Property Name="fecha_transaccion" Type="date" Nullable="false" />
-    <Property Name="cant_solicitada" Type="int" Nullable="false" />
-    <Property Name="semana" Type="int" Nullable="false" />
-    <Property Name="periodo" Type="int" Nullable="false" />
+    <Property Name="id_detail_requisa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_requisa" Type="int" Nullable="false" />
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="cant_enviada" Type="int" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -236,7 +312,7 @@
     <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="FK_cable_grupo">
-    <End Role="grupo" Type="Self.grupo" Multiplicity="0..1" />
+    <End Role="grupo" Type="Self.grupo" Multiplicity="1" />
     <End Role="cable" Type="Self.cable" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="grupo">
@@ -244,6 +320,30 @@
       </Principal>
       <Dependent Role="cable">
         <PropertyRef Name="id_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cable_por_entrega_cable">
+    <End Role="cable" Type="Self.cable" Multiplicity="1" />
+    <End Role="cable_por_entrega" Type="Self.cable_por_entrega" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cable">
+        <PropertyRef Name="id_cable" />
+      </Principal>
+      <Dependent Role="cable_por_entrega">
+        <PropertyRef Name="id_cable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cable_por_entrega_entrega">
+    <End Role="entrega" Type="Self.entrega" Multiplicity="1" />
+    <End Role="cable_por_entrega" Type="Self.cable_por_entrega" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="entrega">
+        <PropertyRef Name="id_entrega" />
+      </Principal>
+      <Dependent Role="cable_por_entrega">
+        <PropertyRef Name="id_entrega" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -304,7 +404,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_entrega_cable">
-    <End Role="cable" Type="Self.cable" Multiplicity="0..1" />
+    <End Role="cable" Type="Self.cable" Multiplicity="1" />
     <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="cable">
@@ -315,8 +415,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_entrega_detalle_entrega">
+    <End Role="entrega" Type="Self.entrega" Multiplicity="1" />
+    <End Role="entrega_detalle" Type="Self.entrega_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="entrega">
+        <PropertyRef Name="id_entrega" />
+      </Principal>
+      <Dependent Role="entrega_detalle">
+        <PropertyRef Name="id_entrega" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_entrega_detalle_item">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
+    <End Role="entrega_detalle" Type="Self.entrega_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="item">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="entrega_detalle">
+        <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_entrega_item">
-    <End Role="item" Type="Self.item" Multiplicity="0..1" />
+    <End Role="item" Type="Self.item" Multiplicity="1" />
     <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="item">
@@ -328,7 +452,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_grupo_finca">
-    <End Role="finca" Type="Self.finca" Multiplicity="0..1" />
+    <End Role="finca" Type="Self.finca" Multiplicity="1" />
     <End Role="grupo" Type="Self.grupo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="finca">
@@ -340,7 +464,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_item_categoria">
-    <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+    <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
     <End Role="item" Type="Self.item" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="categoria">
@@ -352,7 +476,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_item_unidad_medida">
-    <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="0..1" />
+    <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
     <End Role="item" Type="Self.item" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="unidad_medida">
@@ -363,20 +487,92 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_mercaderia_recibida_solicitud_pedido">
-    <End Role="solicitud_pedido" Type="Self.solicitud_pedido" Multiplicity="0..1" />
-    <End Role="mercaderia_recibida" Type="Self.mercaderia_recibida" Multiplicity="*" />
+  <Association Name="FK_mercaderia_detalle_item">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
+    <End Role="mercaderia_detalle" Type="Self.mercaderia_detalle" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="solicitud_pedido">
+      <Principal Role="item">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="mercaderia_detalle">
+        <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mercaderia_detalle_mercaderia">
+    <End Role="mercaderia" Type="Self.mercaderia" Multiplicity="1" />
+    <End Role="mercaderia_detalle" Type="Self.mercaderia_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mercaderia">
+        <PropertyRef Name="id_mercaderia" />
+      </Principal>
+      <Dependent Role="mercaderia_detalle">
+        <PropertyRef Name="id_mercaderia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mercaderia_finca">
+    <End Role="finca" Type="Self.finca" Multiplicity="1" />
+    <End Role="mercaderia" Type="Self.mercaderia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="finca">
+        <PropertyRef Name="id_finca" />
+      </Principal>
+      <Dependent Role="mercaderia">
+        <PropertyRef Name="id_finca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mercaderia_pedido">
+    <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+    <End Role="mercaderia" Type="Self.mercaderia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedido">
         <PropertyRef Name="id_pedido" />
       </Principal>
-      <Dependent Role="mercaderia_recibida">
+      <Dependent Role="mercaderia">
         <PropertyRef Name="id_pedido" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_movimiento_detalle_item">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
+    <End Role="movimiento_detalle" Type="Self.movimiento_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="item">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="movimiento_detalle">
+        <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_movimiento_detalle_movimiento">
+    <End Role="movimiento" Type="Self.movimiento" Multiplicity="1" />
+    <End Role="movimiento_detalle" Type="Self.movimiento_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movimiento">
+        <PropertyRef Name="id_movimiento" />
+      </Principal>
+      <Dependent Role="movimiento_detalle">
+        <PropertyRef Name="id_movimiento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_movimiento_finca">
+    <End Role="finca" Type="Self.finca" Multiplicity="1" />
+    <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="finca">
+        <PropertyRef Name="id_finca" />
+      </Principal>
+      <Dependent Role="movimiento">
+        <PropertyRef Name="id_finca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_movimiento_requisa">
-    <End Role="requisa" Type="Self.requisa" Multiplicity="0..1" />
+    <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
     <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="requisa">
@@ -387,8 +583,92 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_pedido_detalle_item">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
+    <End Role="pedido_detalle" Type="Self.pedido_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="item">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="pedido_detalle">
+        <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pedido_detalle_pedido">
+    <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+    <End Role="pedido_detalle" Type="Self.pedido_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedido">
+        <PropertyRef Name="id_pedido" />
+      </Principal>
+      <Dependent Role="pedido_detalle">
+        <PropertyRef Name="id_pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pedido_finca">
+    <End Role="finca" Type="Self.finca" Multiplicity="1" />
+    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="finca">
+        <PropertyRef Name="id_finca" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="id_finca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pedido_item">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
+    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="item">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pedido_proveedor">
+    <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedor">
+        <PropertyRef Name="id_proveedor" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="id_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requisa_detalle_item">
+    <End Role="item" Type="Self.item" Multiplicity="1" />
+    <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="item">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="requisa_detalle">
+        <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requisa_detalle_requisa">
+    <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
+    <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="requisa">
+        <PropertyRef Name="id_requisa" />
+      </Principal>
+      <Dependent Role="requisa_detalle">
+        <PropertyRef Name="id_requisa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_requisa_finca">
-    <End Role="finca" Type="Self.finca" Multiplicity="0..1" />
+    <End Role="finca" Type="Self.finca" Multiplicity="1" />
     <End Role="requisa" Type="Self.requisa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="finca">
@@ -400,7 +680,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_requisa_item">
-    <End Role="item" Type="Self.item" Multiplicity="0..1" />
+    <End Role="item" Type="Self.item" Multiplicity="1" />
     <End Role="requisa" Type="Self.requisa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="item">
@@ -408,42 +688,6 @@
       </Principal>
       <Dependent Role="requisa">
         <PropertyRef Name="id_item" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_solicitud_pedido_finca">
-    <End Role="finca" Type="Self.finca" Multiplicity="0..1" />
-    <End Role="solicitud_pedido" Type="Self.solicitud_pedido" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="finca">
-        <PropertyRef Name="id_finca" />
-      </Principal>
-      <Dependent Role="solicitud_pedido">
-        <PropertyRef Name="id_finca" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_solicitud_pedido_item">
-    <End Role="item" Type="Self.item" Multiplicity="0..1" />
-    <End Role="solicitud_pedido" Type="Self.solicitud_pedido" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="item">
-        <PropertyRef Name="id_item" />
-      </Principal>
-      <Dependent Role="solicitud_pedido">
-        <PropertyRef Name="id_item" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_solicitud_pedido_proveedor">
-    <End Role="proveedor" Type="Self.proveedor" Multiplicity="0..1" />
-    <End Role="solicitud_pedido" Type="Self.solicitud_pedido" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="proveedor">
-        <PropertyRef Name="id_proveedor" />
-      </Principal>
-      <Dependent Role="solicitud_pedido">
-        <PropertyRef Name="id_proveedor" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -491,16 +735,23 @@
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cable" EntityType="Self.cable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cable_por_entrega" EntityType="Self.cable_por_entrega" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="configuracion" EntityType="Self.configuracion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="entrega" EntityType="Self.entrega" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="entrega_detalle" EntityType="Self.entrega_detalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="finca" EntityType="Self.finca" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="grupo" EntityType="Self.grupo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="item" EntityType="Self.item" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="mercaderia_recibida" EntityType="Self.mercaderia_recibida" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="mercaderia" EntityType="Self.mercaderia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="mercaderia_detalle" EntityType="Self.mercaderia_detalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="movimiento" EntityType="Self.movimiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="movimiento_detalle" EntityType="Self.movimiento_detalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pedido" EntityType="Self.pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pedido_detalle" EntityType="Self.pedido_detalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="requisa" EntityType="Self.requisa" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="solicitud_pedido" EntityType="Self.solicitud_pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="requisa_detalle" EntityType="Self.requisa_detalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tipo_usuario" EntityType="Self.tipo_usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="dbo" store:Type="Tables" />
@@ -508,6 +759,14 @@
     <AssociationSet Name="FK_cable_grupo" Association="Self.FK_cable_grupo">
       <End Role="grupo" EntitySet="grupo" />
       <End Role="cable" EntitySet="cable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cable_por_entrega_cable" Association="Self.FK_cable_por_entrega_cable">
+      <End Role="cable" EntitySet="cable" />
+      <End Role="cable_por_entrega" EntitySet="cable_por_entrega" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cable_por_entrega_entrega" Association="Self.FK_cable_por_entrega_entrega">
+      <End Role="entrega" EntitySet="entrega" />
+      <End Role="cable_por_entrega" EntitySet="cable_por_entrega" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -529,6 +788,14 @@
       <End Role="cable" EntitySet="cable" />
       <End Role="entrega" EntitySet="entrega" />
     </AssociationSet>
+    <AssociationSet Name="FK_entrega_detalle_entrega" Association="Self.FK_entrega_detalle_entrega">
+      <End Role="entrega" EntitySet="entrega" />
+      <End Role="entrega_detalle" EntitySet="entrega_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_entrega_detalle_item" Association="Self.FK_entrega_detalle_item">
+      <End Role="item" EntitySet="item" />
+      <End Role="entrega_detalle" EntitySet="entrega_detalle" />
+    </AssociationSet>
     <AssociationSet Name="FK_entrega_item" Association="Self.FK_entrega_item">
       <End Role="item" EntitySet="item" />
       <End Role="entrega" EntitySet="entrega" />
@@ -545,13 +812,65 @@
       <End Role="unidad_medida" EntitySet="unidad_medida" />
       <End Role="item" EntitySet="item" />
     </AssociationSet>
-    <AssociationSet Name="FK_mercaderia_recibida_solicitud_pedido" Association="Self.FK_mercaderia_recibida_solicitud_pedido">
-      <End Role="solicitud_pedido" EntitySet="solicitud_pedido" />
-      <End Role="mercaderia_recibida" EntitySet="mercaderia_recibida" />
+    <AssociationSet Name="FK_mercaderia_detalle_item" Association="Self.FK_mercaderia_detalle_item">
+      <End Role="item" EntitySet="item" />
+      <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mercaderia_detalle_mercaderia" Association="Self.FK_mercaderia_detalle_mercaderia">
+      <End Role="mercaderia" EntitySet="mercaderia" />
+      <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mercaderia_finca" Association="Self.FK_mercaderia_finca">
+      <End Role="finca" EntitySet="finca" />
+      <End Role="mercaderia" EntitySet="mercaderia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mercaderia_pedido" Association="Self.FK_mercaderia_pedido">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="mercaderia" EntitySet="mercaderia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_movimiento_detalle_item" Association="Self.FK_movimiento_detalle_item">
+      <End Role="item" EntitySet="item" />
+      <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_movimiento_detalle_movimiento" Association="Self.FK_movimiento_detalle_movimiento">
+      <End Role="movimiento" EntitySet="movimiento" />
+      <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_movimiento_finca" Association="Self.FK_movimiento_finca">
+      <End Role="finca" EntitySet="finca" />
+      <End Role="movimiento" EntitySet="movimiento" />
     </AssociationSet>
     <AssociationSet Name="FK_movimiento_requisa" Association="Self.FK_movimiento_requisa">
       <End Role="requisa" EntitySet="requisa" />
       <End Role="movimiento" EntitySet="movimiento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pedido_detalle_item" Association="Self.FK_pedido_detalle_item">
+      <End Role="item" EntitySet="item" />
+      <End Role="pedido_detalle" EntitySet="pedido_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pedido_detalle_pedido" Association="Self.FK_pedido_detalle_pedido">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="pedido_detalle" EntitySet="pedido_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pedido_finca" Association="Self.FK_pedido_finca">
+      <End Role="finca" EntitySet="finca" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pedido_item" Association="Self.FK_pedido_item">
+      <End Role="item" EntitySet="item" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pedido_proveedor" Association="Self.FK_pedido_proveedor">
+      <End Role="proveedor" EntitySet="proveedor" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requisa_detalle_item" Association="Self.FK_requisa_detalle_item">
+      <End Role="item" EntitySet="item" />
+      <End Role="requisa_detalle" EntitySet="requisa_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requisa_detalle_requisa" Association="Self.FK_requisa_detalle_requisa">
+      <End Role="requisa" EntitySet="requisa" />
+      <End Role="requisa_detalle" EntitySet="requisa_detalle" />
     </AssociationSet>
     <AssociationSet Name="FK_requisa_finca" Association="Self.FK_requisa_finca">
       <End Role="finca" EntitySet="finca" />
@@ -560,18 +879,6 @@
     <AssociationSet Name="FK_requisa_item" Association="Self.FK_requisa_item">
       <End Role="item" EntitySet="item" />
       <End Role="requisa" EntitySet="requisa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_solicitud_pedido_finca" Association="Self.FK_solicitud_pedido_finca">
-      <End Role="finca" EntitySet="finca" />
-      <End Role="solicitud_pedido" EntitySet="solicitud_pedido" />
-    </AssociationSet>
-    <AssociationSet Name="FK_solicitud_pedido_item" Association="Self.FK_solicitud_pedido_item">
-      <End Role="item" EntitySet="item" />
-      <End Role="solicitud_pedido" EntitySet="solicitud_pedido" />
-    </AssociationSet>
-    <AssociationSet Name="FK_solicitud_pedido_proveedor" Association="Self.FK_solicitud_pedido_proveedor">
-      <End Role="proveedor" EntitySet="proveedor" />
-      <End Role="solicitud_pedido" EntitySet="solicitud_pedido" />
     </AssociationSet>
     <AssociationSet Name="FK_usuario_AspNetUsers" Association="Self.FK_usuario_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

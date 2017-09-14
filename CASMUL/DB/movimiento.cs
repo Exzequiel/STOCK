@@ -14,14 +14,25 @@ namespace CASMUL.DB
     
     public partial class movimiento
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public movimiento()
+        {
+            this.movimiento_detalle = new HashSet<movimiento_detalle>();
+        }
+    
         public int id_movimiento { get; set; }
         public string nro_movimiento { get; set; }
-        public Nullable<int> id_requisa { get; set; }
+        public int id_requisa { get; set; }
+        public int id_finca { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
         public int cant_enviada { get; set; }
         public int semana { get; set; }
         public int periodo { get; set; }
+        public bool activo { get; set; }
     
+        public virtual finca finca { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<movimiento_detalle> movimiento_detalle { get; set; }
         public virtual requisa requisa { get; set; }
     }
 }

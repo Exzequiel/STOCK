@@ -12,16 +12,15 @@ namespace CASMUL.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class mercaderia_recibida
+    public partial class entrega_detalle
     {
-        public int id_mercaderia_recibida { get; set; }
-        public string nro_mercaderia { get; set; }
-        public Nullable<int> id_pedido { get; set; }
-        public System.DateTime fecha_transaccion { get; set; }
-        public int cant_recibida { get; set; }
-        public int semana { get; set; }
-        public int periodo { get; set; }
+        public int id_detalle_entrega { get; set; }
+        public int id_entrega { get; set; }
+        public int id_item { get; set; }
+        public int cant_aentregar { get; set; }
+        public bool activo { get; set; }
     
-        public virtual solicitud_pedido solicitud_pedido { get; set; }
+        public virtual entrega entrega { get; set; }
+        public virtual item item { get; set; }
     }
 }

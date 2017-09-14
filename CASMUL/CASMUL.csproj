@@ -201,12 +201,15 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CablesController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\EntregaController.cs" />
     <Compile Include="Controllers\FincasController.cs" />
+    <Compile Include="Controllers\grupo2TestController.cs" />
     <Compile Include="Controllers\GruposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\RequisaController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UnidadDeMedidaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -225,13 +228,22 @@
     <Compile Include="DB\cable.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\cable_por_entrega.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\categoria.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\configuracion.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\C__MigrationHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\entrega.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\entrega_detalle.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\finca.cs">
@@ -243,7 +255,10 @@
     <Compile Include="DB\item.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\mercaderia_recibida.cs">
+    <Compile Include="DB\mercaderia.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\mercaderia_detalle.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Model1.Context.cs">
@@ -264,13 +279,22 @@
     <Compile Include="DB\movimiento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\movimiento_detalle.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\pedido.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\pedido_detalle.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\proveedor.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\requisa.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\solicitud_pedido.cs">
+    <Compile Include="DB\requisa_detalle.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\sysdiagrams.cs">
@@ -296,6 +320,10 @@
     <Compile Include="Models\Categorias\CreateCategoriaViewModel.cs" />
     <Compile Include="Models\Categorias\EditCategoriaViewModel.cs" />
     <Compile Include="Models\Categorias\ListCategoriaViewModel.cs" />
+    <Compile Include="Models\Entrega\CrearDetalleEntregaViewModel.cs" />
+    <Compile Include="Models\Entrega\CrearEntregaViewModel.cs" />
+    <Compile Include="Models\Entrega\ListaDetalleEntregaViewModel.cs" />
+    <Compile Include="Models\Entrega\ListaEntregaViewModel.cs" />
     <Compile Include="Models\Grupos\CreateGrupoViewModel.cs" />
     <Compile Include="Models\Fincas\CreateFincasViewModel.cs" />
     <Compile Include="Models\Fincas\EditFincasViewModel.cs" />
@@ -308,6 +336,8 @@
     <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Proveedores\ListaProveedorViewModel.cs" />
+    <Compile Include="Models\Requisa\CrearRequisaViewModel.cs" />
+    <Compile Include="Models\Requisa\ListaRequisaViewModel.cs" />
     <Compile Include="Models\Roles\CrearRolViewModel.cs" />
     <Compile Include="Models\TipoUsuario\CreateTipoUsuarioViewModel.cs" />
     <Compile Include="Models\TipoUsuario\EditTipoUsuarioViewModel.cs" />
@@ -441,6 +471,7 @@
     <Content Include="assets\img\user-7.jpg" />
     <Content Include="assets\img\user-8.jpg" />
     <Content Include="assets\img\user-9.jpg" />
+    <Content Include="assets\InputFormat.js" />
     <Content Include="assets\js\apps.js" />
     <Content Include="assets\js\apps.min.js" />
     <Content Include="assets\js\calendar.demo.js" />
@@ -6663,11 +6694,19 @@
     <Content Include="Views\Proveedores\Details.cshtml" />
     <Content Include="Views\Proveedores\Edit.cshtml" />
     <Content Include="Views\Proveedores\Index.cshtml" />
+    <Content Include="Views\grupo2Test\Create.cshtml" />
+    <Content Include="Views\grupo2Test\Delete.cshtml" />
+    <Content Include="Views\grupo2Test\Details.cshtml" />
+    <Content Include="Views\grupo2Test\Edit.cshtml" />
+    <Content Include="Views\grupo2Test\Index.cshtml" />
+    <Content Include="Views\Entrega\Index.cshtml" />
+    <Content Include="Views\Entrega\CrearEntrega.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\plugins\DataTables\extensions\FixedColumns\examples\integration\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Requisa\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

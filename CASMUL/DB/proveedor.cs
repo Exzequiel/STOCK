@@ -17,7 +17,7 @@ namespace CASMUL.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public proveedor()
         {
-            this.solicitud_pedido = new HashSet<solicitud_pedido>();
+            this.pedido = new HashSet<pedido>();
         }
     
         public int id_proveedor { get; set; }
@@ -33,6 +33,6 @@ namespace CASMUL.DB
         public Nullable<bool> activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<solicitud_pedido> solicitud_pedido { get; set; }
+        public virtual ICollection<pedido> pedido { get; set; }
     }
 }
