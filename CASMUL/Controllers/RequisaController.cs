@@ -23,10 +23,8 @@ namespace CASMUL.Controllers
                 var list = context.requisa.Select(x => new ListaRequisaViewModel {
                     Id = x.id_requisa,
                     nro_requisa = x.nro_requisa,
-                    item = x.item.descripcion,
                     finca = x.finca.descripcion,
                     fecha_transaccion = x.fecha_transaccion,
-                    cant_solicitada = x.cant_solicitada,
                     semana = x.semana,
                     periodo = x.periodo
                 }).ToList();
@@ -55,10 +53,8 @@ namespace CASMUL.Controllers
             {
                 context.requisa.Add(new requisa {
                     nro_requisa = model.nro_requisa,
-                    id_item = model.id_item,
                     id_finca = model.id_finca,
                     fecha_transaccion = model.fecha_transaccion,
-                    cant_solicitada = model.cant_solicitada,
                     semana = model.semana,
                     periodo = model.periodo
                 });
@@ -77,8 +73,6 @@ namespace CASMUL.Controllers
                 return View(new CrearRequisaViewModel {
                     Id = model.id_requisa,
                     id_finca = model.id_finca,
-                    id_item = model.id_item,
-                    cant_solicitada = model.cant_solicitada,
                     fecha_transaccion = model.fecha_transaccion,
                     nro_requisa = model.nro_requisa,
                     periodo = model.periodo,

@@ -31,10 +31,10 @@ namespace CASMUL.DB
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<configuracion> configuracion { get; set; }
         public virtual DbSet<cable> cable { get; set; }
         public virtual DbSet<cable_por_entrega> cable_por_entrega { get; set; }
         public virtual DbSet<categoria> categoria { get; set; }
-        public virtual DbSet<configuracion> configuracion { get; set; }
         public virtual DbSet<entrega> entrega { get; set; }
         public virtual DbSet<entrega_detalle> entrega_detalle { get; set; }
         public virtual DbSet<finca> finca { get; set; }

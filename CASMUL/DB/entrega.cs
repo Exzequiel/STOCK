@@ -24,21 +24,16 @@ namespace CASMUL.DB
         public int id_entrega { get; set; }
         public string nro_entrega { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
-        public int id_item { get; set; }
-        public int id_cable { get; set; }
         public int id_finca { get; set; }
-        public int cant_aentregar { get; set; }
         public bool confirmado { get; set; }
         public string solicitante { get; set; }
         public int semana { get; set; }
         public int periodo { get; set; }
         public bool activo { get; set; }
     
-        public virtual cable cable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cable_por_entrega> cable_por_entrega { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<entrega_detalle> entrega_detalle { get; set; }
-        public virtual item item { get; set; }
     }
 }

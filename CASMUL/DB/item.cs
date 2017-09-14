@@ -17,14 +17,11 @@ namespace CASMUL.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public item()
         {
-            this.entrega = new HashSet<entrega>();
             this.entrega_detalle = new HashSet<entrega_detalle>();
             this.mercaderia_detalle = new HashSet<mercaderia_detalle>();
             this.movimiento_detalle = new HashSet<movimiento_detalle>();
             this.pedido_detalle = new HashSet<pedido_detalle>();
-            this.pedido = new HashSet<pedido>();
             this.requisa_detalle = new HashSet<requisa_detalle>();
-            this.requisa = new HashSet<requisa>();
         }
     
         public int id_item { get; set; }
@@ -36,8 +33,6 @@ namespace CASMUL.DB
     
         public virtual categoria categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<entrega> entrega { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<entrega_detalle> entrega_detalle { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -47,10 +42,6 @@ namespace CASMUL.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pedido_detalle> pedido_detalle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pedido> pedido { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<requisa_detalle> requisa_detalle { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<requisa> requisa { get; set; }
     }
 }

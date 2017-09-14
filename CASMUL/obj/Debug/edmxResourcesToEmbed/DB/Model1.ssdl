@@ -106,10 +106,7 @@
     <Property Name="id_entrega" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_entrega" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
-    <Property Name="id_item" Type="int" Nullable="false" />
-    <Property Name="id_cable" Type="int" Nullable="false" />
     <Property Name="id_finca" Type="int" Nullable="false" />
-    <Property Name="cant_aentregar" Type="int" Nullable="false" />
     <Property Name="confirmado" Type="bit" Nullable="false" />
     <Property Name="solicitante" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
@@ -163,7 +160,6 @@
     <Property Name="id_pedido" Type="int" Nullable="false" />
     <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
-    <Property Name="cant_recibida" Type="int" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
@@ -187,7 +183,6 @@
     <Property Name="id_requisa" Type="int" Nullable="false" />
     <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
-    <Property Name="cant_enviada" Type="int" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
@@ -208,11 +203,9 @@
     </Key>
     <Property Name="id_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_pedido" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="id_item" Type="int" Nullable="false" />
     <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="id_proveedor" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
-    <Property Name="cant_solicitada" Type="int" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
@@ -249,10 +242,8 @@
     </Key>
     <Property Name="id_requisa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_requisa" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="id_item" Type="int" Nullable="false" />
     <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
-    <Property Name="cant_solicitada" Type="int" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
     <Property Name="activo" Type="bit" Nullable="false" />
@@ -403,18 +394,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_entrega_cable">
-    <End Role="cable" Type="Self.cable" Multiplicity="1" />
-    <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="cable">
-        <PropertyRef Name="id_cable" />
-      </Principal>
-      <Dependent Role="entrega">
-        <PropertyRef Name="id_cable" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_entrega_detalle_entrega">
     <End Role="entrega" Type="Self.entrega" Multiplicity="1" />
     <End Role="entrega_detalle" Type="Self.entrega_detalle" Multiplicity="*" />
@@ -435,18 +414,6 @@
         <PropertyRef Name="id_item" />
       </Principal>
       <Dependent Role="entrega_detalle">
-        <PropertyRef Name="id_item" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_entrega_item">
-    <End Role="item" Type="Self.item" Multiplicity="1" />
-    <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="item">
-        <PropertyRef Name="id_item" />
-      </Principal>
-      <Dependent Role="entrega">
         <PropertyRef Name="id_item" />
       </Dependent>
     </ReferentialConstraint>
@@ -619,18 +586,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_pedido_item">
-    <End Role="item" Type="Self.item" Multiplicity="1" />
-    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="item">
-        <PropertyRef Name="id_item" />
-      </Principal>
-      <Dependent Role="pedido">
-        <PropertyRef Name="id_item" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_pedido_proveedor">
     <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
     <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
@@ -676,18 +631,6 @@
       </Principal>
       <Dependent Role="requisa">
         <PropertyRef Name="id_finca" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_requisa_item">
-    <End Role="item" Type="Self.item" Multiplicity="1" />
-    <End Role="requisa" Type="Self.requisa" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="item">
-        <PropertyRef Name="id_item" />
-      </Principal>
-      <Dependent Role="requisa">
-        <PropertyRef Name="id_item" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -784,10 +727,6 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
-    <AssociationSet Name="FK_entrega_cable" Association="Self.FK_entrega_cable">
-      <End Role="cable" EntitySet="cable" />
-      <End Role="entrega" EntitySet="entrega" />
-    </AssociationSet>
     <AssociationSet Name="FK_entrega_detalle_entrega" Association="Self.FK_entrega_detalle_entrega">
       <End Role="entrega" EntitySet="entrega" />
       <End Role="entrega_detalle" EntitySet="entrega_detalle" />
@@ -795,10 +734,6 @@
     <AssociationSet Name="FK_entrega_detalle_item" Association="Self.FK_entrega_detalle_item">
       <End Role="item" EntitySet="item" />
       <End Role="entrega_detalle" EntitySet="entrega_detalle" />
-    </AssociationSet>
-    <AssociationSet Name="FK_entrega_item" Association="Self.FK_entrega_item">
-      <End Role="item" EntitySet="item" />
-      <End Role="entrega" EntitySet="entrega" />
     </AssociationSet>
     <AssociationSet Name="FK_grupo_finca" Association="Self.FK_grupo_finca">
       <End Role="finca" EntitySet="finca" />
@@ -856,10 +791,6 @@
       <End Role="finca" EntitySet="finca" />
       <End Role="pedido" EntitySet="pedido" />
     </AssociationSet>
-    <AssociationSet Name="FK_pedido_item" Association="Self.FK_pedido_item">
-      <End Role="item" EntitySet="item" />
-      <End Role="pedido" EntitySet="pedido" />
-    </AssociationSet>
     <AssociationSet Name="FK_pedido_proveedor" Association="Self.FK_pedido_proveedor">
       <End Role="proveedor" EntitySet="proveedor" />
       <End Role="pedido" EntitySet="pedido" />
@@ -874,10 +805,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_requisa_finca" Association="Self.FK_requisa_finca">
       <End Role="finca" EntitySet="finca" />
-      <End Role="requisa" EntitySet="requisa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_requisa_item" Association="Self.FK_requisa_item">
-      <End Role="item" EntitySet="item" />
       <End Role="requisa" EntitySet="requisa" />
     </AssociationSet>
     <AssociationSet Name="FK_usuario_AspNetUsers" Association="Self.FK_usuario_AspNetUsers">

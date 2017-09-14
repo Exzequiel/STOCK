@@ -23,16 +23,13 @@ namespace CASMUL.DB
     
         public int id_requisa { get; set; }
         public string nro_requisa { get; set; }
-        public int id_item { get; set; }
         public int id_finca { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
-        public int cant_solicitada { get; set; }
         public int semana { get; set; }
         public int periodo { get; set; }
         public bool activo { get; set; }
     
         public virtual finca finca { get; set; }
-        public virtual item item { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<movimiento> movimiento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

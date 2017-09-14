@@ -18,5 +18,6 @@ namespace CASMUL.Models.Entrega
         public string unidad_medida { get; set; }
         public string descripcion { get; set; }
         public int cant_disponible { get; set; }
+        public bool activo { get; set; }
     }
 }

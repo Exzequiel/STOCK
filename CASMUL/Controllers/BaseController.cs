@@ -1,4 +1,5 @@
 ﻿using CASMUL.Models.Base;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -36,21 +37,20 @@ namespace CASMUL.Controllers
             };
 
         }
-
-        public int ObtenerIdUsuario()
-        {
-            using (var context = new CASMUL.DB.dbcasmulEntities())
-            {
-                return context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_usuario??0;
-
-            }
-        }
-
         public string getConfiguracion(string Nombre)
         {
             using (var context = new CASMUL.DB.dbcasmulEntities())
             {
                 return context.configuracion.Where(x => x.nombre == Nombre)?.FirstOrDefault()?.valor ?? "No hay configuracion";
+            }
+        }
+
+        public int ObtenerIdUsuario()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                return context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_usuario ?? 0;
+
             }
         }
 
@@ -60,6 +60,19 @@ namespace CASMUL.Controllers
             {
                 return context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_finca ?? 0; 
             }
+        }
+
+
+
+        public int ObtenerSemana()
+        {
+            decimal cantidadDias = (DateTime.Now - DateTime.Parse("2017-01-02")).Days;
+            return cantidadDias > 365 ? Convert.ToInt32(Math.Ceiling((cantidadDias % 365) / 7)) : Convert.ToInt32(Math.Ceiling(cantidadDias / 7));  
+        }
+
+        public int ObtenerPeriodo()
+        {
+            return Convert.ToInt32( Math.Ceiling(Convert.ToDecimal(ObtenerSemana()) / 4));
         }
 
 

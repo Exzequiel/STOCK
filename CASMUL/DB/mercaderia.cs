@@ -25,7 +25,6 @@ namespace CASMUL.DB
         public int id_pedido { get; set; }
         public int id_finca { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
-        public int cant_recibida { get; set; }
         public int semana { get; set; }
         public int periodo { get; set; }
         public bool activo { get; set; }

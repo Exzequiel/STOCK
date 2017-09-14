@@ -27,5 +27,7 @@ namespace CASMUL.Models.Entrega
 
         public List<CrearDetalleEntregaViewModel> ListaDetalle { get; set; }
 
+        public bool EsEditar { get; set; }
+
     }
 }

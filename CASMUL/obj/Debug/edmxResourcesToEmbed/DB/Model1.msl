@@ -76,6 +76,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="configuracion">
+      <EntityTypeMapping TypeName="dbcasmulModel.configuracion">
+        <MappingFragment StoreEntitySet="configuracion">
+          <ScalarProperty Name="observacion" ColumnName="observacion" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id_configuracion" ColumnName="id_configuracion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="cable">
       <EntityTypeMapping TypeName="dbcasmulModel.cable">
         <MappingFragment StoreEntitySet="cable">
@@ -107,16 +117,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="configuracion">
-      <EntityTypeMapping TypeName="dbcasmulModel.configuracion">
-        <MappingFragment StoreEntitySet="configuracion">
-          <ScalarProperty Name="observacion" ColumnName="observacion" />
-          <ScalarProperty Name="valor" ColumnName="valor" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="id_configuracion" ColumnName="id_configuracion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="entrega">
       <EntityTypeMapping TypeName="dbcasmulModel.entrega">
         <MappingFragment StoreEntitySet="entrega">
@@ -125,10 +125,7 @@
           <ScalarProperty Name="semana" ColumnName="semana" />
           <ScalarProperty Name="solicitante" ColumnName="solicitante" />
           <ScalarProperty Name="confirmado" ColumnName="confirmado" />
-          <ScalarProperty Name="cant_aentregar" ColumnName="cant_aentregar" />
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_cable" ColumnName="id_cable" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
           <ScalarProperty Name="nro_entrega" ColumnName="nro_entrega" />
           <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
@@ -183,7 +180,6 @@
           <ScalarProperty Name="activo" ColumnName="activo" />
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="cant_recibida" ColumnName="cant_recibida" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
           <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
@@ -209,7 +205,6 @@
           <ScalarProperty Name="activo" ColumnName="activo" />
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="cant_enviada" ColumnName="cant_enviada" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
           <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
@@ -235,11 +230,9 @@
           <ScalarProperty Name="activo" ColumnName="activo" />
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
           <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
           <ScalarProperty Name="nro_pedido" ColumnName="nro_pedido" />
           <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
         </MappingFragment>
@@ -279,10 +272,8 @@
           <ScalarProperty Name="activo" ColumnName="activo" />
           <ScalarProperty Name="periodo" ColumnName="periodo" />
           <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
           <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
           <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
           <ScalarProperty Name="nro_requisa" ColumnName="nro_requisa" />
           <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
         </MappingFragment>

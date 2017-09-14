@@ -18,7 +18,6 @@ namespace CASMUL.DB
         public cable()
         {
             this.cable_por_entrega = new HashSet<cable_por_entrega>();
-            this.entrega = new HashSet<entrega>();
         }
     
         public int id_cable { get; set; }
@@ -31,7 +30,5 @@ namespace CASMUL.DB
         public virtual grupo grupo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cable_por_entrega> cable_por_entrega { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<entrega> entrega { get; set; }
     }
 }

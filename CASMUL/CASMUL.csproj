@@ -322,7 +322,6 @@
     <Compile Include="Models\Categorias\ListCategoriaViewModel.cs" />
     <Compile Include="Models\Entrega\CrearDetalleEntregaViewModel.cs" />
     <Compile Include="Models\Entrega\CrearEntregaViewModel.cs" />
-    <Compile Include="Models\Entrega\ListaDetalleEntregaViewModel.cs" />
     <Compile Include="Models\Entrega\ListaEntregaViewModel.cs" />
     <Compile Include="Models\Grupos\CreateGrupoViewModel.cs" />
     <Compile Include="Models\Fincas\CreateFincasViewModel.cs" />
@@ -6699,8 +6698,8 @@
     <Content Include="Views\grupo2Test\Details.cshtml" />
     <Content Include="Views\grupo2Test\Edit.cshtml" />
     <Content Include="Views\grupo2Test\Index.cshtml" />
-    <Content Include="Views\Entrega\Index.cshtml" />
     <Content Include="Views\Entrega\CrearEntrega.cshtml" />
+    <Content Include="Views\Entrega\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

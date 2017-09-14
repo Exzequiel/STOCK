@@ -1,0 +1,268 @@
+﻿﻿@model CASMUL.Models.Entrega.CrearEntregaViewModel
+
+@{
+    ViewBag.Title = "Crear Entrega";
+}
+
+
+<div class="panel panel-inverse">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="~/Entrega/Index" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Ver Listado</a>
+        </div>
+        <h4 class="panel-title">Nueva Entrega</h4>
+    </div>
+    <div class="panel-body">
+        <form id="FormCrear">
+            <fieldset>
+                <legend class="pull-left width-full"><b class="text-info"># Entrega: @Model.nro_entrega</b><small class="pull-right">Periodo: @Model.periodo      Semana: @Model.semana</small></legend>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.fecha_transaccion, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.fecha_transaccion, new { htmlAttributes = new { @class = "form-control", @Value = Model.fecha_transaccion.ToString("dd/MMMM/yyyy") } })
+                            @Html.ValidationMessageFor(model => model.fecha_transaccion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.id_finca, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.id_finca, ViewBag.ListaFinca as List<SelectListItem>, "", new { @class = "form-control select2", style = "width:100%;" })
+                            @Html.ValidationMessageFor(model => model.id_finca, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.solicitante, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.solicitante, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.solicitante, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.id_cable, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.id_cable, ViewBag.ListaCables as List<SelectListItem>, new { @class = "form-control", @multiple = "multiple", style = "width:100%;" })
+                            @Html.ValidationMessageFor(model => model.id_cable, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <hr />
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.DropDownList("IdItem", ViewBag.ListaItem as List<SelectListItem>, null, new { @class = "form-control", style = "width:100%;" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" onclick="AgregarFila()">+ Agregar Item</button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <table class="table table-bordered table-responsive table-hover" id="IdTabla" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Acciones</th>
+                        <th>Cantidad</th>
+                        <th>Descripcion Item</th>
+                        <th>Cantidad Disponible</th>
+                        <th>Categoria</th>
+                        <th>Unidad de Medida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>x</td>
+                        <td>1</td>
+                        <td>test</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success pull-right" onclick="Guardar()">Crear Entrega</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#fecha_transaccion").datepicker({ format: 'dd/MM/yyyy' });
+        $("select").select2({ placeholder: "- - Seleccionar - -"});
+        $("select").on("select2:select", function (e) {
+            $(this).valid();
+        });
+
+        //Cuando selecciona la finca carga los cables
+        $("#id_finca").on("select2:select", function (e) {
+            var IdFinca = $(this).val();
+            $.ajax({
+                url: "/Entrega/ObtenerListaCablesPorFinca",
+                type: "Get",
+                data: { IdFinca:  IdFinca},
+                success: function (data) {
+                    $("#id_cable").empty();
+                    $("#id_cable").select2({data: data.list}).trigger('change');
+                },
+                error: function () { alert("Error de red"); }
+            });
+        });
+
+        //funcion para obtener los datos del item al agregar la fila
+        function AgregarFila()
+        {
+            var IdItem = $("#IdItem").val();
+            $.ajax({
+                url: "/Entrega/ObtenerInfoItem",
+                type: "Get",
+                data: { IdItem:  IdItem},
+                success: function (data) {
+                    $.fn.dataTable.Api("#IdTabla").row.add(data).draw(false);
+                },
+                error: function () { alert("Error de red"); }
+            });
+        }
+
+        function EliminarFila(boton)
+        {
+            var tabla = new $.fn.dataTable.Api("#IdTabla");
+            var row = $(boton).closest("tr");
+            tabla.row(row).remove().draw(false);
+        }
+
+        $("#IdTabla tbody").on("keyup","tr input",function() {
+            var tabla = $.fn.dataTable.Api("#IdTabla");
+            DataFilaActual = tabla.row($(this).closest("tr")).data();
+            DataFilaActual.cant_aentregar =  $(this).closest("tr").find("[name=InputCantidad]").val();
+        });
+
+
+
+        $("#IdTabla").dataTable({
+            responsive: true,
+            sDom:"",
+            ajax:{
+                url: "/Entrega/CargarTablaDetalleEntrega",
+                data: {IdEntrega: @Model.id_entrega},
+                type: "GET",
+                dataSrc: function (data) { return data; }
+            },
+            columns: [
+                  {
+                      data: null,
+                      render: function (data) {
+                          var opciones = '<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                          opciones += ('<li><a href="javascript:void(0);" onclick="EliminarFila(this)"> Eliminar</a></li>');
+                          opciones += '</ul></div>';
+                          return opciones;
+                      }
+                  },
+                  {
+                      data: null,
+                      render: function(data){
+                          return '<input type="number" name="InputCantidad" min="1" max="'+data.cant_disponible+'" class="form-control" required value="'+data.cant_aentregar+'" /> '+
+                                 '<span class="text-danger field-validation-valid" data-valmsg-for="InputCantidad" data-valmsg-replace="true"></span>';
+                      }
+                  },
+                  {
+                      data: "descripcion"
+                  },
+                  {
+                      data: "cant_disponible"
+                  },
+                  {
+                      data: "categoria"
+                  },
+                  {
+                      data: "unidad_medida"
+                  }
+            ]
+        });
+
+
+
+        function Guardar(){
+            var validate = true;
+            validate = $("#FormCrear").valid();
+            var table = $.fn.dataTable.Api("#IdTabla");
+            if (!table.data().count()) {
+                ShowNotification(false,"No se permite Guardar con el detalle vacio","" );
+                validate = false;
+            }
+            if(!validate){ return;}
+
+            var Tablelist = [];
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                Tablelist.push(data);
+            });
+
+            var obj = {
+                id_entrega: @Model.id_entrega,
+                fecha_transaccion: $("#fecha_transaccion").val(),
+                id_finca: $("#id_finca").val(),
+                solicitante: $("#solicitante").val(),
+                id_cable : $("#id_cable").val(),
+                ListaDetalle: Tablelist
+            }
+
+            console.log(obj);
+            var url = '/Entrega/CrearEntrega';           
+            if (str2bool('@Model.EsEditar')) {
+                url = '/Entrega/EditarEntrega';
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: JSON.stringify({ model: obj }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Estado) {
+                        swal({
+                            html: "<hr>",
+                            title: data.Titulo,
+                            text: data.Mensaje,
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonText: 'Crear Nuevo',
+                            cancelButtonColor: '#739e73',
+                            cancelButtonText: 'Ir a Lista',
+                            allowOutsideClick: false
+                        }).then(function () {
+                            location.reload();
+                            LoadWaitNotification();
+                        },
+                         function (dismiss) {
+                             if (dismiss === 'cancel') {
+                                 window.location.href = "/Entrega/Index";
+                                 LoadWaitNotification();  
+                             }
+                         });
+                        RefreshCurrentLanguage();
+                    }
+                    else  ShowNotification(false,data.Titulo,data.Mensaje );
+                },
+                error: function (data) {
+                    alert("Error en red");
+                }
+            });
+
+
+        }
+    </script>
+
+}

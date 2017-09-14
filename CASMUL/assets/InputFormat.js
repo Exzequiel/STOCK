@@ -38,6 +38,13 @@ $.datepicker.regional['es'] = {
 };
 $.datepicker.setDefaults($.datepicker.regional['es']);
 
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+    return true;
+}
+
+
 $(document).ready(function () {
 
 $('form').on('keyup keypress', function (e) {
@@ -47,7 +54,6 @@ $('form').on('keyup keypress', function (e) {
         return false;
     }
 });
-
 
     $(document).on('keyup', "*[type=text]", function (e) {
         $(this).val($(this).val().toUpperCase());
@@ -94,5 +100,6 @@ $('form').on('keyup keypress', function (e) {
     });
 
 });
+
 
 

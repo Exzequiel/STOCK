@@ -10,6 +10,8 @@ namespace CASMUL.Controllers
 {
     public class EntregaController : BaseController
     {
+        #region Listar
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -24,9 +26,6 @@ namespace CASMUL.Controllers
                     id_entrega = x.id_entrega,
                     nro_entrega = x.nro_entrega,
                     fecha_transaccion = x.fecha_transaccion,
-                    nombre_item = x.item.descripcion,
-                    nombre_cable = x.cable.descripcion,
-                    cant_aentregar = x.cant_aentregar,
                     confirmado = x.confirmado,
                     solicitante = x.solicitante,
                     semana = x.semana,
@@ -51,10 +50,16 @@ namespace CASMUL.Controllers
         {
             using(var context = new dbcasmulEntities())
             {
-                var list = context.entrega_detalle.Where(x => x.id_entrega == IdEntrega).Select(x => new ListaDetalleEntregaViewModel {
+                var list = context.entrega_detalle.Where(x => x.id_entrega == IdEntrega).Select(x => new CrearDetalleEntregaViewModel {
+                    id_entrega = x.id_entrega,
+                    id_item = x.id_item,
                     id_detalle_entrega = x.id_detalle_entrega,
                     nombre_item = x.item.descripcion,
                     cant_aentregar = x.cant_aentregar,
+                    cant_disponible = x.item.cant_disponible - x.item.entrega_detalle.Sum(z=>z.cant_aentregar),
+                    categoria = x.item.categoria.descripcion,
+                    descripcion = x.item.descripcion,
+                    unidad_medida = x.item.unidad_medida.descripcion,
                     activo = x.activo
                 }).ToList();
                 var jsonResult = Json(list, JsonRequestBehavior.AllowGet);
@@ -63,7 +68,9 @@ namespace CASMUL.Controllers
             }
         }
 
+        #endregion
 
+        #region Crear
         [HttpGet]
         public ActionResult CrearEntrega()
         {
@@ -72,7 +79,7 @@ namespace CASMUL.Controllers
                 ViewBag.ListaFinca = conexion.finca.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_finca.ToString(), Text = x.descripcion }).ToList();
                 ViewBag.ListaCables = new List<SelectListItem>();
                 ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.descripcion }).ToList();
-                return View( new CrearEntregaViewModel {nro_entrega=getConfiguracion("CorrelativoEntrega"), fecha_transaccion=DateTime.Now, semana=1, periodo=1 });
+                return View( new CrearEntregaViewModel {nro_entrega=getConfiguracion("CorrelativoEntrega"), fecha_transaccion=DateTime.Now, semana=ObtenerSemana(), periodo=ObtenerPeriodo() });
             }
         }
 
@@ -86,8 +93,8 @@ namespace CASMUL.Controllers
                     fecha_transaccion = model.fecha_transaccion,
                     id_finca = model.id_finca,
                     solicitante = model.solicitante,
-                    semana = 1,
-                    periodo = 2,
+                    semana = ObtenerSemana(),
+                    periodo = ObtenerPeriodo(),
                     activo =true,
                     confirmado = false,
                     
@@ -134,13 +141,47 @@ namespace CASMUL.Controllers
                     cant_aentregar = 0,
                     id_entrega = 0,
                     id_item = IdItem,
-                    cant_disponible = model.cant_disponible,
+                    cant_disponible = model.cant_disponible - model.entrega_detalle.Sum(z => z.cant_aentregar),
                     categoria = model.categoria.descripcion,
                     unidad_medida = model.unidad_medida.descripcion,
                     descripcion = model.descripcion,
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #endregion
+
+        #region Editar
+        [HttpGet]
+        public ActionResult EditarEntrega(int IdEntrega)
+        {
+            using(var context = new dbcasmulEntities())
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditarEntrega(CrearEntregaViewModel model)
+        {
+            using (var context = new dbcasmulEntities())
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditarFilaDetalle(int IdDetalleEntrega, int Cantidad)
+        {
+            using (var context = new dbcasmulEntities())
+            {
+                var model = context.entrega_detalle.Find(IdDetalleEntrega);
+                model.cant_aentregar = Cantidad;
+                var resultado = context.SaveChanges() > 0;
+                return Json(EnviarResultado(resultado, "Editar Detalle Entrega"), JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
 
         [HttpGet]
         public ActionResult Deshabilitar(int IdEntrega)
@@ -165,23 +206,6 @@ namespace CASMUL.Controllers
                 return Json(EnviarResultado(resultado, "Confirmar Entrega"), JsonRequestBehavior.AllowGet);
             }
         }
-
-        [HttpPost]
-        public ActionResult EditarDetalle(int IdDetalleEntrega, int Cantidad)
-        {
-            using (var context = new dbcasmulEntities())
-            {
-                var model = context.entrega_detalle.Find(IdDetalleEntrega);
-                model.cant_aentregar = Cantidad;
-                var resultado = context.SaveChanges() > 0;
-                return Json(EnviarResultado(resultado, "Editar Detalle Entrega"), JsonRequestBehavior.AllowGet);
-            }          
-        }
-
-
-
-
-
 
     }
 }

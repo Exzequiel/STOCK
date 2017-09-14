@@ -79,7 +79,6 @@ C:\Users\IT\Documents\Github\Stock\CASMUL\bin\Microsoft.Owin.Security.Twitter.xm
 C:\Users\IT\Documents\Github\Stock\CASMUL\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\IT\Documents\Github\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\IT\Documents\Github\Stock\CASMUL\obj\Debug\CASMUL.pdb
-C:\Users\betty\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveAssemblyReference.cache
 C:\Users\betty\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\betty\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.pdb
 C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\ApplicationInsights.config
