@@ -19,5 +19,7 @@ namespace CASMUL.Models.Requisa
         public int semana { get; set; }
         [Display(Name = "Periodo")]
         public int periodo { get; set; }
+        public bool activo { get; set; }
+        public bool confirmado { get; set; }
     }
 }

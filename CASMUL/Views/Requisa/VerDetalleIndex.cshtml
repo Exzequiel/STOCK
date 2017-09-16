@@ -1,0 +1,41 @@
+﻿<table class="table table-bordered table-responsive" id="IdTabla-@ViewBag.Id" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>Cantidad</th>
+            <th>Descripcion Item</th>
+            <th>Categoria</th>
+            <th>Unidad de Medida</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    $("#IdTabla-" + '@ViewBag.Id').dataTable({
+        responsive: true,
+        sDom:"",
+        ajax:{
+            url: "/" + '@ViewBag.ControllerName' + "/CargarTablaDetalle",
+            data: {Id: '@ViewBag.Id'},
+            type: "GET",
+            global: false,
+            dataSrc: function (data) { return data; }
+        },
+        columns: [
+              {
+                  data: "cant_enviada"
+              },
+              {
+                  data: "descripcion"
+              },
+              {
+                  data: "categoria"
+              },
+              {
+                  data: "unidad_medida"
+              }
+        ]
+    });
+
+</script>
+

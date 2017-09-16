@@ -6703,13 +6703,15 @@
     <Content Include="Views\Entrega\CrearEntrega.cshtml" />
     <Content Include="Views\Entrega\Index.cshtml" />
     <Content Include="Views\Entrega\VerDetalleEntrega.cshtml" />
+    <Content Include="Views\Requisa\Index.cshtml" />
+    <Content Include="Views\Requisa\Crear.cshtml" />
+    <Content Include="Views\Requisa\VerDetalleIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\plugins\DataTables\extensions\FixedColumns\examples\integration\" />
     <Folder Include="Models\NewFolder1\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Requisa\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -22,5 +22,10 @@ namespace CASMUL.Models.Requisa
 
         public int semana { get; set; }
         public int periodo { get; set; }
+
+        public string NombreFinca { get; set; }
+        public bool EsEditar { get; set; }
+
+        public List<CrearDetalleRequisaViewModel> ListaDetalle { get; set; }
     }
 }

@@ -32,10 +32,6 @@
     <!-- ================== END BASE JS ================== -->
 </head>
 <body>
-    <!-- begin #page-loader -->
-    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
-    <!-- end #page-loader -->
-    <!-- begin #page-container -->
 
     <div id="MyModal" class="modal fade" role="dialog" data-backdrop='static' data-keyboard="false">
         <div class="modal-dialog">
@@ -66,10 +62,9 @@
 
 
     <!-- begin #page-loader -->
-    @*<div id="page-loader" class="fade in"><span class="spinner"></span></div>*@
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
     <!-- end #page-loader -->
-
-
+    <!-- begin #page-container -->
     <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
         <!-- begin #header -->
         <div id="header" class="header navbar navbar-default navbar-fixed-top">
@@ -232,8 +227,8 @@
                         </a>
                         <ul class="sub-menu">
 
-                            <li><a href="javascript:;">Requisas</a></li>
-                            <li><a href="javascript:;">Movimientos</a></li>
+                            <li><a href="@Url.Action("Index","Requisa")">Requisas</a></li>
+                            <li><a href="@Url.Action("Index","Movimiento")">Movimientos</a></li>
                             <li><a href="@Url.Action("Index","Entrega")">Entregas</a></li>
                         </ul>
                     </li>

@@ -17,8 +17,8 @@ namespace CASMUL.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public pedido()
         {
-            this.mercaderia = new HashSet<mercaderia>();
             this.pedido_detalle = new HashSet<pedido_detalle>();
+            this.mercaderia = new HashSet<mercaderia>();
         }
     
         public int id_pedido { get; set; }
@@ -32,9 +32,9 @@ namespace CASMUL.DB
     
         public virtual finca finca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mercaderia> mercaderia { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pedido_detalle> pedido_detalle { get; set; }
         public virtual proveedor proveedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mercaderia> mercaderia { get; set; }
     }
 }

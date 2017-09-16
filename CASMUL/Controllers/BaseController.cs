@@ -70,11 +70,19 @@ namespace CASMUL.Controllers
             }
         }
 
-        public int getIdFincaPorUsuario()
+        public int ObtenerIdFincaPorUsuario()
         {
             using (var context = new CASMUL.DB.dbcasmulEntities())
             {
                 return context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_finca ?? 0; 
+            }
+        }
+
+        public string ObtenerNombreFincaPorUsuario()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                return context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.finca?.descripcion??"";
             }
         }
 
@@ -94,5 +102,6 @@ namespace CASMUL.Controllers
             return Convert.ToInt32( Math.Ceiling(semana / 4));
         }
 
+     
     }
 }

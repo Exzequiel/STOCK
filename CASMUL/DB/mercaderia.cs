@@ -23,13 +23,11 @@ namespace CASMUL.DB
         public int id_mercaderia { get; set; }
         public string nro_mercaderia { get; set; }
         public int id_pedido { get; set; }
-        public int id_finca { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
         public int semana { get; set; }
         public int periodo { get; set; }
         public bool activo { get; set; }
     
-        public virtual finca finca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mercaderia_detalle> mercaderia_detalle { get; set; }
         public virtual pedido pedido { get; set; }

@@ -162,20 +162,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="mercaderia">
-      <EntityTypeMapping TypeName="dbcasmulModel.mercaderia">
-        <MappingFragment StoreEntitySet="mercaderia">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="periodo" ColumnName="periodo" />
-          <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
-          <ScalarProperty Name="nro_mercaderia" ColumnName="nro_mercaderia" />
-          <ScalarProperty Name="id_mercaderia" ColumnName="id_mercaderia" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="mercaderia_detalle">
       <EntityTypeMapping TypeName="dbcasmulModel.mercaderia_detalle">
         <MappingFragment StoreEntitySet="mercaderia_detalle">
@@ -184,20 +170,6 @@
           <ScalarProperty Name="id_item" ColumnName="id_item" />
           <ScalarProperty Name="id_mercaderia" ColumnName="id_mercaderia" />
           <ScalarProperty Name="id_detalle_mercaderia" ColumnName="id_detalle_mercaderia" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="movimiento">
-      <EntityTypeMapping TypeName="dbcasmulModel.movimiento">
-        <MappingFragment StoreEntitySet="movimiento">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="periodo" ColumnName="periodo" />
-          <ScalarProperty Name="semana" ColumnName="semana" />
-          <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-          <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-          <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
-          <ScalarProperty Name="nro_movimiento" ColumnName="nro_movimiento" />
-          <ScalarProperty Name="id_movimiento" ColumnName="id_movimiento" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -326,6 +298,32 @@
           <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
           <ScalarProperty Name="cod_item" ColumnName="cod_item" />
           <ScalarProperty Name="id_item" ColumnName="id_item" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mercaderia">
+      <EntityTypeMapping TypeName="dbcasmulModel.mercaderia">
+        <MappingFragment StoreEntitySet="mercaderia">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="periodo" ColumnName="periodo" />
+          <ScalarProperty Name="semana" ColumnName="semana" />
+          <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+          <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+          <ScalarProperty Name="nro_mercaderia" ColumnName="nro_mercaderia" />
+          <ScalarProperty Name="id_mercaderia" ColumnName="id_mercaderia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="movimiento">
+      <EntityTypeMapping TypeName="dbcasmulModel.movimiento">
+        <MappingFragment StoreEntitySet="movimiento">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="periodo" ColumnName="periodo" />
+          <ScalarProperty Name="semana" ColumnName="semana" />
+          <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+          <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
+          <ScalarProperty Name="nro_movimiento" ColumnName="nro_movimiento" />
+          <ScalarProperty Name="id_movimiento" ColumnName="id_movimiento" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

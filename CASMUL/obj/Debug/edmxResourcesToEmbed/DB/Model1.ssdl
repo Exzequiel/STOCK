@@ -159,7 +159,6 @@
     <Property Name="id_mercaderia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_mercaderia" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="id_pedido" Type="int" Nullable="false" />
-    <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
@@ -182,7 +181,6 @@
     <Property Name="id_movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nro_movimiento" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="id_requisa" Type="int" Nullable="false" />
-    <Property Name="id_finca" Type="int" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
     <Property Name="periodo" Type="int" Nullable="false" />
@@ -480,18 +478,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_mercaderia_finca">
-    <End Role="finca" Type="Self.finca" Multiplicity="1" />
-    <End Role="mercaderia" Type="Self.mercaderia" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="finca">
-        <PropertyRef Name="id_finca" />
-      </Principal>
-      <Dependent Role="mercaderia">
-        <PropertyRef Name="id_finca" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_mercaderia_pedido">
     <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
     <End Role="mercaderia" Type="Self.mercaderia" Multiplicity="*" />
@@ -525,18 +511,6 @@
       </Principal>
       <Dependent Role="movimiento_detalle">
         <PropertyRef Name="id_movimiento" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_movimiento_finca">
-    <End Role="finca" Type="Self.finca" Multiplicity="1" />
-    <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="finca">
-        <PropertyRef Name="id_finca" />
-      </Principal>
-      <Dependent Role="movimiento">
-        <PropertyRef Name="id_finca" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -757,10 +731,6 @@
       <End Role="mercaderia" EntitySet="mercaderia" />
       <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
     </AssociationSet>
-    <AssociationSet Name="FK_mercaderia_finca" Association="Self.FK_mercaderia_finca">
-      <End Role="finca" EntitySet="finca" />
-      <End Role="mercaderia" EntitySet="mercaderia" />
-    </AssociationSet>
     <AssociationSet Name="FK_mercaderia_pedido" Association="Self.FK_mercaderia_pedido">
       <End Role="pedido" EntitySet="pedido" />
       <End Role="mercaderia" EntitySet="mercaderia" />
@@ -772,10 +742,6 @@
     <AssociationSet Name="FK_movimiento_detalle_movimiento" Association="Self.FK_movimiento_detalle_movimiento">
       <End Role="movimiento" EntitySet="movimiento" />
       <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
-    </AssociationSet>
-    <AssociationSet Name="FK_movimiento_finca" Association="Self.FK_movimiento_finca">
-      <End Role="finca" EntitySet="finca" />
-      <End Role="movimiento" EntitySet="movimiento" />
     </AssociationSet>
     <AssociationSet Name="FK_movimiento_requisa" Association="Self.FK_movimiento_requisa">
       <End Role="requisa" EntitySet="requisa" />

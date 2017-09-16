@@ -39,9 +39,7 @@ namespace CASMUL.DB
         public virtual DbSet<entrega_detalle> entrega_detalle { get; set; }
         public virtual DbSet<finca> finca { get; set; }
         public virtual DbSet<grupo> grupo { get; set; }
-        public virtual DbSet<mercaderia> mercaderia { get; set; }
         public virtual DbSet<mercaderia_detalle> mercaderia_detalle { get; set; }
-        public virtual DbSet<movimiento> movimiento { get; set; }
         public virtual DbSet<movimiento_detalle> movimiento_detalle { get; set; }
         public virtual DbSet<pedido> pedido { get; set; }
         public virtual DbSet<pedido_detalle> pedido_detalle { get; set; }
@@ -52,5 +50,7 @@ namespace CASMUL.DB
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<item> item { get; set; }
+        public virtual DbSet<mercaderia> mercaderia { get; set; }
+        public virtual DbSet<movimiento> movimiento { get; set; }
     }
 }

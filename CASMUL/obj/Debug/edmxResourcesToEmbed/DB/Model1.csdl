@@ -120,9 +120,7 @@
     <EntitySet Name="entrega_detalle" EntityType="dbcasmulModel.entrega_detalle" />
     <EntitySet Name="finca" EntityType="dbcasmulModel.finca" />
     <EntitySet Name="grupo" EntityType="dbcasmulModel.grupo" />
-    <EntitySet Name="mercaderia" EntityType="dbcasmulModel.mercaderia" />
     <EntitySet Name="mercaderia_detalle" EntityType="dbcasmulModel.mercaderia_detalle" />
-    <EntitySet Name="movimiento" EntityType="dbcasmulModel.movimiento" />
     <EntitySet Name="movimiento_detalle" EntityType="dbcasmulModel.movimiento_detalle" />
     <EntitySet Name="pedido" EntityType="dbcasmulModel.pedido" />
     <EntitySet Name="pedido_detalle" EntityType="dbcasmulModel.pedido_detalle" />
@@ -155,14 +153,6 @@
       <End Role="finca" EntitySet="finca" />
       <End Role="grupo" EntitySet="grupo" />
     </AssociationSet>
-    <AssociationSet Name="FK_mercaderia_finca" Association="dbcasmulModel.FK_mercaderia_finca">
-      <End Role="finca" EntitySet="finca" />
-      <End Role="mercaderia" EntitySet="mercaderia" />
-    </AssociationSet>
-    <AssociationSet Name="FK_movimiento_finca" Association="dbcasmulModel.FK_movimiento_finca">
-      <End Role="finca" EntitySet="finca" />
-      <End Role="movimiento" EntitySet="movimiento" />
-    </AssociationSet>
     <AssociationSet Name="FK_pedido_finca" Association="dbcasmulModel.FK_pedido_finca">
       <End Role="finca" EntitySet="finca" />
       <End Role="pedido" EntitySet="pedido" />
@@ -174,22 +164,6 @@
     <AssociationSet Name="FK_usuario_finca" Association="dbcasmulModel.FK_usuario_finca">
       <End Role="finca" EntitySet="finca" />
       <End Role="usuario" EntitySet="usuario" />
-    </AssociationSet>
-    <AssociationSet Name="FK_mercaderia_detalle_mercaderia" Association="dbcasmulModel.FK_mercaderia_detalle_mercaderia">
-      <End Role="mercaderia" EntitySet="mercaderia" />
-      <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
-    </AssociationSet>
-    <AssociationSet Name="FK_mercaderia_pedido" Association="dbcasmulModel.FK_mercaderia_pedido">
-      <End Role="pedido" EntitySet="pedido" />
-      <End Role="mercaderia" EntitySet="mercaderia" />
-    </AssociationSet>
-    <AssociationSet Name="FK_movimiento_detalle_movimiento" Association="dbcasmulModel.FK_movimiento_detalle_movimiento">
-      <End Role="movimiento" EntitySet="movimiento" />
-      <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
-    </AssociationSet>
-    <AssociationSet Name="FK_movimiento_requisa" Association="dbcasmulModel.FK_movimiento_requisa">
-      <End Role="requisa" EntitySet="requisa" />
-      <End Role="movimiento" EntitySet="movimiento" />
     </AssociationSet>
     <AssociationSet Name="FK_pedido_detalle_pedido" Association="dbcasmulModel.FK_pedido_detalle_pedido">
       <End Role="pedido" EntitySet="pedido" />
@@ -236,6 +210,24 @@
     <AssociationSet Name="FK_requisa_detalle_item" Association="dbcasmulModel.FK_requisa_detalle_item">
       <End Role="item" EntitySet="item" />
       <End Role="requisa_detalle" EntitySet="requisa_detalle" />
+    </AssociationSet>
+    <EntitySet Name="mercaderia" EntityType="dbcasmulModel.mercaderia" />
+    <EntitySet Name="movimiento" EntityType="dbcasmulModel.movimiento" />
+    <AssociationSet Name="FK_mercaderia_detalle_mercaderia" Association="dbcasmulModel.FK_mercaderia_detalle_mercaderia">
+      <End Role="mercaderia" EntitySet="mercaderia" />
+      <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mercaderia_pedido" Association="dbcasmulModel.FK_mercaderia_pedido">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="mercaderia" EntitySet="mercaderia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_movimiento_detalle_movimiento" Association="dbcasmulModel.FK_movimiento_detalle_movimiento">
+      <End Role="movimiento" EntitySet="movimiento" />
+      <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_movimiento_requisa" Association="dbcasmulModel.FK_movimiento_requisa">
+      <End Role="requisa" EntitySet="requisa" />
+      <End Role="movimiento" EntitySet="movimiento" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
@@ -326,8 +318,6 @@
     <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="activo" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="finca" ToRole="grupo" />
-    <NavigationProperty Name="mercaderia" Relationship="dbcasmulModel.FK_mercaderia_finca" FromRole="finca" ToRole="mercaderia" />
-    <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_finca" FromRole="finca" ToRole="movimiento" />
     <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_pedido_finca" FromRole="finca" ToRole="pedido" />
     <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_requisa_finca" FromRole="finca" ToRole="requisa" />
     <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_finca" FromRole="finca" ToRole="usuario" />
@@ -343,22 +333,6 @@
     <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
     <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="grupo" ToRole="finca" />
   </EntityType>
-  <EntityType Name="mercaderia">
-    <Key>
-      <PropertyRef Name="id_mercaderia" />
-    </Key>
-    <Property Name="id_mercaderia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nro_mercaderia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="id_pedido" Type="Int32" Nullable="false" />
-    <Property Name="id_finca" Type="Int32" Nullable="false" />
-    <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="semana" Type="Int32" Nullable="false" />
-    <Property Name="periodo" Type="Int32" Nullable="false" />
-    <Property Name="activo" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_mercaderia_finca" FromRole="mercaderia" ToRole="finca" />
-    <NavigationProperty Name="mercaderia_detalle" Relationship="dbcasmulModel.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia" ToRole="mercaderia_detalle" />
-    <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_mercaderia_pedido" FromRole="mercaderia" ToRole="pedido" />
-  </EntityType>
   <EntityType Name="mercaderia_detalle">
     <Key>
       <PropertyRef Name="id_detalle_mercaderia" />
@@ -368,24 +342,8 @@
     <Property Name="id_item" Type="Int32" Nullable="false" />
     <Property Name="cant_recibida" Type="Int32" Nullable="false" />
     <Property Name="activo" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="mercaderia" Relationship="dbcasmulModel.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia_detalle" ToRole="mercaderia" />
     <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_mercaderia_detalle_item" FromRole="mercaderia_detalle" ToRole="item" />
-  </EntityType>
-  <EntityType Name="movimiento">
-    <Key>
-      <PropertyRef Name="id_movimiento" />
-    </Key>
-    <Property Name="id_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nro_movimiento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="id_requisa" Type="Int32" Nullable="false" />
-    <Property Name="id_finca" Type="Int32" Nullable="false" />
-    <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="semana" Type="Int32" Nullable="false" />
-    <Property Name="periodo" Type="Int32" Nullable="false" />
-    <Property Name="activo" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_movimiento_finca" FromRole="movimiento" ToRole="finca" />
-    <NavigationProperty Name="movimiento_detalle" Relationship="dbcasmulModel.FK_movimiento_detalle_movimiento" FromRole="movimiento" ToRole="movimiento_detalle" />
-    <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="movimiento" ToRole="requisa" />
+    <NavigationProperty Name="mercaderia" Relationship="dbcasmulModel.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia_detalle" ToRole="mercaderia" />
   </EntityType>
   <EntityType Name="movimiento_detalle">
     <Key>
@@ -396,8 +354,8 @@
     <Property Name="id_item" Type="Int32" Nullable="false" />
     <Property Name="cant_enviada" Type="Int32" Nullable="false" />
     <Property Name="activo" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_detalle_movimiento" FromRole="movimiento_detalle" ToRole="movimiento" />
     <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_movimiento_detalle_item" FromRole="movimiento_detalle" ToRole="item" />
+    <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_detalle_movimiento" FromRole="movimiento_detalle" ToRole="movimiento" />
   </EntityType>
   <EntityType Name="pedido">
     <Key>
@@ -412,9 +370,9 @@
     <Property Name="periodo" Type="Int32" Nullable="false" />
     <Property Name="activo" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_pedido_finca" FromRole="pedido" ToRole="finca" />
-    <NavigationProperty Name="mercaderia" Relationship="dbcasmulModel.FK_mercaderia_pedido" FromRole="pedido" ToRole="mercaderia" />
     <NavigationProperty Name="pedido_detalle" Relationship="dbcasmulModel.FK_pedido_detalle_pedido" FromRole="pedido" ToRole="pedido_detalle" />
     <NavigationProperty Name="proveedor" Relationship="dbcasmulModel.FK_pedido_proveedor" FromRole="pedido" ToRole="proveedor" />
+    <NavigationProperty Name="mercaderia" Relationship="dbcasmulModel.FK_mercaderia_pedido" FromRole="pedido" ToRole="mercaderia" />
   </EntityType>
   <EntityType Name="pedido_detalle">
     <Key>
@@ -440,8 +398,8 @@
     <Property Name="periodo" Type="Int32" Nullable="false" />
     <Property Name="activo" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_requisa_finca" FromRole="requisa" ToRole="finca" />
-    <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="requisa" ToRole="movimiento" />
     <NavigationProperty Name="requisa_detalle" Relationship="dbcasmulModel.FK_requisa_detalle_requisa" FromRole="requisa" ToRole="requisa_detalle" />
+    <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="requisa" ToRole="movimiento" />
   </EntityType>
   <EntityType Name="requisa_detalle">
     <Key>
@@ -566,30 +524,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_mercaderia_finca">
-    <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="1" />
-    <End Type="dbcasmulModel.mercaderia" Role="mercaderia" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="finca">
-        <PropertyRef Name="id_finca" />
-      </Principal>
-      <Dependent Role="mercaderia">
-        <PropertyRef Name="id_finca" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_movimiento_finca">
-    <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="1" />
-    <End Type="dbcasmulModel.movimiento" Role="movimiento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="finca">
-        <PropertyRef Name="id_finca" />
-      </Principal>
-      <Dependent Role="movimiento">
-        <PropertyRef Name="id_finca" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_pedido_finca">
     <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="1" />
     <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="*" />
@@ -623,54 +557,6 @@
       </Principal>
       <Dependent Role="usuario">
         <PropertyRef Name="id_finca" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_mercaderia_detalle_mercaderia">
-    <End Type="dbcasmulModel.mercaderia" Role="mercaderia" Multiplicity="1" />
-    <End Type="dbcasmulModel.mercaderia_detalle" Role="mercaderia_detalle" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="mercaderia">
-        <PropertyRef Name="id_mercaderia" />
-      </Principal>
-      <Dependent Role="mercaderia_detalle">
-        <PropertyRef Name="id_mercaderia" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_mercaderia_pedido">
-    <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="1" />
-    <End Type="dbcasmulModel.mercaderia" Role="mercaderia" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="pedido">
-        <PropertyRef Name="id_pedido" />
-      </Principal>
-      <Dependent Role="mercaderia">
-        <PropertyRef Name="id_pedido" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_movimiento_detalle_movimiento">
-    <End Type="dbcasmulModel.movimiento" Role="movimiento" Multiplicity="1" />
-    <End Type="dbcasmulModel.movimiento_detalle" Role="movimiento_detalle" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="movimiento">
-        <PropertyRef Name="id_movimiento" />
-      </Principal>
-      <Dependent Role="movimiento_detalle">
-        <PropertyRef Name="id_movimiento" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_movimiento_requisa">
-    <End Type="dbcasmulModel.requisa" Role="requisa" Multiplicity="1" />
-    <End Type="dbcasmulModel.movimiento" Role="movimiento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="requisa">
-        <PropertyRef Name="id_requisa" />
-      </Principal>
-      <Dependent Role="movimiento">
-        <PropertyRef Name="id_requisa" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -840,6 +726,82 @@
       </Principal>
       <Dependent Role="requisa_detalle">
         <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="mercaderia">
+    <Key>
+      <PropertyRef Name="id_mercaderia" />
+    </Key>
+    <Property Name="id_mercaderia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_mercaderia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_pedido" Type="Int32" Nullable="false" />
+    <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="semana" Type="Int32" Nullable="false" />
+    <Property Name="periodo" Type="Int32" Nullable="false" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="mercaderia_detalle" Relationship="dbcasmulModel.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia" ToRole="mercaderia_detalle" />
+    <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_mercaderia_pedido" FromRole="mercaderia" ToRole="pedido" />
+  </EntityType>
+  <EntityType Name="movimiento">
+    <Key>
+      <PropertyRef Name="id_movimiento" />
+    </Key>
+    <Property Name="id_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_movimiento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_requisa" Type="Int32" Nullable="false" />
+    <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="semana" Type="Int32" Nullable="false" />
+    <Property Name="periodo" Type="Int32" Nullable="false" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="movimiento_detalle" Relationship="dbcasmulModel.FK_movimiento_detalle_movimiento" FromRole="movimiento" ToRole="movimiento_detalle" />
+    <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="movimiento" ToRole="requisa" />
+  </EntityType>
+  <Association Name="FK_mercaderia_detalle_mercaderia">
+    <End Type="dbcasmulModel.mercaderia" Role="mercaderia" Multiplicity="1" />
+    <End Type="dbcasmulModel.mercaderia_detalle" Role="mercaderia_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mercaderia">
+        <PropertyRef Name="id_mercaderia" />
+      </Principal>
+      <Dependent Role="mercaderia_detalle">
+        <PropertyRef Name="id_mercaderia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mercaderia_pedido">
+    <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="1" />
+    <End Type="dbcasmulModel.mercaderia" Role="mercaderia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedido">
+        <PropertyRef Name="id_pedido" />
+      </Principal>
+      <Dependent Role="mercaderia">
+        <PropertyRef Name="id_pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_movimiento_detalle_movimiento">
+    <End Type="dbcasmulModel.movimiento" Role="movimiento" Multiplicity="1" />
+    <End Type="dbcasmulModel.movimiento_detalle" Role="movimiento_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movimiento">
+        <PropertyRef Name="id_movimiento" />
+      </Principal>
+      <Dependent Role="movimiento_detalle">
+        <PropertyRef Name="id_movimiento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_movimiento_requisa">
+    <End Type="dbcasmulModel.requisa" Role="requisa" Multiplicity="1" />
+    <End Type="dbcasmulModel.movimiento" Role="movimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="requisa">
+        <PropertyRef Name="id_requisa" />
+      </Principal>
+      <Dependent Role="movimiento">
+        <PropertyRef Name="id_requisa" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

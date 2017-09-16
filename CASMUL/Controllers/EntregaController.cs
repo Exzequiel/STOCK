@@ -43,8 +43,7 @@ namespace CASMUL.Controllers
         public ActionResult VerDetalleEntrega(int Id)
         {
             ViewBag.Id = Id;
-            return PartialView();
-               
+            return PartialView();      
         }
 
         [HttpGet]
@@ -58,7 +57,7 @@ namespace CASMUL.Controllers
                     id_item = x.id_item,
                     id_detalle_entrega = x.id_detalle_entrega,
                     cant_aentregar = x.cant_aentregar,
-                    cant_disponible = x.item.cant_disponible - x.item.entrega_detalle.Sum(z => z.cant_aentregar),
+                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
                     categoria = x.item.categoria.descripcion,
                     descripcion =x.item.cod_item+" - "+ x.item.descripcion,
                     unidad_medida = x.item.unidad_medida.descripcion,
@@ -144,7 +143,7 @@ namespace CASMUL.Controllers
                     cant_aentregar = 0,
                     id_entrega = 0,
                     id_item = IdItem,
-                    cant_disponible = model.cant_disponible - model.entrega_detalle.Sum(z => z.cant_aentregar),
+                    cant_disponible = model.cant_disponible - (model.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? model.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
                     categoria = model.categoria.descripcion,
                     unidad_medida = model.unidad_medida.descripcion,
                     descripcion =model.cod_item+" - "+ model.descripcion,
