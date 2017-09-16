@@ -208,6 +208,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RequisaController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -334,6 +335,8 @@
     <Compile Include="Models\Item\EditItemViewModel.cs" />
     <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pedido\CrearDetallePedidoViewModel.cs" />
+    <Compile Include="Models\Pedido\CrearPedidoViewModel.cs" />
     <Compile Include="Models\Proveedores\ListaProveedorViewModel.cs" />
     <Compile Include="Models\Requisa\CrearDetalleRequisaViewModel.cs" />
     <Compile Include="Models\Requisa\CrearRequisaViewModel.cs" />
@@ -6706,6 +6709,9 @@
     <Content Include="Views\Requisa\Index.cshtml" />
     <Content Include="Views\Requisa\Crear.cshtml" />
     <Content Include="Views\Requisa\VerDetalleIndex.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Views\Pedido\VerDetalleIndex.cshtml" />
+    <Content Include="Views\Pedido\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,238 @@
+﻿@model CASMUL.Models.Pedido.CrearPedidoViewModel
+
+
+@{
+    ViewBag.Title = "Crear Pedido";
+}
+
+
+<div class="panel panel-inverse">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="~/@ViewBag.ControllerName/Index" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Ver Listado</a>
+        </div>
+        @if (Model.EsEditar)
+        { <h4 class="panel-title">Editar @ViewBag.ControllerName</h4> }
+        else
+        {  <h4 class="panel-title">Nueva @ViewBag.ControllerName</h4>}
+
+    </div>
+    <div class="panel-body p-0 ">
+        <table class="table table-bordered table-responsive" style="width: 100%;">
+            <thead>
+                <tr class="success">
+                    <th class="text-center">Numero @ViewBag.ControllerName</th>
+                    <th class="text-center">Finca</th>
+                    <th class="text-center">Fecha Transaccion</th>
+                    <th class="text-center">Periodo</th>
+                    <th class="text-center">Semana</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    <td>@Model.nro_pedido</td>
+                    <td>@Model.NombreFinca</td>
+                    <td>@Model.fecha_transaccion.ToShortDateString()</td>
+                    <td>@Model.periodo</td>
+                    <td>@Model.semana</td>
+                </tr>
+            </tbody>
+        </table>
+        <form id="FormCrear" class="p-15">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.id_proveedor, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.id_proveedor, ViewBag.ListaProveedor as List<SelectListItem>, null, new { @class = "form-control select2", style = "width:100%;" })
+                            @Html.ValidationMessageFor(model => model.id_proveedor, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr />
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.DropDownList("IdItem", ViewBag.ListaItem as List<SelectListItem>, null, new { @class = "form-control", style = "width:100%;" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" onclick="AgregarFila()">+ Agregar Item</button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <table class="table table-bordered table-responsive" id="IdTabla" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Acciones</th>
+                        <th>Cantidad</th>
+                        <th>Descripcion Item</th>
+                        <th>Cantidad Actual en Stock</th>
+                        <th>Categoria</th>
+                        <th>Unidad de Medida</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="row">
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success pull-right">Guardar @ViewBag.ControllerName</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("select").select2({ placeholder: "- - Seleccionar - -"});
+        $("select").on("select2:select", function (e) {
+            $(this).valid();
+            $("#FormCrear").removeAttr("novalidate");
+        });
+
+        //funcion para obtener los datos del item al agregar la fila
+        function AgregarFila()
+        {
+            var IdItem = $("#IdItem").val();
+            var table = $.fn.dataTable.Api("#IdTabla");
+            var validate = true;
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                if(this.data().id_item==IdItem) { validate = false; }
+            });
+            if(!validate){  ShowNotification(false,"Item ya seleccionado", "Seleccione otro"); return;}
+
+            $.ajax({
+                url: "/"+'@ViewBag.ControllerName'+"/ObtenerInfoItem",
+                type: "Get",
+                data: { IdItem:  IdItem},
+                success: function (data) {
+                    $.fn.dataTable.Api("#IdTabla").row.add(data).draw(false);
+                },
+                error: function () { alert("Error de red"); }
+            });
+        }
+
+        $("#IdTabla tbody").on("keyup","tr input",function() {
+            var tabla = $.fn.dataTable.Api("#IdTabla");
+            DataFilaActual = tabla.row($(this).closest("tr")).data();
+            DataFilaActual.cant_solicitada =  $(this).closest("tr").find("[name=InputCantidad]").val();
+        });
+
+        $("#IdTabla").dataTable({
+            responsive: true,
+            sDom:"",
+            ajax:{
+                url: "/"+'@ViewBag.ControllerName'+"/CargarTablaDetalle",
+                data: {Id: @Model.id_pedido},
+                type: "GET",
+                dataSrc: function (data) { return data; }
+            },
+            columns: [
+                  {
+                      data: null,
+                      render: function (data) {
+                          var opciones = '<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                          opciones += ('<li><a href="javascript:void(0);" onclick="EliminarFila(this)"> Eliminar</a></li>');
+                          opciones += '</ul></div>';
+                          return opciones;
+                      }
+                  },
+                  {
+                      data: null,
+                      render: function(data){
+                          return '<input type="number" name="InputCantidad" min="1" class="form-control" required value="'+data.cant_solicitada+'" /> '+
+                                 '<span class="text-danger field-validation-valid" data-valmsg-for="InputCantidad" data-valmsg-replace="true"></span>';
+                      }
+                  },
+                  {
+                      data: "descripcion"
+                  },
+                  {
+                      data: "cant_disponible"
+                  },
+                  {
+                      data: "categoria"
+                  },
+                  {
+                      data: "unidad_medida"
+                  }
+            ]
+        });
+
+        $("#FormCrear").removeAttr("novalidate");
+        $("#FormCrear").submit(function (event) {
+            $("#FormCrear").removeAttr("novalidate");
+            event.preventDefault();
+            var validate = true;
+            var table = $.fn.dataTable.Api("#IdTabla");
+            if (!table.data().count()) {
+                ShowNotification(false,"No se permite Guardar con el detalle vacio","" );
+                validate = false;
+            }
+            if(!validate){ return;}
+
+            var Tablelist = [];
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                Tablelist.push(data);
+            });
+
+            var obj = {
+                id_pedido: @Model.id_pedido,
+                id_proveedor: $("#id_proveedor").val(),
+                ListaDetalle: Tablelist
+            }
+
+            var url = '/'+'@ViewBag.ControllerName'+'/Crear';
+            if (str2bool('@Model.EsEditar')) {
+                url = '/'+'@ViewBag.ControllerName'+'/Editar';
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: JSON.stringify({ model: obj }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Estado) {
+                        swal({
+                            html: "<hr>",
+                            title: data.Titulo,
+                            text: data.Mensaje,
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonText: 'Crear Nuevo',
+                            cancelButtonColor: '#739e73',
+                            cancelButtonText: 'Ir a Lista',
+                            allowOutsideClick: false
+                        }).then(function () {
+                            location.reload();
+                            LoadWaitNotification();
+                        },
+                         function (dismiss) {
+                             if (dismiss === 'cancel') {
+                                 window.location.href = "/"+'@ViewBag.ControllerName'+"/Index";
+                                 LoadWaitNotification();
+                             }
+                         });
+                    }
+                    else  ShowNotification(false,data.Titulo,data.Mensaje );
+                },
+                error: function (data) {
+                    alert("Error en red");
+                }
+            });
+        });
+    </script>
+
+}

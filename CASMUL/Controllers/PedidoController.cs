@@ -1,5 +1,5 @@
 ﻿using CASMUL.DB;
-using CASMUL.Models.Requisa;
+using CASMUL.Models.Pedido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +9,13 @@ using System.Web.Mvc;
 namespace CASMUL.Controllers
 {
     [Authorize]
-    public class RequisaController : BaseController
+    public class PedidoController : BaseController
     {
-       public RequisaController()
+        public PedidoController()
         {
-            ViewBag.ControllerName = "Requisa";
+            ViewBag.ControllerName = "Pedido";
         }
-        
+
         // GET: Requisa
         public ActionResult Index()
         {
@@ -26,15 +26,17 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                var list = context.requisa.Select(x => new ListaRequisaViewModel {
-                    id_requisa = x.id_requisa,
-                    nro_requisa = x.nro_requisa,
-                    finca = x.finca.descripcion,
+                var list = context.pedido.Select(x => new CrearPedidoViewModel
+                {
+                    id_pedido = x.id_pedido,
+                    nro_pedido = x.nro_pedido,
+                    NombreFinca = x.finca.descripcion,
+                    NombreProveedor = x.proveedor.cod_proveedor+" - "+ x.proveedor.nombre_proveedor,
                     fecha_transaccion = x.fecha_transaccion,
                     semana = x.semana,
                     periodo = x.periodo,
                     activo = x.activo,
-                    confirmado = x.movimiento.Any(y=>y.activo)
+                    confirmado = x.mercaderia.Any(y => y.activo)
                 }).ToList();
 
                 var jsonResult = Json(list, JsonRequestBehavior.AllowGet);
@@ -55,17 +57,16 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                var list = context.requisa_detalle.Where(x => x.id_requisa == Id && x.activo).Select(x => new CrearDetalleRequisaViewModel
+                var list = context.pedido_detalle.Where(x => x.id_pedido == Id && x.activo).Select(x => new CrearDetallePedidoViewModel
                 {
-                    id_requisa = x.id_requisa,
-                    id_detail_requisa = x.id_detail_requisa,
+                    id_pedido = x.id_pedido,
+                    id_detalle_pedido = x.id_detalle_pedido,
                     id_item = x.id_item,
-                    cant_enviada = x.cant_enviada,
-                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false)? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar):0),
+                    cant_solicitada = x.cant_solicitada,
+                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
                     categoria = x.item.categoria.descripcion,
                     descripcion = x.item.cod_item + " - " + x.item.descripcion,
-                    unidad_medida = x.item.unidad_medida.descripcion,
-                    
+                    unidad_medida = x.item.unidad_medida.descripcion
                 }).ToList();
                 var jsonResult = Json(list, JsonRequestBehavior.AllowGet);
                 jsonResult.MaxJsonLength = Int32.MaxValue;
@@ -79,10 +80,12 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x=>new SelectListItem { Value = x.id_item.ToString(), Text =x.cod_item+" - "+ x.descripcion}).ToList();
-                return View(new CrearRequisaViewModel {
+                ViewBag.ListaProveedor = context.proveedor.Where(x => x.activo ?? false).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
+                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
+                return View(new CrearPedidoViewModel
+                {
                     fecha_transaccion = DateTime.Now,
-                    nro_requisa = getConfiguracion("CorrelativoRequisa"),
+                    nro_pedido = getConfiguracion("CorrelativoPedido"),
                     NombreFinca = ObtenerNombreFincaPorUsuario(),
                     semana = ObtenerSemana(),
                     periodo = ObtenerPeriodo(),
@@ -91,47 +94,53 @@ namespace CASMUL.Controllers
         }
 
         [HttpPost]
-        public ActionResult Crear(CrearRequisaViewModel model)
+        public ActionResult Crear(CrearPedidoViewModel model)
         {
             using (var context = new dbcasmulEntities())
             {
-               var NuevaRequisa= context.requisa.Add(new requisa {
-                    nro_requisa = getConfiguracion("CorrelativoRequisa"),
+                var NuevaModelo = context.pedido.Add(new pedido
+                {
+                    nro_pedido = getConfiguracion("CorrelativoPedido"),
                     id_finca = ObtenerIdFincaPorUsuario(),
+                    id_proveedor = model.id_proveedor,
                     fecha_transaccion = DateTime.Now,
                     semana = ObtenerSemana(),
                     periodo = ObtenerPeriodo(),
                     activo = true,
                 });
 
-                foreach(var detalle in model.ListaDetalle)
+                foreach (var detalle in model.ListaDetalle)
                 {
-                    context.requisa_detalle.Add(new requisa_detalle {
-                        id_requisa = NuevaRequisa.id_requisa,
-                        cant_enviada = detalle.cant_enviada,
+                    context.pedido_detalle.Add(new pedido_detalle
+                    {
+                        id_pedido = NuevaModelo.id_pedido,
+                        cant_solicitada = detalle.cant_solicitada,
                         id_item = detalle.id_item,
                         activo = true
                     });
                 }
 
                 var resultado = context.SaveChanges() > 0;
-                if (resultado) SumarCorrelativo("CorrelativoRequisa");
-                return Json(EnviarResultado(resultado, "Requisa creada exitosamente"), JsonRequestBehavior.AllowGet);
+                if (resultado) SumarCorrelativo("CorrelativoPedido");
+                return Json(EnviarResultado(resultado, "Pedido creado exitosamente"), JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpGet]
         public ActionResult Editar(int Id)
         {
-            using(var context = new dbcasmulEntities())
+            using (var context = new dbcasmulEntities())
             {
+                ViewBag.ListaProveedor = context.proveedor.Where(x=>x.activo??false).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
                 ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
-                var model = context.requisa.Find(Id);
-                return View("Crear",new CrearRequisaViewModel {
-                    id_requisa = model.id_requisa,
+                var model = context.pedido.Find(Id);
+                return View("Crear", new CrearPedidoViewModel
+                {
+                    id_pedido = model.id_pedido,
                     id_finca = model.id_finca,
+                    id_proveedor = model.id_proveedor,
                     fecha_transaccion = model.fecha_transaccion,
-                    nro_requisa = model.nro_requisa,
+                    nro_pedido = model.nro_pedido,
                     periodo = model.periodo,
                     semana = model.semana,
                     NombreFinca = model.finca.descripcion,
@@ -141,34 +150,35 @@ namespace CASMUL.Controllers
         }
 
         [HttpPost]
-        public ActionResult Editar(CrearRequisaViewModel model)
+        public ActionResult Editar(CrearPedidoViewModel model)
         {
             using (var context = new dbcasmulEntities())
             {
-                var ModelDb = context.requisa.Find(model.id_requisa);
-               
-                ModelDb.requisa_detalle.ToList().ForEach(x => x.activo = false);
+                var ModelDb = context.pedido.Find(model.id_pedido);
+                ModelDb.id_proveedor = model.id_proveedor;
+
+                ModelDb.pedido_detalle.ToList().ForEach(x => x.activo = false);
                 foreach (var detalle in model.ListaDetalle)
                 {
-                    if (ModelDb.requisa_detalle.Any(x => x.id_detail_requisa == detalle.id_detail_requisa))
+                    if (ModelDb.pedido_detalle.Any(x => x.id_detalle_pedido == detalle.id_detalle_pedido))
                     {
-                        var ModelDetalle = ModelDb.requisa_detalle.FirstOrDefault(x => x.id_detail_requisa == detalle.id_detail_requisa);
+                        var ModelDetalle = ModelDb.pedido_detalle.FirstOrDefault(x => x.id_detalle_pedido == detalle.id_detalle_pedido);
                         ModelDetalle.activo = true;
-                        ModelDetalle.cant_enviada = detalle.cant_enviada;
+                        ModelDetalle.cant_solicitada = detalle.cant_solicitada;
                     }
                     else
                     {
-                        context.requisa_detalle.Add(new requisa_detalle
+                        context.pedido_detalle.Add(new pedido_detalle
                         {
-                            id_requisa = ModelDb.id_requisa,
-                            cant_enviada = detalle.cant_enviada,
+                            id_pedido = ModelDb.id_pedido,
+                            cant_solicitada = detalle.cant_solicitada,
                             id_item = detalle.id_item,
-                            activo = true
+                            activo = true,
                         });
                     }
                 }
                 var resultado = context.SaveChanges() > 0;
-                return Json(EnviarResultado(resultado, "Requisa editada exitosamente"), JsonRequestBehavior.AllowGet);
+                return Json(EnviarResultado(resultado, "Pedido editado exitosamente"), JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -177,11 +187,11 @@ namespace CASMUL.Controllers
             using (var context = new dbcasmulEntities())
             {
                 var model = context.item.Find(IdItem);
-                return Json(new CrearDetalleRequisaViewModel
+                return Json(new CrearDetallePedidoViewModel
                 {
-                    id_detail_requisa = 0,
-                    cant_enviada = 0,
-                    id_requisa = 0,
+                    id_detalle_pedido = 0,
+                    cant_solicitada = 0,
+                    id_pedido = 0,
                     id_item = IdItem,
                     cant_disponible = model.cant_disponible - (model.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? model.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
                     categoria = model.categoria.descripcion,
@@ -196,16 +206,13 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                var model = context.requisa.Find(Id);
-                model.requisa_detalle.ToList().ForEach(x => { x.activo = false; });
+                var model = context.pedido.Find(Id);
+                model.pedido_detalle.ToList().ForEach(x => { x.activo = false; });
                 model.activo = false;
                 var resultado = context.SaveChanges() > 0;
-                return Json(EnviarResultado(resultado, "Requisa Deshabilitada"), JsonRequestBehavior.AllowGet);
+                return Json(EnviarResultado(resultado, "Pedido Deshabilitada"), JsonRequestBehavior.AllowGet);
             }
         }
-
-
-
 
     }
 }
