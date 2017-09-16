@@ -25,6 +25,7 @@ namespace CASMUL.DB
         public string nro_entrega { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
         public int id_finca { get; set; }
+        public Nullable<int> id_grupo { get; set; }
         public bool confirmado { get; set; }
         public string solicitante { get; set; }
         public int semana { get; set; }
@@ -35,5 +36,7 @@ namespace CASMUL.DB
         public virtual ICollection<cable_por_entrega> cable_por_entrega { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<entrega_detalle> entrega_detalle { get; set; }
+        public virtual finca finca { get; set; }
+        public virtual grupo grupo { get; set; }
     }
 }

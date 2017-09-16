@@ -18,8 +18,6 @@
         <EntityTypeShape EntityType="dbcasmulModel.cable" Width="1.5" PointX="19.875" PointY="21.5" />
         <EntityTypeShape EntityType="dbcasmulModel.cable_por_entrega" Width="1.5" PointX="22.125" PointY="12.25" />
         <EntityTypeShape EntityType="dbcasmulModel.categoria" Width="1.5" PointX="12.375" PointY="5" />
-        <EntityTypeShape EntityType="dbcasmulModel.entrega" Width="1.5" PointX="14.625" PointY="2.375" />
-        <EntityTypeShape EntityType="dbcasmulModel.entrega_detalle" Width="1.5" PointX="16.875" PointY="3.75" />
         <EntityTypeShape EntityType="dbcasmulModel.finca" Width="1.5" PointX="15.375" PointY="19.5" />
         <EntityTypeShape EntityType="dbcasmulModel.grupo" Width="1.5" PointX="17.625" PointY="21.75" />
         <EntityTypeShape EntityType="dbcasmulModel.mercaderia_detalle" Width="1.5" PointX="16.875" PointY="7.75" />
@@ -34,8 +32,6 @@
         <AssociationConnector Association="dbcasmulModel.FK_usuario_AspNetUsers" />
         <AssociationConnector Association="dbcasmulModel.FK_cable_grupo" />
         <AssociationConnector Association="dbcasmulModel.FK_cable_por_entrega_cable" />
-        <AssociationConnector Association="dbcasmulModel.FK_cable_por_entrega_entrega" />
-        <AssociationConnector Association="dbcasmulModel.FK_entrega_detalle_entrega" />
         <AssociationConnector Association="dbcasmulModel.FK_grupo_finca" />
         <AssociationConnector Association="dbcasmulModel.FK_pedido_finca" />
         <AssociationConnector Association="dbcasmulModel.FK_requisa_finca" />
@@ -47,7 +43,6 @@
         <AssociationConnector Association="dbcasmulModel.FK_pedido_proveedor" />
         <EntityTypeShape EntityType="dbcasmulModel.item" Width="1.5" PointX="14.625" PointY="6.625" />
         <AssociationConnector Association="dbcasmulModel.FK_item_categoria" />
-        <AssociationConnector Association="dbcasmulModel.FK_entrega_detalle_item" />
         <AssociationConnector Association="dbcasmulModel.FK_item_unidad_medida" />
         <AssociationConnector Association="dbcasmulModel.FK_mercaderia_detalle_item" />
         <AssociationConnector Association="dbcasmulModel.FK_movimiento_detalle_item" />
@@ -59,6 +54,13 @@
         <AssociationConnector Association="dbcasmulModel.FK_mercaderia_pedido" />
         <AssociationConnector Association="dbcasmulModel.FK_movimiento_detalle_movimiento" />
         <AssociationConnector Association="dbcasmulModel.FK_movimiento_requisa" />
+        <EntityTypeShape EntityType="dbcasmulModel.entrega" Width="1.5" PointX="22.875" PointY="20" />
+        <EntityTypeShape EntityType="dbcasmulModel.entrega_detalle" Width="1.5" PointX="25.125" PointY="14" />
+        <AssociationConnector Association="dbcasmulModel.FK_cable_por_entrega_entrega" />
+        <AssociationConnector Association="dbcasmulModel.FK_entrega_detalle_entrega" />
+        <AssociationConnector Association="dbcasmulModel.FK_entrega_finca" />
+        <AssociationConnector Association="dbcasmulModel.FK_entrega_grupo" />
+        <AssociationConnector Association="dbcasmulModel.FK_entrega_detalle_item" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

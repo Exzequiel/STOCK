@@ -21,6 +21,7 @@ namespace CASMUL.DB
             this.pedido = new HashSet<pedido>();
             this.requisa = new HashSet<requisa>();
             this.usuario = new HashSet<usuario>();
+            this.entrega = new HashSet<entrega>();
         }
     
         public int id_finca { get; set; }
@@ -35,5 +36,7 @@ namespace CASMUL.DB
         public virtual ICollection<requisa> requisa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuario> usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<entrega> entrega { get; set; }
     }
 }

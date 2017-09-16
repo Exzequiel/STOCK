@@ -107,6 +107,7 @@
     <Property Name="nro_entrega" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="fecha_transaccion" Type="date" Nullable="false" />
     <Property Name="id_finca" Type="int" Nullable="false" />
+    <Property Name="id_grupo" Type="int" />
     <Property Name="confirmado" Type="bit" Nullable="false" />
     <Property Name="solicitante" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="semana" Type="int" Nullable="false" />
@@ -418,6 +419,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_entrega_finca">
+    <End Role="finca" Type="Self.finca" Multiplicity="1" />
+    <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="finca">
+        <PropertyRef Name="id_finca" />
+      </Principal>
+      <Dependent Role="entrega">
+        <PropertyRef Name="id_finca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_entrega_grupo">
+    <End Role="grupo" Type="Self.grupo" Multiplicity="0..1" />
+    <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="grupo">
+        <PropertyRef Name="id_grupo" />
+      </Principal>
+      <Dependent Role="entrega">
+        <PropertyRef Name="id_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_grupo_finca">
     <End Role="finca" Type="Self.finca" Multiplicity="1" />
     <End Role="grupo" Type="Self.grupo" Multiplicity="*" />
@@ -710,6 +735,14 @@
     <AssociationSet Name="FK_entrega_detalle_item" Association="Self.FK_entrega_detalle_item">
       <End Role="item" EntitySet="item" />
       <End Role="entrega_detalle" EntitySet="entrega_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_entrega_finca" Association="Self.FK_entrega_finca">
+      <End Role="finca" EntitySet="finca" />
+      <End Role="entrega" EntitySet="entrega" />
+    </AssociationSet>
+    <AssociationSet Name="FK_entrega_grupo" Association="Self.FK_entrega_grupo">
+      <End Role="grupo" EntitySet="grupo" />
+      <End Role="entrega" EntitySet="entrega" />
     </AssociationSet>
     <AssociationSet Name="FK_grupo_finca" Association="Self.FK_grupo_finca">
       <End Role="finca" EntitySet="finca" />

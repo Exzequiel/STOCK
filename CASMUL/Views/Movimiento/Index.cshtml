@@ -1,7 +1,6 @@
 ﻿<div class="panel panel-inverse">
     <div class="panel-heading">
         <div class="panel-heading-btn">
-            <a href="~/@ViewBag.ControllerName/Crear" class="btn btn-xs btn-primary" data-original-title="Crear" title="Crear"><i class="fa fa-plus"></i> Crear Nuevo</a>
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
         </div>
         <h4 class="panel-title">@ViewBag.ControllerName</h4>
@@ -13,11 +12,11 @@
                     <th></th>
                     <th>Acciones</th>
                     <th># @ViewBag.ControllerName</th>
+                    <th># Requisa</th>
                     <th>Fecha Transaccion</th>
                     <th>Finca</th>
                     <th>Periodo</th>
                     <th>Semana</th>
-                    <th>Movimiento</th>
                     <th>Activo </th>
                 </tr>
             </thead>
@@ -34,7 +33,7 @@
        function Deshabilitar(Id) {
             swal({
                 html: "<hr>",
-                title: 'Esta seguro que desea <span class="text-danger">DESHABILITAR</span> la Requisa?',
+                title: 'Esta seguro que desea <span class="text-danger">DESHABILITAR</span> el movimiento?',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonText: 'Si',
@@ -57,22 +56,21 @@
                     },
                 });
             });
-       }
+        }
 
-        function CrearMovimiento(Id) {
+        function Editar(Id) {
             $.ajax({
-                url: '/Movimiento/Crear',
+                url: '/' + '@ViewBag.ControllerName' + '/Editar',
                 type: "get",
-                data: { IdRequisa: Id },
+                data: { Id: Id },
                 success: function (data) {
-                    ShowModalLG("Crear Movimiento", data);
+                    ShowModalLG("Editar "+ '@ViewBag.ControllerName', data);
                 },
                 error: function (data) {
                     swal(data.Titulo, data.Mensaje, 'error');
                 },
             });
         }
-
 
 
 
@@ -98,14 +96,15 @@
                     data: null,
                     render: function (data) {
                         var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="CrearMovimiento(' + data.id_requisa + ')"> Crear Movimiento</a></li>';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="/' + '@ViewBag.ControllerName' + '/Editar?Id=' + data.id_requisa + '"> Editar</a></li>';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id_requisa + ')"> Deshabilitar</a></li>';
+                        opciones += !data.activo ? '' : '<li><a href="javascript:void(0);" onclick="Editar(' + data.id + ')" > Editar</a></li>';
+                        opciones += !data.activo? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id + ')"> Deshabilitar</a></li>';
                         opciones += '</ul></div>';
                         return opciones;
                     }
                 },
-
+                {
+                    data: "nro_movimiento"
+                },
                 {
                     data: "nro_requisa"
                 },
@@ -116,7 +115,7 @@
                      }
                  },
                 {
-                    data: "finca"
+                    data: "NombreFinca"
                 },
                 {
                     data: "periodo"
@@ -124,12 +123,6 @@
                 {
                     data: "semana"
                 },
-                  {
-                      data: null,
-                      render: function (data) {
-                          return data.confirmado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i> Confirmado</span>' : '<span class="padding-5 label label-danger"><i class="fa fa-warning"></i> Pendiente</span>';
-                      }
-                  },
                 {
                     data: null,
                     render: function (data) {

@@ -77,10 +77,11 @@ namespace CASMUL.Controllers
         {
             using (var conexion = new dbcasmulEntities())
             {
-                ViewBag.ListaFinca = conexion.finca.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_finca.ToString(), Text = x.descripcion }).ToList();
+                var IdFinca = ObtenerIdFincaPorUsuario();
+                ViewBag.ListaGrupo = conexion.grupo.Where(x => x.activo && x.id_finca==IdFinca).Select(x => new SelectListItem { Value = x.id_grupo.ToString(), Text = x.descripcion }).ToList();
                 ViewBag.ListaCables = new List<SelectListItem>();
                 ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
-                return View( new CrearEntregaViewModel {nro_entrega=getConfiguracion("CorrelativoEntrega"), fecha_transaccion=DateTime.Now, semana=ObtenerSemana(), periodo=ObtenerPeriodo() });
+                return View( new CrearEntregaViewModel {nro_entrega=getConfiguracion("CorrelativoEntrega"), fecha_transaccion=DateTime.Now, semana=ObtenerSemana(), periodo=ObtenerPeriodo(), NombreFinca = ObtenerNombreFincaPorUsuario() });
             }
         }
 
@@ -92,7 +93,8 @@ namespace CASMUL.Controllers
                 var NuevaEntrega = context.entrega.Add(new entrega {
                     nro_entrega = getConfiguracion("CorrelativoEntrega"),
                     fecha_transaccion = DateTime.Now,
-                    id_finca = model.id_finca,
+                    id_finca = ObtenerIdFincaPorUsuario(),
+                    id_grupo = model.id_grupo,
                     solicitante = model.solicitante,
                     semana = ObtenerSemana(),
                     periodo = ObtenerPeriodo(),
@@ -123,11 +125,11 @@ namespace CASMUL.Controllers
             }
         }
 
-        public ActionResult ObtenerListaCablesPorFinca(int IdFinca)
+        public ActionResult ObtenerListaCablesPorGrupo(int IdGrupo)
         {
             using(var context = new dbcasmulEntities())
             {
-                var lista = context.cable.Where(x => x.grupo.id_finca == IdFinca).Select(x => new { id = x.id_cable, text = x.descripcion + " - " + x.grupo.descripcion }).ToList();
+                var lista = context.cable.Where(x => x.activo && x.id_grupo == IdGrupo).Select(x => new { id = x.id_cable, text = x.descripcion}).ToList();
                 return Json(new { list = lista}, JsonRequestBehavior.AllowGet);
             }
         }
@@ -160,16 +162,17 @@ namespace CASMUL.Controllers
             using(var context = new dbcasmulEntities())
             {
                 var ModelEntrega = context.entrega.Find(IdEntrega);
-                ViewBag.ListaFinca = context.finca.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_finca.ToString(), Text = x.descripcion }).ToList();
-                ViewBag.ListaCables = context.cable.Where(x => x.activo && x.grupo.id_finca==ModelEntrega.id_finca).Select(x => new SelectListItem { Value = x.id_cable.ToString(), Text = x.descripcion +" - "+x.grupo.descripcion }).ToList();
+                ViewBag.ListaGrupo = context.grupo.Where(x => x.activo && x.id_finca == ModelEntrega.id_finca).Select(x => new SelectListItem { Value = x.id_grupo.ToString(), Text = x.descripcion }).ToList();
+                ViewBag.ListaCables = context.cable.Where(x => x.activo && x.id_grupo==ModelEntrega.id_grupo).Select(x => new SelectListItem { Value = x.id_cable.ToString(), Text = x.descripcion}).ToList();
                 ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text =x.cod_item+" - "+ x.descripcion }).ToList();
 
                 return View("CrearEntrega", new CrearEntregaViewModel
                 {
                     id_entrega =ModelEntrega.id_entrega,
                     id_cable = ModelEntrega.cable_por_entrega.Select(x=>x.id_cable).ToArray(),
+                    id_grupo = ModelEntrega.id_grupo??0,
+                    NombreFinca = ModelEntrega.finca.descripcion,
                     fecha_transaccion = ModelEntrega.fecha_transaccion,
-                    id_finca = ModelEntrega.id_finca,
                     nro_entrega = ModelEntrega.nro_entrega,
                     semana = ModelEntrega.semana,
                     periodo = ModelEntrega.periodo,
@@ -185,7 +188,7 @@ namespace CASMUL.Controllers
             using (var context = new dbcasmulEntities())
             {
                 var ModelEntrega = context.entrega.Find(model.id_entrega);
-                ModelEntrega.id_finca = model.id_finca;
+                ModelEntrega.id_grupo = model.id_grupo;
                 ModelEntrega.solicitante = model.solicitante;
                 context.cable_por_entrega.RemoveRange(ModelEntrega.cable_por_entrega);
                 foreach(var idcable in model.id_cable) { context.cable_por_entrega.Add(new cable_por_entrega { id_cable = idcable, id_entrega = ModelEntrega.id_entrega }); }

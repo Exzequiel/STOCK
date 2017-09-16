@@ -47,6 +47,20 @@
         </div>
     </div>
 
+    <div id="MyModalLG" class="modal fade" role="dialog" data-backdrop='static' data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"> <big>&times;</big></button>
+                    <h4 class="modal-title" id="MyModalTitleLG">Modal Header</h4>
+                </div>
+                <div class="modal-body" id="MyModalBodyLG">
+                    <p>Some text in the modal.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="modalWaitingTime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="">
         <div class="modal-dialog" role="document" style="margin-top: 15%;">
             <div class="modal-body text-center">
@@ -213,8 +227,8 @@
                             <span>Compras</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index","Pedido")">Cables</a></li>
-                            <li><a href="javascript:;">Mercancías</a></li>
+                            <li><a href="@Url.Action("Index","Pedido")">Pedido</a></li>
+                            <li><a href="@Url.Action("Index","Mercancia")">Mercancia</a></li>
                         </ul>
                     </li>
 

@@ -57,6 +57,13 @@ function EliminarFila(boton)
 }
 
 
+function ShowModalLG(Titulo, data) {
+
+    $("#MyModalTitleLG").html(Titulo);
+    $("#MyModalBodyLG").html(data);
+    $("#MyModalLG").modal("show");
+}
+
 
 
 

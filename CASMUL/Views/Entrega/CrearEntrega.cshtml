@@ -19,6 +19,7 @@
             <thead>
                 <tr class="success">
                     <th class="text-center">Numero Entrega</th>
+                    <th class="text-center">Finca</th>
                     <th class="text-center">Fecha Transaccion</th>
                     <th class="text-center">Periodo</th>
                     <th class="text-center">Semana</th>
@@ -27,6 +28,7 @@
             <tbody>
                 <tr class="text-center">
                     <td>@Model.nro_entrega</td>
+                    <td>@Model.NombreFinca</td>
                     <td>@Model.fecha_transaccion.ToShortDateString()</td>
                     <td>@Model.periodo</td>
                     <td>@Model.semana</td>
@@ -39,9 +41,9 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.id_finca, htmlAttributes: new { @class = "control-label" })
-                            @Html.DropDownListFor(model => model.id_finca, ViewBag.ListaFinca as List<SelectListItem>, "", new { @class = "form-control select2", style = "width:100%;" })
-                            @Html.ValidationMessageFor(model => model.id_finca, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.id_grupo, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.id_grupo, ViewBag.ListaGrupo as List<SelectListItem>, "", new { @class = "form-control select2", style = "width:100%;" })
+                            @Html.ValidationMessageFor(model => model.id_grupo, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -120,12 +122,12 @@
         });
 
         //Cuando selecciona la finca carga los cables
-        $("#id_finca").on("select2:select", function (e) {
-            var IdFinca = $(this).val();
+        $("#id_grupo").on("select2:select", function (e) {
+            var Id = $(this).val();
             $.ajax({
-                url: "/Entrega/ObtenerListaCablesPorFinca",
+                url: "/Entrega/ObtenerListaCablesPorGrupo",
                 type: "Get",
-                data: { IdFinca:  IdFinca},
+                data: { IdGrupo:  Id},
                 success: function (data) {
                     $("#id_cable").empty();
                     $("#id_cable").select2({data: data.list}).trigger('change');
@@ -223,7 +225,7 @@
 
             var obj = {
                 id_entrega: @Model.id_entrega,
-                id_finca: $("#id_finca").val(),
+                id_grupo: $("#id_grupo").val(),
                 solicitante: $("#solicitante").val(),
                 id_cable : $("#id_cable").val(),
                 ListaDetalle: Tablelist

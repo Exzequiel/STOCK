@@ -208,6 +208,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovimientoController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RequisaController.cs" />
@@ -335,6 +336,8 @@
     <Compile Include="Models\Item\EditItemViewModel.cs" />
     <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Movimiento\CrearDetalleMovimientoViewModel.cs" />
+    <Compile Include="Models\Movimiento\CrearMovimientoViewModel.cs" />
     <Compile Include="Models\Pedido\CrearDetallePedidoViewModel.cs" />
     <Compile Include="Models\Pedido\CrearPedidoViewModel.cs" />
     <Compile Include="Models\Proveedores\ListaProveedorViewModel.cs" />
@@ -6712,11 +6715,13 @@
     <Content Include="Views\Pedido\Index.cshtml" />
     <Content Include="Views\Pedido\VerDetalleIndex.cshtml" />
     <Content Include="Views\Pedido\Crear.cshtml" />
+    <Content Include="Views\Movimiento\Crear.cshtml" />
+    <Content Include="Views\Movimiento\Index.cshtml" />
+    <Content Include="Views\Movimiento\VerDetalleIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\plugins\DataTables\extensions\FixedColumns\examples\integration\" />
-    <Folder Include="Models\NewFolder1\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

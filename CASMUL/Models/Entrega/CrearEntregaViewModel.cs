@@ -14,8 +14,8 @@ namespace CASMUL.Models.Entrega
         [Display(Name ="Fecha de Transaccion")]
         public DateTime fecha_transaccion { get; set; }
         [Required]
-        [Display(Name = "Finca")]
-        public int id_finca { get; set; }
+        [Display(Name = "Grupo")]
+        public int id_grupo { get; set; }
         [Required]
         public string solicitante { get; set; }
         [Required]
@@ -24,6 +24,7 @@ namespace CASMUL.Models.Entrega
 
         public int semana { get; set; }
         public int periodo { get; set; }
+        public string NombreFinca { get; set; }
 
         public List<CrearDetalleEntregaViewModel> ListaDetalle { get; set; }
 
