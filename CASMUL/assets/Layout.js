@@ -29,12 +29,12 @@ function ShowNotification(Estado, Titulo, Mensaje) {
 
 function LoadWaitNotification() {
     $("#modalWaitingTime").modal({ backdrop: 'static', keyboard: false }, "show");
-    $('#statusID').fadeIn();
+   // $('#statusID').fadeIn();
 }
 
 function UnloadWaitNotification() {
-    $("#modalWaitingTime").modal("hide");
-    $('#statusID').hide();
+   $("#modalWaitingTime").modal("hide");
+    //$('#statusID').hide();
 }
 
 $(document).bind("ajaxSend", function () {
@@ -47,6 +47,13 @@ $(document).bind("ajaxSend", function () {
 
 function str2bool(strvalue) {
     return (strvalue && typeof strvalue == 'string') ? (strvalue.toLowerCase() == 'true') : (strvalue == true);
+}
+
+function EliminarFila(boton)
+{
+    var tabla = new $.fn.dataTable.Api("#IdTabla");
+    var row = $(boton).closest("tr");
+    tabla.row(row).remove().draw(false);
 }
 
 

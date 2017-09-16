@@ -55,16 +55,6 @@ $('form').on('keyup keypress', function (e) {
     }
 });
 
-    $(document).on('keyup', "*[type=text]", function (e) {
-        $(this).val($(this).val().toUpperCase());
-    });
-    $(document).on('keyup', "*[type=email]", function (e) {
-        $(this).val($(this).val().toUpperCase());
-    });
-    $(document).on('keyup', "textarea", function (e) {
-        $(this).val($(this).val().toUpperCase());
-    });
-
     $(document).on('keyup', ".InputPorcentaje", function (e) {
         var valor = $(this).val();
         if (valor > 100) $(this).val(100);

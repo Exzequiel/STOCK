@@ -145,6 +145,7 @@
       <PropertyRef Name="id_item" />
     </Key>
     <Property Name="id_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cod_item" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="id_categoria" Type="int" Nullable="false" />
     <Property Name="id_unidad_medida" Type="int" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
@@ -225,6 +226,7 @@
       <PropertyRef Name="id_proveedor" />
     </Key>
     <Property Name="id_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cod_proveedor" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="nombre_proveedor" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="direccion" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />

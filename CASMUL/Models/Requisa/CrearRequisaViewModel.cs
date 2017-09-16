@@ -8,7 +8,7 @@ namespace CASMUL.Models.Requisa
 {
     public class CrearRequisaViewModel
     {
-        public int Id { get; set; }
+        public int id_requisa { get; set; }
         [Required]
         [Display(Name ="Numero Requisa")]
         public string nro_requisa { get; set; }

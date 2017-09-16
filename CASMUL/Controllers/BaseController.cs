@@ -45,6 +45,22 @@ namespace CASMUL.Controllers
             }
         }
 
+        public void SumarCorrelativo(string Nombre)
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                var configuracion= context.configuracion.FirstOrDefault(x => x.nombre == Nombre);
+                if (configuracion != null)
+                {
+                    var total = Convert.ToInt32(configuracion.valor) + 1;
+                    configuracion.valor = total.ToString();
+                    context.SaveChanges();
+                }
+
+
+            }
+        }
+
         public int ObtenerIdUsuario()
         {
             using (var context = new CASMUL.DB.dbcasmulEntities())
@@ -67,14 +83,16 @@ namespace CASMUL.Controllers
         public int ObtenerSemana()
         {
             decimal cantidadDias = (DateTime.Now - DateTime.Parse("2017-01-02")).Days;
-            return cantidadDias > 365 ? Convert.ToInt32(Math.Ceiling((cantidadDias % 365) / 7)) : Convert.ToInt32(Math.Ceiling(cantidadDias / 7));  
+            decimal semana= cantidadDias > 365 ? Convert.ToInt32(Math.Ceiling((cantidadDias % 365) / 7)) : Convert.ToInt32(Math.Ceiling(cantidadDias / 7));
+            return Convert.ToInt32(Math.Ceiling(semana%4)+1);
         }
 
         public int ObtenerPeriodo()
         {
-            return Convert.ToInt32( Math.Ceiling(Convert.ToDecimal(ObtenerSemana()) / 4));
+            decimal cantidadDias = (DateTime.Now - DateTime.Parse("2017-01-02")).Days;
+            decimal semana= cantidadDias > 365 ? Convert.ToInt32(Math.Ceiling((cantidadDias % 365) / 7)) : Convert.ToInt32(Math.Ceiling(cantidadDias / 7));
+            return Convert.ToInt32( Math.Ceiling(semana / 4));
         }
-
 
     }
 }

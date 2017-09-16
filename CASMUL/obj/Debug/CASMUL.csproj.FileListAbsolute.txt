@@ -160,3 +160,4 @@ C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.OAuth.x
 C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\betty\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveAssemblyReference.cache

@@ -13,6 +13,7 @@ namespace CASMUL
                 "~/assets/plugins/font-awesome/css/font-awesome.min.css",
                 "~/assets/css/animate.min.css",
                 "~/assets/css/style.min.css",
+                "~/assets/css/MyStyle.css",
                 "~/assets/css/style-responsive.min.css",
                 "~/assets/css/theme/default.css",
                 "~/assets/plugins/jquery-jvectormap/jquery-jvectormap.css",
@@ -21,7 +22,6 @@ namespace CASMUL
 
                  "~/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css",
                  "~/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css",
-
                  "~/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css",
                  "~/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css",
                  "~/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css",
@@ -58,6 +58,7 @@ namespace CASMUL
                       
                        "~/assets/js/apps.min.js",
 
+                       "~/assets/plugins/DataTables/media/js/jquery.js",
                        "~/assets/plugins/DataTables/media/js/jquery.dataTables.min.js",
                        "~/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js",
                        "~/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js",

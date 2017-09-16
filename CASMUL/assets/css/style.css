@@ -196,6 +196,10 @@ Website: http://www.seantheme.com/color-admin-v3.0/admin/html/
 
 /* 1.1 Reset and overrides */
 
+.dataTable tbody .shown {
+    background: rgba(205,209,98,.2)!important;
+}
+
 body,
 html {
     height: 100%;

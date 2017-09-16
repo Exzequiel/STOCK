@@ -10,20 +10,33 @@
         <div class="panel-heading-btn">
             <a href="~/Entrega/Index" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Ver Listado</a>
         </div>
-        <h4 class="panel-title">Nueva Entrega</h4>
+        @if (Model.EsEditar) { <h4 class="panel-title">Editar Entrega</h4> }
+        else {  <h4 class="panel-title">Nueva Entrega</h4>}
+       
     </div>
-    <div class="panel-body">
-        <form id="FormCrear">
+    <div class="panel-body p-0 ">
+        <table class="table table-bordered table-responsive" style="width: 100%;">
+            <thead>
+                <tr class="success">
+                    <th class="text-center">Numero Entrega</th>
+                    <th class="text-center">Fecha Transaccion</th>
+                    <th class="text-center">Periodo</th>
+                    <th class="text-center">Semana</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    <td>@Model.nro_entrega</td>
+                    <td>@Model.fecha_transaccion.ToShortDateString()</td>
+                    <td>@Model.periodo</td>
+                    <td>@Model.semana</td>
+                </tr>
+            </tbody>
+        </table>
+        <form id="FormCrear" class="p-15">
             <fieldset>
-                <legend class="pull-left width-full"><b class="text-info"># Entrega: @Model.nro_entrega</b><small class="pull-right">Periodo: @Model.periodo      Semana: @Model.semana</small></legend>
+                @*<legend class="pull-left width-full"><b class="text-info"># Entrega: @Model.nro_entrega</b><small class="pull-right">Periodo: @Model.periodo      Semana: @Model.semana</small></legend>*@
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.fecha_transaccion, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.fecha_transaccion, new { htmlAttributes = new { @class = "form-control", @Value = Model.fecha_transaccion.ToString("dd/MMMM/yyyy") } })
-                            @Html.ValidationMessageFor(model => model.fecha_transaccion, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.id_finca, htmlAttributes: new { @class = "control-label" })
@@ -31,7 +44,7 @@
                             @Html.ValidationMessageFor(model => model.id_finca, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <div class="form-group">
                             @Html.LabelFor(model => model.solicitante, htmlAttributes: new { @class = "control-label" })
                             @Html.EditorFor(model => model.solicitante, new { htmlAttributes = new { @class = "form-control" } })
@@ -43,7 +56,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             @Html.LabelFor(model => model.id_cable, htmlAttributes: new { @class = "control-label" })
-                            @Html.DropDownListFor(model => model.id_cable, ViewBag.ListaCables as List<SelectListItem>, new { @class = "form-control", @multiple = "multiple", style = "width:100%;" })
+                            @Html.ListBoxFor(model => model.id_cable, ViewBag.ListaCables as List<SelectListItem>, new { @class = "form-control", @multiple = "multiple", style = "width:100%;" })
                             @Html.ValidationMessageFor(model => model.id_cable, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -65,7 +78,7 @@
             </fieldset>
 
 
-            <table class="table table-bordered table-responsive table-hover" id="IdTabla" style="width: 100%;">
+            <table class="table table-bordered table-responsive" id="IdTabla" style="width: 100%;">
                 <thead>
                     <tr>
                         <th>Acciones</th>
@@ -89,7 +102,7 @@
                 <hr />
                 <div class="form-group">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-success pull-right" onclick="Guardar()">Crear Entrega</button>
+                        <button type="button" class="btn btn-success pull-right" onclick="Guardar()">Guardar Entrega</button>
                     </div>
                 </div>
             </div>
@@ -101,7 +114,6 @@
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $("#fecha_transaccion").datepicker({ format: 'dd/MM/yyyy' });
         $("select").select2({ placeholder: "- - Seleccionar - -"});
         $("select").on("select2:select", function (e) {
             $(this).valid();
@@ -126,6 +138,13 @@
         function AgregarFila()
         {
             var IdItem = $("#IdItem").val();
+            var table = $.fn.dataTable.Api("#IdTabla");
+            var validate = true;
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                if(this.data().id_item==IdItem) { validate = false; }
+            });
+            if(!validate){  ShowNotification(false,"Item ya seleccionado", "Seleccione otro"); return;}
+
             $.ajax({
                 url: "/Entrega/ObtenerInfoItem",
                 type: "Get",
@@ -137,20 +156,11 @@
             });
         }
 
-        function EliminarFila(boton)
-        {
-            var tabla = new $.fn.dataTable.Api("#IdTabla");
-            var row = $(boton).closest("tr");
-            tabla.row(row).remove().draw(false);
-        }
-
         $("#IdTabla tbody").on("keyup","tr input",function() {
             var tabla = $.fn.dataTable.Api("#IdTabla");
             DataFilaActual = tabla.row($(this).closest("tr")).data();
             DataFilaActual.cant_aentregar =  $(this).closest("tr").find("[name=InputCantidad]").val();
         });
-
-
 
         $("#IdTabla").dataTable({
             responsive: true,
@@ -213,7 +223,6 @@
 
             var obj = {
                 id_entrega: @Model.id_entrega,
-                fecha_transaccion: $("#fecha_transaccion").val(),
                 id_finca: $("#id_finca").val(),
                 solicitante: $("#solicitante").val(),
                 id_cable : $("#id_cable").val(),

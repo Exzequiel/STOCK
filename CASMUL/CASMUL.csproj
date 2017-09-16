@@ -335,6 +335,7 @@
     <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Proveedores\ListaProveedorViewModel.cs" />
+    <Compile Include="Models\Requisa\CrearDetalleRequisaViewModel.cs" />
     <Compile Include="Models\Requisa\CrearRequisaViewModel.cs" />
     <Compile Include="Models\Requisa\ListaRequisaViewModel.cs" />
     <Compile Include="Models\Roles\CrearRolViewModel.cs" />
@@ -386,6 +387,7 @@
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\invoice-print.css" />
     <Content Include="assets\css\invoice-print.min.css" />
+    <Content Include="assets\css\MyStyle.css" />
     <Content Include="assets\css\style-bs4.css" />
     <Content Include="assets\css\style-bs4.min.css" />
     <Content Include="assets\css\style-responsive.css" />
@@ -6700,10 +6702,12 @@
     <Content Include="Views\grupo2Test\Index.cshtml" />
     <Content Include="Views\Entrega\CrearEntrega.cshtml" />
     <Content Include="Views\Entrega\Index.cshtml" />
+    <Content Include="Views\Entrega\VerDetalleEntrega.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\plugins\DataTables\extensions\FixedColumns\examples\integration\" />
+    <Folder Include="Models\NewFolder1\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Requisa\" />
   </ItemGroup>

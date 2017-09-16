@@ -15,5 +15,6 @@ namespace CASMUL.Models.Entrega
         public int semana { get; set; }
         public int periodo { get; set; }
         public bool activo { get; set; }
+        public string finca { get; set; }
     }
 }

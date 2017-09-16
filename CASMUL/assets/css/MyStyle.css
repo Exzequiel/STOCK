@@ -1,0 +1,42 @@
+﻿
+.dataTable tbody .details-control {
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer
+}
+
+.dataTable tbody .details-control:before {
+    font-family: FontAwesome;
+    content: "";
+    font-size: 1.4em;
+    color: #739e73
+}
+
+.dataTable tbody .shown .details-control:before {
+    content: "";
+    color: #a90329
+}
+
+.dataTable tbody .shown+tr>td {
+    padding: 0!important
+}
+
+.dataTable tbody .shown {
+    background: rgba(205,209,98,.2)!important
+}
+
+.dataTable tbody .shown>td {
+    background: none!important
+}
+
+.dataTable tbody .shown+tr>td>table>tbody>tr:last-child {
+    border-bottom: 1px solid #c2c2c2
+}
+
+.dataTable tbody .shown+tr>td>table tbody tr {
+    background-color: rgba(205,209,98,.05)!important
+}
+
+.dataTable tbody .shown .table>tbody>tr>td {
+    border: none!important
+}

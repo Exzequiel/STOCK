@@ -13,7 +13,7 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.item.ToList().Select(x => new ListaItemViewModel { Unidad = x.unidad_medida.descripcion, Descripcion = x.descripcion, Categoria = x.categoria.descripcion, Activo = x.activo, IdItem = x.id_item, CantidadDisponible = x.cant_disponible }).ToList();
+                var list = contextCm.item.ToList().Select(x => new ListaItemViewModel { Unidad = x.unidad_medida.descripcion, Descripcion = x.descripcion, Categoria = x.categoria.descripcion, Activo = x.activo, IdItem = x.id_item, CantidadDisponible = x.cant_disponible, cod_item = x.cod_item }).ToList();
                 return View(list);
             }
 
@@ -39,7 +39,7 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    contextCm.item.Add(new item { descripcion = model.Descripcion, id_categoria = model.IdCategoria, id_unidad_medida = model.IdUnidad, activo = true, cant_disponible = model.CantidadDisponible});
+                    contextCm.item.Add(new item { descripcion = model.Descripcion, id_categoria = model.IdCategoria, id_unidad_medida = model.IdUnidad, activo = true, cant_disponible = model.CantidadDisponible, cod_item=model.cod_item});
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {
@@ -66,9 +66,11 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                ViewBag.SelectItem = contextCm.item.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_item.ToString(), Text = c.descripcion }).ToList();
+                ViewBag.SelectUnidad = contextCm.unidad_medida.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_unidad_medida.ToString(), Text = c.descripcion }).ToList();
+                ViewBag.SelectCategoria = contextCm.categoria.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_categoria.ToString(), Text = c.descripcion }).ToList();
+
                 var model = contextCm.item.FirstOrDefault(x => x.id_item == id);
-                return View(new EditItemViewModel {  IdItem = model.id_item,  Descripcion = model.descripcion, CantidadDisponible = model.cant_disponible });
+                return View(new EditItemViewModel {  IdItem = model.id_item,  Descripcion = model.descripcion, CantidadDisponible = model.cant_disponible, cod_item=model.cod_item });
             }
         }
         [HttpPost]
@@ -78,12 +80,17 @@ namespace CASMUL.Controllers
             {
                 try
                 {
+
+                    ViewBag.SelectUnidad = contextCm.unidad_medida.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_unidad_medida.ToString(), Text = c.descripcion }).ToList();
+                    ViewBag.SelectCategoria = contextCm.categoria.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_categoria.ToString(), Text = c.descripcion }).ToList();
+
                     if (!ModelState.IsValid) return View(model);
                     var modelDb = contextCm.item.FirstOrDefault(x => x.id_categoria == model.IdCategoria);
                     modelDb.descripcion = model.Descripcion;
                     modelDb.id_categoria = model.IdCategoria;
                     modelDb.id_unidad_medida = model.IdUnidad;
                     modelDb.cant_disponible = model.CantidadDisponible;
+                    modelDb.cod_item = model.cod_item;
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {

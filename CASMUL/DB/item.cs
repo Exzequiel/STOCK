@@ -25,6 +25,7 @@ namespace CASMUL.DB
         }
     
         public int id_item { get; set; }
+        public string cod_item { get; set; }
         public int id_categoria { get; set; }
         public int id_unidad_medida { get; set; }
         public string descripcion { get; set; }

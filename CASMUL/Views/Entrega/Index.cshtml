@@ -1,1 +1,190 @@
-﻿
+﻿<div class="panel panel-inverse">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="~/Entrega/CrearEntrega" class="btn btn-xs btn-primary" data-original-title="Crear Usuario" title="Crear Usuario"><i class="fa fa-plus"></i> Crear Nuevo</a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
+
+        </div>
+        <h4 class="panel-title">Entregas</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-responsive table-hover" id="IdTabla" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Acciones</th>
+                    <th># Entrega</th>
+                    <th>Solicitante</th>
+                    <th>Fecha Transaccion</th>
+                    <th>Finca</th>
+                    <th>Semana</th>
+                    <th>Periodo</th>
+                    <th>Estado</th>
+                    <th>Activo </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+
+        function ConfirmarEntrega(Id) {
+            swal({
+                html: "<hr>",
+                title: 'Esta seguro que desea <span class="text-primary">CONFIRMAR</span> la Entrega?',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                allowOutsideClick: false
+            }).then(function () {
+                $.ajax({
+                    url: '/Entrega/ConfirmarEntrega',
+                    type: "get",
+                    data: { Id: Id },
+                    success: function (data) {
+                        if (data.Estado) {
+                            $.fn.dataTable.Api("#IdTabla").ajax.reload().draw(false);
+                            swal(data.Titulo, data.Mensaje, 'success');
+                        }
+                        else {  swal(data.Titulo, data.Mensaje, 'error'); }
+                    },
+                    error: function (data) {
+                         swal(data.Titulo, data.Mensaje, 'error');
+                    },
+                });
+            });
+        }
+
+        function DeshabilitarEntrega(Id) {
+            swal({
+                html: "<hr>",
+                title: 'Esta seguro que desea <span class="text-danger">DESHABILITAR</span> la Entrega?',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                allowOutsideClick: false
+            }).then(function () {
+                $.ajax({
+                    url: '/Entrega/Deshabilitar',
+                    type: "get",
+                    data: { Id: Id },
+                    success: function (data) {
+                        if (data.Estado) {
+                            $.fn.dataTable.Api("#IdTabla").ajax.reload().draw(false);
+                            swal(data.Titulo, data.Mensaje, 'success');
+                        }
+                        else { swal(data.Titulo, data.Mensaje, 'error'); }
+                    },
+                    error: function (data) {
+                        swal(data.Titulo, data.Mensaje, 'error');
+                    },
+                });
+            });
+        }
+
+
+
+
+
+       var table= $("#IdTabla").dataTable({
+            responsive: true,
+            ajax: {
+                url: "@Url.Action("CargarTablaListaEntrega", "Entrega")",
+                global:false,
+                type: "GET",
+                dataSrc: function (data) {
+                    return data;
+                }
+            },
+           columns: [
+                {
+                    "className": 'details-control',
+                    "orderable": false,
+                    "data": null,
+                    "defaultContent": ''
+                },
+                {
+                    data: null,
+                    render: function (data) {
+                        var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                        opciones += !data.activo || data.confirmado?'':'<li><a href="/Entrega/EditarEntrega?IdEntrega=' + data.id_entrega + '"> Editar Entrega</a></li>';
+                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="ConfirmarEntrega(' + data.id_entrega + ')"> Confirmar Entrega</a></li>';
+                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="DeshabilitarEntrega(' + data.id_entrega + ')"> Deshabilitar</a></li>';
+                        opciones += '</ul></div>';
+                        return opciones;
+                    }
+                },
+
+                {
+                    data: "nro_entrega"
+                },
+
+                {
+                    data: "solicitante"
+                },
+                 {
+                     data: null,
+                     render: function (data) {
+                         return moment(data.fecha_transaccion).format("DD/MM/YYYY");
+                     }
+                 },
+                {
+                    data: "finca"
+                },
+                {
+                    data: "periodo"
+                },
+                {
+                    data: "semana"
+                },
+                  {
+                      data: null,
+                      render: function (data) {
+                          return data.confirmado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i> Confirmado</span>' : '<span class="padding-5 label label-danger"><i class="fa fa-warning"></i> Pendiente</span>';
+                      }
+                  },
+                {
+                    data: null,
+                    render: function (data) {
+                        return data.activo ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
+                    }
+                }
+            ]
+        });
+
+        $('#IdTabla tbody').on('click','td.details-control', function () {
+        var tabla = $.fn.dataTable.Api("#IdTabla");
+        var tr = $(this).closest('tr');
+        var row = tabla.row(tr);
+
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            tr.addClass('shown');
+            $.ajax({
+                url: '/Entrega/VerDetalleEntrega',
+                type: "get",
+                global: false,
+                data: { Id: row.data().id_entrega },
+                success: function (data) {
+                    row.child(data).show();
+                },
+                error: function (data) {
+                    alert("Error de red");
+                },
+            });
+
+        }
+    });
+
+
+    </script>
+}

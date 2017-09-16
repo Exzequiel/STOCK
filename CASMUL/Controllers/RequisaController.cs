@@ -21,7 +21,7 @@ namespace CASMUL.Controllers
             using (var context = new dbcasmulEntities())
             {
                 var list = context.requisa.Select(x => new ListaRequisaViewModel {
-                    Id = x.id_requisa,
+                    id_requisa = x.id_requisa,
                     nro_requisa = x.nro_requisa,
                     finca = x.finca.descripcion,
                     fecha_transaccion = x.fecha_transaccion,
@@ -71,7 +71,7 @@ namespace CASMUL.Controllers
             {
                 var model = context.requisa.Find(Id);
                 return View(new CrearRequisaViewModel {
-                    Id = model.id_requisa,
+                    id_requisa = model.id_requisa,
                     id_finca = model.id_finca,
                     fecha_transaccion = model.fecha_transaccion,
                     nro_requisa = model.nro_requisa,

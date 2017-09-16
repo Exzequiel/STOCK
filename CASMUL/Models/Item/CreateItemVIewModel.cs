@@ -23,5 +23,9 @@ namespace CASMUL.Models.Item
         [Display(Name = "Cantidad Disponible")]
         [Required]
         public int CantidadDisponible { get; set; }
+
+        [Display(Name = "Cod Item")]
+        [Required]
+        public string cod_item { get; set; }
     }
 }

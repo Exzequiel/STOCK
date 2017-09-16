@@ -21,6 +21,7 @@ namespace CASMUL.DB
         }
     
         public int id_proveedor { get; set; }
+        public string cod_proveedor { get; set; }
         public string nombre_proveedor { get; set; }
         public string direccion { get; set; }
         public string telefono { get; set; }

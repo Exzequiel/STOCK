@@ -162,18 +162,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="item">
-      <EntityTypeMapping TypeName="dbcasmulModel.item">
-        <MappingFragment StoreEntitySet="item">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="cant_disponible" ColumnName="cant_disponible" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-          <ScalarProperty Name="id_item" ColumnName="id_item" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="mercaderia">
       <EntityTypeMapping TypeName="dbcasmulModel.mercaderia">
         <MappingFragment StoreEntitySet="mercaderia">
@@ -249,23 +237,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="proveedor">
-      <EntityTypeMapping TypeName="dbcasmulModel.proveedor">
-        <MappingFragment StoreEntitySet="proveedor">
-          <ScalarProperty Name="activo" ColumnName="activo" />
-          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
-          <ScalarProperty Name="razon_social" ColumnName="razon_social" />
-          <ScalarProperty Name="giro" ColumnName="giro" />
-          <ScalarProperty Name="contacto" ColumnName="contacto" />
-          <ScalarProperty Name="rtn" ColumnName="rtn" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="telefono" ColumnName="telefono" />
-          <ScalarProperty Name="direccion" ColumnName="direccion" />
-          <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
-          <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="requisa">
       <EntityTypeMapping TypeName="dbcasmulModel.requisa">
         <MappingFragment StoreEntitySet="requisa">
@@ -324,6 +295,37 @@
           <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
           <ScalarProperty Name="IdAspnetUser" ColumnName="IdAspnetUser" />
           <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="proveedor">
+      <EntityTypeMapping TypeName="dbcasmulModel.proveedor">
+        <MappingFragment StoreEntitySet="proveedor">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+          <ScalarProperty Name="giro" ColumnName="giro" />
+          <ScalarProperty Name="contacto" ColumnName="contacto" />
+          <ScalarProperty Name="rtn" ColumnName="rtn" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
+          <ScalarProperty Name="cod_proveedor" ColumnName="cod_proveedor" />
+          <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="item">
+      <EntityTypeMapping TypeName="dbcasmulModel.item">
+        <MappingFragment StoreEntitySet="item">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="cant_disponible" ColumnName="cant_disponible" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <ScalarProperty Name="cod_item" ColumnName="cod_item" />
+          <ScalarProperty Name="id_item" ColumnName="id_item" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -30,7 +30,8 @@ namespace CASMUL.Controllers
                     solicitante = x.solicitante,
                     semana = x.semana,
                     periodo = x.periodo,
-                    activo = x.activo
+                    activo = x.activo,
+                    finca = x.id_finca.ToString()
                 }).ToList();
                 var jsonResult = Json(list, JsonRequestBehavior.AllowGet);
                 jsonResult.MaxJsonLength = Int32.MaxValue;
@@ -39,26 +40,27 @@ namespace CASMUL.Controllers
         }
 
         [HttpGet]
-        public ActionResult VerDetalleEntrega(int IdEntrega)
+        public ActionResult VerDetalleEntrega(int Id)
         {
-            ViewBag.IdEntrega = IdEntrega;
+            ViewBag.Id = Id;
             return PartialView();
+               
         }
 
         [HttpGet]
         public ActionResult CargarTablaDetalleEntrega(int IdEntrega)
         {
-            using(var context = new dbcasmulEntities())
+            using (var context = new dbcasmulEntities())
             {
-                var list = context.entrega_detalle.Where(x => x.id_entrega == IdEntrega).Select(x => new CrearDetalleEntregaViewModel {
+                var list = context.entrega_detalle.Where(x => x.id_entrega == IdEntrega && x.activo).Select(x => new CrearDetalleEntregaViewModel
+                {
                     id_entrega = x.id_entrega,
                     id_item = x.id_item,
                     id_detalle_entrega = x.id_detalle_entrega,
-                    nombre_item = x.item.descripcion,
                     cant_aentregar = x.cant_aentregar,
-                    cant_disponible = x.item.cant_disponible - x.item.entrega_detalle.Sum(z=>z.cant_aentregar),
+                    cant_disponible = x.item.cant_disponible - x.item.entrega_detalle.Sum(z => z.cant_aentregar),
                     categoria = x.item.categoria.descripcion,
-                    descripcion = x.item.descripcion,
+                    descripcion =x.item.cod_item+" - "+ x.item.descripcion,
                     unidad_medida = x.item.unidad_medida.descripcion,
                     activo = x.activo
                 }).ToList();
@@ -78,7 +80,7 @@ namespace CASMUL.Controllers
             {
                 ViewBag.ListaFinca = conexion.finca.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_finca.ToString(), Text = x.descripcion }).ToList();
                 ViewBag.ListaCables = new List<SelectListItem>();
-                ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.descripcion }).ToList();
+                ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
                 return View( new CrearEntregaViewModel {nro_entrega=getConfiguracion("CorrelativoEntrega"), fecha_transaccion=DateTime.Now, semana=ObtenerSemana(), periodo=ObtenerPeriodo() });
             }
         }
@@ -90,7 +92,7 @@ namespace CASMUL.Controllers
             {
                 var NuevaEntrega = context.entrega.Add(new entrega {
                     nro_entrega = getConfiguracion("CorrelativoEntrega"),
-                    fecha_transaccion = model.fecha_transaccion,
+                    fecha_transaccion = DateTime.Now,
                     id_finca = model.id_finca,
                     solicitante = model.solicitante,
                     semana = ObtenerSemana(),
@@ -117,6 +119,7 @@ namespace CASMUL.Controllers
                     });
                 }
                 var resultado = context.SaveChanges() > 0;
+                if (resultado) SumarCorrelativo("CorrelativoEntrega");
                 return Json(EnviarResultado(resultado, "Crear Entrega"), JsonRequestBehavior.AllowGet);
             }
         }
@@ -144,7 +147,7 @@ namespace CASMUL.Controllers
                     cant_disponible = model.cant_disponible - model.entrega_detalle.Sum(z => z.cant_aentregar),
                     categoria = model.categoria.descripcion,
                     unidad_medida = model.unidad_medida.descripcion,
-                    descripcion = model.descripcion,
+                    descripcion =model.cod_item+" - "+ model.descripcion,
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -157,7 +160,23 @@ namespace CASMUL.Controllers
         {
             using(var context = new dbcasmulEntities())
             {
-                return View();
+                var ModelEntrega = context.entrega.Find(IdEntrega);
+                ViewBag.ListaFinca = context.finca.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_finca.ToString(), Text = x.descripcion }).ToList();
+                ViewBag.ListaCables = context.cable.Where(x => x.activo && x.grupo.id_finca==ModelEntrega.id_finca).Select(x => new SelectListItem { Value = x.id_cable.ToString(), Text = x.descripcion +" - "+x.grupo.descripcion }).ToList();
+                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text =x.cod_item+" - "+ x.descripcion }).ToList();
+
+                return View("CrearEntrega", new CrearEntregaViewModel
+                {
+                    id_entrega =ModelEntrega.id_entrega,
+                    id_cable = ModelEntrega.cable_por_entrega.Select(x=>x.id_cable).ToArray(),
+                    fecha_transaccion = ModelEntrega.fecha_transaccion,
+                    id_finca = ModelEntrega.id_finca,
+                    nro_entrega = ModelEntrega.nro_entrega,
+                    semana = ModelEntrega.semana,
+                    periodo = ModelEntrega.periodo,
+                    solicitante = ModelEntrega.solicitante,
+                    EsEditar = true,
+                });
             }
         }
 
@@ -166,7 +185,31 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                return View();
+                var ModelEntrega = context.entrega.Find(model.id_entrega);
+                ModelEntrega.id_finca = model.id_finca;
+                ModelEntrega.solicitante = model.solicitante;
+                context.cable_por_entrega.RemoveRange(ModelEntrega.cable_por_entrega);
+                foreach(var idcable in model.id_cable) { context.cable_por_entrega.Add(new cable_por_entrega { id_cable = idcable, id_entrega = ModelEntrega.id_entrega }); }
+                ModelEntrega.entrega_detalle.ToList().ForEach(x => x.activo=false);
+                foreach(var detalle in model.ListaDetalle)
+                {
+                    if (ModelEntrega.entrega_detalle.Any(x => x.id_detalle_entrega == detalle.id_detalle_entrega))
+                    {
+                        var ModelDetalle= ModelEntrega.entrega_detalle.FirstOrDefault(x => x.id_detalle_entrega == detalle.id_detalle_entrega);
+                        ModelDetalle.activo = true;
+                        ModelDetalle.cant_aentregar = detalle.cant_aentregar;
+                    }else
+                    {
+                        context.entrega_detalle.Add(new entrega_detalle {
+                            id_entrega = ModelEntrega.id_entrega,
+                            id_item = detalle.id_item,
+                            cant_aentregar = detalle.cant_aentregar,
+                            activo = true,
+                        });
+                    }
+                }
+                var resultado = context.SaveChanges() > 0;
+                return Json(EnviarResultado(resultado, "Editar Entrega"), JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -184,11 +227,12 @@ namespace CASMUL.Controllers
         #endregion
 
         [HttpGet]
-        public ActionResult Deshabilitar(int IdEntrega)
+        public ActionResult Deshabilitar(int Id)
         {
             using(var context = new dbcasmulEntities())
             {
-                var model = context.entrega.Find(IdEntrega);
+                var model = context.entrega.Find(Id);
+                model.entrega_detalle.ToList().ForEach(x => { x.activo = false; });
                 model.activo = false;
                 var resultado = context.SaveChanges() > 0;
                 return Json(EnviarResultado(resultado, "Deshabilitar Entrega"), JsonRequestBehavior.AllowGet);
@@ -196,12 +240,16 @@ namespace CASMUL.Controllers
         }
 
         [HttpGet]
-        public ActionResult ConfirmarEntrega(int IdEntrega)
+        public ActionResult ConfirmarEntrega(int Id)
         {
             using (var context = new dbcasmulEntities())
             {
-                var model = context.entrega.Find(IdEntrega);
+                var model = context.entrega.Find(Id);
                 model.confirmado = true;
+                foreach(var detalle in model.entrega_detalle.Where(x=>x.activo).ToList())
+                {
+                    detalle.item.cant_disponible = detalle.item.cant_disponible - detalle.cant_aentregar;
+                }
                 var resultado = context.SaveChanges() > 0;
                 return Json(EnviarResultado(resultado, "Confirmar Entrega"), JsonRequestBehavior.AllowGet);
             }
