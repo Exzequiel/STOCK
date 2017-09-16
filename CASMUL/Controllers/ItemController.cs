@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using CASMUL.Models.Item;
 namespace CASMUL.Controllers
 {
+    [Authorize]
     public class ItemController : Controller
     {
         public ActionResult Index()

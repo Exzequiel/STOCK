@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace CASMUL.Controllers
 {
-    //[Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "administrador")]
     public class RoleController : Controller
     {
         // GET: Role

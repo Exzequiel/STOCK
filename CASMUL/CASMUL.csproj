@@ -203,7 +203,6 @@
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\EntregaController.cs" />
     <Compile Include="Controllers\FincasController.cs" />
-    <Compile Include="Controllers\grupo2TestController.cs" />
     <Compile Include="Controllers\GruposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />

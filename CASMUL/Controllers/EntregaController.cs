@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CASMUL.Controllers
 {
+    [Authorize]
     public class EntregaController : BaseController
     {
         #region Listar

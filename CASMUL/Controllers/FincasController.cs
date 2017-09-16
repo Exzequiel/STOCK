@@ -7,6 +7,7 @@ using CASMUL.DB;
 using CASMUL.Models.Fincas;
 namespace CASMUL.Controllers
 {
+    [Authorize]
     public class FincasController : Controller
     {
         public ActionResult Index()
