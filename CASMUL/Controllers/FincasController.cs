@@ -7,7 +7,7 @@ using CASMUL.DB;
 using CASMUL.Models.Fincas;
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class FincasController : Controller
     {
         public ActionResult Index()

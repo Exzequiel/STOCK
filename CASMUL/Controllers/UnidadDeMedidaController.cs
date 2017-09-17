@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using CASMUL.Models.UnidadDeMedida;
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class UnidadDeMedidaController : Controller
     {
         public ActionResult Index()

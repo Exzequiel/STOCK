@@ -11,7 +11,7 @@ using CASMUL.Models.Proveedores;
 
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class ProveedoresController : Controller
     {
         private dbcasmulEntities db = new dbcasmulEntities();

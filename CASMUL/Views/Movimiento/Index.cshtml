@@ -143,10 +143,10 @@
         } else {
             tr.addClass('shown');
             $.ajax({
-                url: '/'+'@ViewBag.ControllerName'+'/VerDetalleIndex',
+                url: '/Movimiento/VerDetalleIndex',
                 type: "get",
                 global: false,
-                data: { Id: row.data().id_requisa },
+                data: { Id: row.data().id },
                 success: function (data) {
                     row.child(data).show();
                 },

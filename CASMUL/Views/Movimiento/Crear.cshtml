@@ -3,7 +3,7 @@
         <table class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
                 <tr class="success">
-                    <th class="text-center">Numero @ViewBag.ControllerName</th>
+                    <th class="text-center">Numero Movimiento</th>
                     <th  class="text-center">Numero Requisa</th>
                     <th class="text-center">Finca</th>
                     <th class="text-center">Fecha Transaccion</th>
@@ -39,7 +39,7 @@
                 <hr />
                 <div class="form-group">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-success pull-right">Guardar @ViewBag.ControllerName</button>
+                        <button type="submit" class="btn btn-success pull-right">Guardar Movimiento</button>
                     </div>
                 </div>
             </div>
@@ -106,14 +106,14 @@
             });
 
             var obj = {
-                id_movimiento : @Model.id,
+                id : @Model.id,
                 id_requisa: @Model.id_requisa,
                 ListaDetalle: Tablelist
             }
 
-            var url = '/'+'@ViewBag.ControllerName'+'/Crear';
+            var url = '/Movimiento/Crear';
             if (str2bool('@Model.EsEditar')) {
-                url = '/'+'@ViewBag.ControllerName'+'/Editar';
+                url = '/Movimiento/Editar';
             }
             $.ajax({
                 url: url,

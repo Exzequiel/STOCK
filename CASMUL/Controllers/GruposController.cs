@@ -8,7 +8,7 @@ using CASMUL.Models.Grupos;
 
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class GruposController : Controller
     {
         public ActionResult Index()

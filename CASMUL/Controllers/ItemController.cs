@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using CASMUL.Models.Item;
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class ItemController : Controller
     {
         public ActionResult Index()

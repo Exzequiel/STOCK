@@ -207,6 +207,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MercaderiaController.cs" />
     <Compile Include="Controllers\MovimientoController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
@@ -335,6 +336,8 @@
     <Compile Include="Models\Item\EditItemViewModel.cs" />
     <Compile Include="Models\Item\ListaItemViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Mercaderia\CrearDetalleMercaderiaViewModel.cs" />
+    <Compile Include="Models\Mercaderia\CrearMercaderiaViewModel.cs" />
     <Compile Include="Models\Movimiento\CrearDetalleMovimientoViewModel.cs" />
     <Compile Include="Models\Movimiento\CrearMovimientoViewModel.cs" />
     <Compile Include="Models\Pedido\CrearDetallePedidoViewModel.cs" />
@@ -6717,6 +6720,9 @@
     <Content Include="Views\Movimiento\Crear.cshtml" />
     <Content Include="Views\Movimiento\Index.cshtml" />
     <Content Include="Views\Movimiento\VerDetalleIndex.cshtml" />
+    <Content Include="Views\Mercaderia\Index.cshtml" />
+    <Content Include="Views\Mercaderia\VerDetalleIndex.cshtml" />
+    <Content Include="Views\Mercaderia\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

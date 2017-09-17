@@ -1,7 +1,11 @@
-﻿<div class="panel panel-inverse">
+﻿
+@{
+    ViewBag.Title = "Mercaderia";
+}
+
+<div class="panel panel-inverse">
     <div class="panel-heading">
         <div class="panel-heading-btn">
-            <a href="~/@ViewBag.ControllerName/Crear" class="btn btn-xs btn-primary" data-original-title="Crear" title="Crear"><i class="fa fa-plus"></i> Crear Nuevo</a>
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
         </div>
         <h4 class="panel-title">@ViewBag.ControllerName</h4>
@@ -13,12 +17,12 @@
                     <th></th>
                     <th>Acciones</th>
                     <th># @ViewBag.ControllerName</th>
-                    <th>Proveedor</th>
+                    <th># Pedido</th>
                     <th>Fecha Transaccion</th>
+                    <th>Proveedor</th>
                     <th>Finca</th>
                     <th>Periodo</th>
                     <th>Semana</th>
-                    <th>Mercaderia</th>
                     <th>Activo </th>
                 </tr>
             </thead>
@@ -35,7 +39,7 @@
        function Deshabilitar(Id) {
             swal({
                 html: "<hr>",
-                title: 'Esta seguro que desea <span class="text-danger">DESHABILITAR</span> el Pedido?',
+                title: 'Esta seguro que desea <span class="text-danger">DESHABILITAR</span> la mercaderia?',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonText: 'Si',
@@ -58,25 +62,21 @@
                     },
                 });
             });
-       }
+        }
 
-        function CrearMercaderia(Id) {
+        function Editar(Id) {
             $.ajax({
-                url: '/Mercaderia/Crear',
+                url: '/' + '@ViewBag.ControllerName' + '/Editar',
                 type: "get",
-                data: { IdPedido: Id },
+                data: { Id: Id },
                 success: function (data) {
-                    ShowModalLG("Crear Mercaderia", data);
+                    ShowModalLG("Editar "+ '@ViewBag.ControllerName', data);
                 },
                 error: function (data) {
                     swal(data.Titulo, data.Mensaje, 'error');
                 },
             });
         }
-
-
-
-
 
        var table= $("#IdTabla").dataTable({
             responsive: true,
@@ -99,19 +99,17 @@
                     data: null,
                     render: function (data) {
                         var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="CrearMercaderia(' + data.id_pedido + ')"> Confirmar Mercaderia</a></li>';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="/' + '@ViewBag.ControllerName' + '/Editar?Id=' + data.id_pedido + '"> Editar</a></li>';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id_pedido + ')"> Deshabilitar</a></li>';
+                        opciones += !data.activo ? '' : '<li><a href="javascript:void(0);" onclick="Editar(' + data.id + ')" > Editar</a></li>';
+                        opciones += !data.activo? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id + ')"> Deshabilitar</a></li>';
                         opciones += '</ul></div>';
                         return opciones;
                     }
                 },
-
                 {
-                    data: "nro_pedido"
+                    data: "nro_mercaderia"
                 },
                 {
-                    data: "NombreProveedor"
+                    data: "nro_pedido"
                 },
                  {
                      data: null,
@@ -119,6 +117,9 @@
                          return moment(data.fecha_transaccion).format("DD/MM/YYYY");
                      }
                  },
+                {
+                    data: "NombreProveedor"
+                },
                 {
                     data: "NombreFinca"
                 },
@@ -128,12 +129,6 @@
                 {
                     data: "semana"
                 },
-                  {
-                      data: null,
-                      render: function (data) {
-                          return data.confirmado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i> Confirmado</span>' : '<span class="padding-5 label label-danger"><i class="fa fa-warning"></i> Pendiente</span>';
-                      }
-                  },
                 {
                     data: null,
                     render: function (data) {
@@ -157,7 +152,7 @@
                 url: '/'+'@ViewBag.ControllerName'+'/VerDetalleIndex',
                 type: "get",
                 global: false,
-                data: { Id: row.data().id_pedido },
+                data: { Id: row.data().id },
                 success: function (data) {
                     row.child(data).show();
                 },
@@ -172,5 +167,7 @@
 
     </script>
 }
+
+
 
 

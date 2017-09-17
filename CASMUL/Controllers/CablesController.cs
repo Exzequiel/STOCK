@@ -10,7 +10,7 @@ using CASMUL.Models.Fincas;
 
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class CablesController : Controller
     {
         public ActionResult Index()

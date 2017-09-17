@@ -1,0 +1,148 @@
+﻿@model CASMUL.Models.Mercaderia.CrearMercaderiaViewModel
+
+<table class="table table-bordered table-responsive" style="width: 100%;">
+    <thead>
+        <tr class="success">
+            <th class="text-center">Numero Mercaderia</th>
+            <th class="text-center">Numero Pedido</th>
+            <th class="text-center">Proveedor</th>
+            <th class="text-center">Finca</th>
+            <th class="text-center">Fecha Transaccion</th>
+            <th class="text-center">Periodo</th>
+            <th class="text-center">Semana</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center">
+            <td>@Model.nro_mercaderia</td>
+            <td>@Model.nro_pedido</td>
+            <td>@Model.NombreProveedor</td>
+            <td>@Model.NombreFinca</td>
+            <td>@Model.fecha_transaccion.ToShortDateString()</td>
+            <td>@Model.periodo</td>
+            <td>@Model.semana</td>
+        </tr>
+    </tbody>
+</table>
+<form id="FormCrear">
+    <table class="table table-bordered table-responsive" id="IdTablaDetalle" style="width: 100%;">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Descripcion Item</th>
+                <th>Cantidad Recibida</th>
+                <th>Cantidad Disponible</th>
+                <th>Categoria</th>
+                <th>Unidad de Medida</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="row">
+        <hr />
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-success pull-right">Guardar Mercaderia</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+        $("#IdTablaDetalle tbody").on("keyup","tr input",function() {
+            var tabla = $.fn.dataTable.Api("#IdTablaDetalle");
+            DataFilaActual = tabla.row($(this).closest("tr")).data();
+            DataFilaActual.cant_recibida =  $(this).closest("tr").find("[name=InputCantidad]").val();
+        });
+
+        var url =  "/Mercaderia/CargarTablaDetallePedido";
+        var data = {Id: @Model.id_pedido};
+        if(str2bool('@Model.EsEditar')){
+            url =  "/Mercaderia/CargarTablaDetalle";
+            data = {Id: @Model.id};
+        }
+
+        $("#IdTablaDetalle").dataTable({
+            responsive: true,
+            sDom:"",
+            ajax:{
+                url: url,
+                data: data,
+                type: "GET",
+                dataSrc: function (data) { return data; }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data) {
+                        var opciones = '<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                        opciones += ('<li><a href="javascript:void(0);" onclick="EliminarFila(this)"> Eliminar</a></li>');
+                        opciones += '</ul></div>';
+                        return opciones;
+                    }
+                },
+                {
+                    data: "descripcion"
+                },
+                  {
+                      data: null,
+                      render: function(data){
+                          return '<input type="number" name="InputCantidad" min="0" max="'+data.cant_recibida+'" class="form-control" required value="'+data.cant_recibida+'" /> ';
+                      }
+                  },
+
+                  {
+                      data: "cant_disponible"
+                  },
+                  {
+                      data: "categoria"
+                  },
+                  {
+                      data: "unidad_medida"
+                  }
+            ]
+        });
+
+        $("#FormCrear").removeAttr("novalidate");
+        $("#FormCrear").submit(function (event) {
+            event.preventDefault();
+            $("#FormCrear").removeAttr("novalidate");
+            var table = $.fn.dataTable.Api("#IdTablaDetalle");
+
+            var Tablelist = [];
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                Tablelist.push(data);
+            });
+
+            var obj = {
+                id : @Model.id,
+                id_pedido: @Model.id_pedido,
+                ListaDetalle: Tablelist
+            }
+
+            var url = '/Mercaderia/Crear';
+            if (str2bool('@Model.EsEditar')) {
+                url = '/Mercaderia/Editar';
+            }
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: JSON.stringify({ model: obj }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Estado) {
+                        $.fn.dataTable.Api("#IdTabla").ajax.reload().draw("false");
+                        $("#MyModalLG").modal("hide");
+                        swal(data.Titulo, data.Mensaje, 'success');
+                    }
+                    else  swal(data.Titulo,data.Mensaje, 'error' );
+                },
+                error: function (data) {
+                    alert("Error en red");
+                }
+            });
+        });
+</script>

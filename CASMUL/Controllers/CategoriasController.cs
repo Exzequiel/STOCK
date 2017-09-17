@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using CASMUL.Models.Categorias;
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class CategoriasController : Controller
     {
         public ActionResult Index()

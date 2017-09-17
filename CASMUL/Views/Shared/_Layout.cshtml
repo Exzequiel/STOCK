@@ -160,7 +160,8 @@
                         <ul class="sub-menu"></ul>
                     </li>
 
-                    @*@if (User.IsInRole("Administrador")) {*@
+                    @if (User.IsInRole("Administrador"))
+                    {
                     <li class="has-sub">
                         <a href="javascript:;">
                             <b class="caret pull-right"></b>
@@ -197,9 +198,9 @@
                             <span>Productos</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index","Categorias")">Categoría</a></li>
-                            <li><a href="@Url.Action("Index","UnidadDeMedida")">Unidad de Medida</a></li>
-                            <li><a href="@Url.Action("Index","Item")">ítems</a></li>
+                            <li><a href="@Url.Action("Index", "Categorias")">Categoría</a></li>
+                            <li><a href="@Url.Action("Index", "UnidadDeMedida")">Unidad de Medida</a></li>
+                            <li><a href="@Url.Action("Index", "Item")">ítems</a></li>
                         </ul>
                     </li>
 
@@ -212,12 +213,12 @@
                             <span>Zonas</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index","Fincas")">Fincas</a></li>
-                            <li><a href="@Url.Action("Index","Grupos")">Grupos</a></li>
-                            <li><a href="@Url.Action("Index","Cables")">Cables</a></li>
+                            <li><a href="@Url.Action("Index", "Fincas")">Fincas</a></li>
+                            <li><a href="@Url.Action("Index", "Grupos")">Grupos</a></li>
+                            <li><a href="@Url.Action("Index", "Cables")">Cables</a></li>
                         </ul>
                     </li>
-
+                    }
 
 
                     <li class="has-sub">
@@ -228,7 +229,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li><a href="@Url.Action("Index","Pedido")">Pedido</a></li>
-                            <li><a href="@Url.Action("Index","Mercancia")">Mercancia</a></li>
+                            <li><a href="@Url.Action("Index","Mercaderia")">Mercaderia</a></li>
                         </ul>
                     </li>
 
