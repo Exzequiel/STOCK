@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador,UsuarioFincaPrincipal")]
     public class MercaderiaController : BaseController
     {
         public MercaderiaController()

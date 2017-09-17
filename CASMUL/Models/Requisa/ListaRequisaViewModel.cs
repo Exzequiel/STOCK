@@ -21,5 +21,7 @@ namespace CASMUL.Models.Requisa
         public int periodo { get; set; }
         public bool activo { get; set; }
         public bool confirmado { get; set; }
+
+        public int IdFinca { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace CASMUL.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         public ActionResult Index()

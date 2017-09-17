@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace CASMUL.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador,UsuarioFincaPrincipal")]
     public class RequisaController : BaseController
     {
        public RequisaController()
@@ -34,8 +34,15 @@ namespace CASMUL.Controllers
                     semana = x.semana,
                     periodo = x.periodo,
                     activo = x.activo,
-                    confirmado = x.movimiento.Any(y=>y.activo)
+                    confirmado = x.movimiento.Any(y=>y.activo),
+                    IdFinca = x.id_finca
                 }).ToList();
+
+                if (Convert.ToInt32(getConfiguracion("Finca_IdFinca42")) != ObtenerIdFincaPorUsuario())
+                {
+                    var finca = ObtenerIdFincaPorUsuario();
+                    list = list.Where(x => x.IdFinca == finca).ToList();
+                }
 
                 var jsonResult = Json(list, JsonRequestBehavior.AllowGet);
                 jsonResult.MaxJsonLength = Int32.MaxValue;
