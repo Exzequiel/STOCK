@@ -40,6 +40,13 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
+                    if(contextCm.item.Any(x=>x.cod_item == model.cod_item.Trim()))
+                    {
+                        ModelState.AddModelError("", "Cod Item ya existente, escriba uno diferente");
+                        return View(model);
+
+                    }
+
                     contextCm.item.Add(new item { descripcion = model.Descripcion, id_categoria = model.IdCategoria, id_unidad_medida = model.IdUnidad, activo = true, cant_disponible = model.CantidadDisponible, cod_item=model.cod_item});
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
@@ -70,8 +77,8 @@ namespace CASMUL.Controllers
                 ViewBag.SelectUnidad = contextCm.unidad_medida.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_unidad_medida.ToString(), Text = c.descripcion }).ToList();
                 ViewBag.SelectCategoria = contextCm.categoria.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_categoria.ToString(), Text = c.descripcion }).ToList();
 
-                var model = contextCm.item.FirstOrDefault(x => x.id_item == id);
-                return View(new EditItemViewModel {  IdItem = model.id_item,  Descripcion = model.descripcion, CantidadDisponible = model.cant_disponible, cod_item=model.cod_item });
+                var model = contextCm.item.Find(id);
+                return View(new EditItemViewModel {  IdItem = model.id_item,  Descripcion = model.descripcion, CantidadDisponible = model.cant_disponible, cod_item=model.cod_item, IdCategoria = model.id_categoria, IdUnidad = model.id_unidad_medida });
             }
         }
         [HttpPost]
@@ -86,7 +93,12 @@ namespace CASMUL.Controllers
                     ViewBag.SelectCategoria = contextCm.categoria.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_categoria.ToString(), Text = c.descripcion }).ToList();
 
                     if (!ModelState.IsValid) return View(model);
-                    var modelDb = contextCm.item.FirstOrDefault(x => x.id_categoria == model.IdCategoria);
+                    if (contextCm.item.Where(x => x.id_item != model.IdItem).Any(x => x.cod_item == model.cod_item.Trim()))
+                    {
+                        ModelState.AddModelError("", "Cod item ya existente, escriba uno diferente");
+                        return View(model);
+                    }
+                    var modelDb = contextCm.item.FirstOrDefault(x => x.id_item == model.IdItem);
                     modelDb.descripcion = model.Descripcion;
                     modelDb.id_categoria = model.IdCategoria;
                     modelDb.id_unidad_medida = model.IdUnidad;

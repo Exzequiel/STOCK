@@ -14,7 +14,7 @@ namespace CASMUL.Controllers
         {
             using (var contextCm = new dbcasmulEntities())
             {
-                var list = contextCm.categoria.ToList().Select(x => new ListCategoriaViewModel { Descripcion = x.descripcion, Abreviatura = x.abreviatura, Activo = x.activo, IdCategoria = x.id_categoria });
+                var list = contextCm.categoria.ToList().Select(x => new ListCategoriaViewModel { Descripcion = x.descripcion, Activo = x.activo, IdCategoria = x.id_categoria });
                 return View(list);
             }
 
@@ -33,7 +33,13 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    contextCm.categoria.Add(new categoria { descripcion = model.Descripcion, abreviatura = model.Abreviatura, activo = true });
+                    if (contextCm.categoria.Any(x => x.descripcion == model.Descripcion.Trim()))
+                    {
+                        ModelState.AddModelError("", "Nombre Categoria ya existente, escriba uno diferente");
+                        return View(model);
+
+                    }
+                    contextCm.categoria.Add(new categoria { descripcion = model.Descripcion, activo = true });
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {
@@ -60,7 +66,7 @@ namespace CASMUL.Controllers
             using (var contextCm = new dbcasmulEntities())
             {
                 var model = contextCm.categoria.FirstOrDefault(x => x.id_categoria == id);
-                return View(new EditCategoriaViewModel { IdCategoria = model.id_categoria, Descripcion = model.descripcion, Abreviatura = model.abreviatura });
+                return View(new EditCategoriaViewModel { IdCategoria = model.id_categoria, Descripcion = model.descripcion });
             }
         }
         [HttpPost]
@@ -71,9 +77,13 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
+                    if (contextCm.categoria.Where(x => x.id_categoria != model.IdCategoria).Any(x => x.descripcion == model.Descripcion.Trim()))
+                    {
+                        ModelState.AddModelError("", "Descripcion Categoria ya existente, escriba uno diferente");
+                        return View(model);
+                    }
                     var modelDb = contextCm.categoria.FirstOrDefault(x => x.id_categoria == model.IdCategoria);
                     modelDb.descripcion = model.Descripcion;
-                    modelDb.abreviatura = model.Abreviatura;
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
                     {

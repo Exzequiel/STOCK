@@ -48,10 +48,11 @@ namespace CASMUL.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_proveedor,cod_proveedor,nombre_proveedor,direccion,telefono,email,rtn,contacto,giro,razon_social,ciudad,activo")] proveedor proveedor)
+        public ActionResult Create([Bind(Include = "id_proveedor,cod_proveedor,nombre_proveedor,direccion,telefono,email,rtn,contacto,giro,razon_social,ciudad")] proveedor proveedor)
         {
             if (ModelState.IsValid)
             {
+                proveedor.activo = true;
                 db.proveedor.Add(proveedor);
                 db.SaveChanges();
                 return RedirectToAction("Index");

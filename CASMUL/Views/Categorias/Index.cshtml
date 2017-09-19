@@ -20,9 +20,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Descripcion)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Abreviatura)
-                            </th>
+
                             <th></th>
                         </tr>
                     </thead>
@@ -32,9 +30,6 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Descripcion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Abreviatura)
                                 </td>
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.IdCategoria }) |

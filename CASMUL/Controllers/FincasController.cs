@@ -33,6 +33,13 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
+                    if (contextCm.finca.Any(x => x.descripcion == model.Description.Trim()))
+                    {
+                        ModelState.AddModelError("", "Descripcion Finca ya existente, escriba uno diferente");
+                        return View(model);
+
+                    }
+
                     contextCm.finca.Add(new finca { descripcion = model.Description, activo = true });
                     var result = contextCm.SaveChanges() > 0;
                     if (result)
@@ -71,6 +78,11 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
+                    if (contextCm.finca.Where(x=>x.id_finca!=model.IdFincas).Any(x => x.descripcion == model.Description.Trim()))
+                    {
+                        ModelState.AddModelError("", "Descripcion Finca ya existente, escriba uno diferente");
+                        return View(model);
+                    }
                     var modelDb = contextCm.finca.FirstOrDefault(x => x.id_finca == model.IdFincas);
                     modelDb.descripcion = model.Description;
                     var result = contextCm.SaveChanges() > 0;

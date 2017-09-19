@@ -65,7 +65,7 @@ namespace CASMUL.Controllers
                     id_item = x.id_item,
                     id_detalle_entrega = x.id_detalle_entrega,
                     cant_aentregar = x.cant_aentregar,
-                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
+                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (x.item.requisa_detalle.Any(y => y.activo) ? x.item.requisa_detalle.Where(y => y.activo).Sum(z => z.cant_enviada) : 0),
                     categoria = x.item.categoria.descripcion,
                     descripcion =x.item.cod_item+" - "+ x.item.descripcion,
                     unidad_medida = x.item.unidad_medida.descripcion,
@@ -88,7 +88,7 @@ namespace CASMUL.Controllers
                 var IdFinca = ObtenerIdFincaPorUsuario();
                 ViewBag.ListaGrupo = conexion.grupo.Where(x => x.activo && x.id_finca==IdFinca).Select(x => new SelectListItem { Value = x.id_grupo.ToString(), Text = x.descripcion }).ToList();
                 ViewBag.ListaCables = new List<SelectListItem>();
-                ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
+                ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible +" |" }).ToList();
                 return View( new CrearEntregaViewModel {nro_entrega=getConfiguracion("CorrelativoEntrega"), fecha_transaccion=DateTime.Now, semana=ObtenerSemana(), periodo=ObtenerPeriodo(), NombreFinca = ObtenerNombreFincaPorUsuario() });
             }
         }
@@ -153,7 +153,7 @@ namespace CASMUL.Controllers
                     cant_aentregar = 0,
                     id_entrega = 0,
                     id_item = IdItem,
-                    cant_disponible = model.cant_disponible - (model.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? model.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
+                    cant_disponible = model.cant_disponible - (model.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? model.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (model.requisa_detalle.Any(y => y.activo) ? model.requisa_detalle.Where(y => y.activo).Sum(z => z.cant_enviada) : 0),
                     categoria = model.categoria.descripcion,
                     unidad_medida = model.unidad_medida.descripcion,
                     descripcion =model.cod_item+" - "+ model.descripcion,
@@ -178,7 +178,7 @@ namespace CASMUL.Controllers
                 {
                     id_entrega =ModelEntrega.id_entrega,
                     id_cable = ModelEntrega.cable_por_entrega.Select(x=>x.id_cable).ToArray(),
-                    id_grupo = ModelEntrega.id_grupo??0,
+                    id_grupo = ModelEntrega.id_grupo,
                     NombreFinca = ModelEntrega.finca.descripcion,
                     fecha_transaccion = ModelEntrega.fecha_transaccion,
                     nro_entrega = ModelEntrega.nro_entrega,

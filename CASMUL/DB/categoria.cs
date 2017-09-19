@@ -21,7 +21,6 @@ namespace CASMUL.DB
         }
     
         public int id_categoria { get; set; }
-        public string abreviatura { get; set; }
         public string descripcion { get; set; }
         public bool activo { get; set; }
     

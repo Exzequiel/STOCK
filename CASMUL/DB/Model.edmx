@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbcasmulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbcasmulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -91,7 +91,6 @@
             <PropertyRef Name="id_categoria" />
           </Key>
           <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="abreviatura" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
@@ -112,7 +111,7 @@
           <Property Name="nro_entrega" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha_transaccion" Type="date" Nullable="false" />
           <Property Name="id_finca" Type="int" Nullable="false" />
-          <Property Name="id_grupo" Type="int" />
+          <Property Name="id_grupo" Type="int" Nullable="false" />
           <Property Name="confirmado" Type="bit" Nullable="false" />
           <Property Name="solicitante" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="semana" Type="int" Nullable="false" />
@@ -437,7 +436,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_entrega_grupo">
-          <End Role="grupo" Type="Self.grupo" Multiplicity="0..1" />
+          <End Role="grupo" Type="Self.grupo" Multiplicity="1" />
           <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="grupo">
@@ -826,10 +825,21 @@
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbcasmulModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -878,8 +888,250 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_AspNetUsers" FromRole="AspNetUsers" ToRole="usuario" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_AspNetUsers" FromRole="AspNetUsers" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="cable">
+          <Key>
+            <PropertyRef Name="id_cable" />
+          </Key>
+          <Property Name="id_cable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_grupo" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hectaria" Type="Decimal" Precision="8" Scale="4" Nullable="false" />
+          <Property Name="acres" Type="Decimal" Precision="8" Scale="4" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="grupo" Relationship="Self.FK_cable_grupo" FromRole="cable" ToRole="grupo" />
+          <NavigationProperty Name="cable_por_entrega" Relationship="Self.FK_cable_por_entrega_cable" FromRole="cable" ToRole="cable_por_entrega" />
+        </EntityType>
+        <EntityType Name="cable_por_entrega">
+          <Key>
+            <PropertyRef Name="id_cablePorEntrega" />
+          </Key>
+          <Property Name="id_cablePorEntrega" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_entrega" Type="Int32" Nullable="false" />
+          <Property Name="id_cable" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cable" Relationship="Self.FK_cable_por_entrega_cable" FromRole="cable_por_entrega" ToRole="cable" />
+          <NavigationProperty Name="entrega" Relationship="Self.FK_cable_por_entrega_entrega" FromRole="cable_por_entrega" ToRole="entrega" />
+        </EntityType>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="item" Relationship="Self.FK_item_categoria" FromRole="categoria" ToRole="item" />
+        </EntityType>
+        <EntityType Name="configuracion">
+          <Key>
+            <PropertyRef Name="id_configuracion" />
+          </Key>
+          <Property Name="id_configuracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="valor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="observacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="entrega">
+          <Key>
+            <PropertyRef Name="id_entrega" />
+          </Key>
+          <Property Name="id_entrega" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_entrega" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_finca" Type="Int32" Nullable="false" />
+          <Property Name="id_grupo" Type="Int32" Nullable="false" />
+          <Property Name="confirmado" Type="Boolean" Nullable="false" />
+          <Property Name="solicitante" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cable_por_entrega" Relationship="Self.FK_cable_por_entrega_entrega" FromRole="entrega" ToRole="cable_por_entrega" />
+          <NavigationProperty Name="entrega_detalle" Relationship="Self.FK_entrega_detalle_entrega" FromRole="entrega" ToRole="entrega_detalle" />
+          <NavigationProperty Name="finca" Relationship="Self.FK_entrega_finca" FromRole="entrega" ToRole="finca" />
+          <NavigationProperty Name="grupo" Relationship="Self.FK_entrega_grupo" FromRole="entrega" ToRole="grupo" />
+        </EntityType>
+        <EntityType Name="entrega_detalle">
+          <Key>
+            <PropertyRef Name="id_detalle_entrega" />
+          </Key>
+          <Property Name="id_detalle_entrega" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_entrega" Type="Int32" Nullable="false" />
+          <Property Name="id_item" Type="Int32" Nullable="false" />
+          <Property Name="cant_aentregar" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="entrega" Relationship="Self.FK_entrega_detalle_entrega" FromRole="entrega_detalle" ToRole="entrega" />
+          <NavigationProperty Name="item" Relationship="Self.FK_entrega_detalle_item" FromRole="entrega_detalle" ToRole="item" />
+        </EntityType>
+        <EntityType Name="finca">
+          <Key>
+            <PropertyRef Name="id_finca" />
+          </Key>
+          <Property Name="id_finca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="entrega" Relationship="Self.FK_entrega_finca" FromRole="finca" ToRole="entrega" />
+          <NavigationProperty Name="grupo" Relationship="Self.FK_grupo_finca" FromRole="finca" ToRole="grupo" />
+          <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_finca" FromRole="finca" ToRole="pedido" />
+          <NavigationProperty Name="requisa" Relationship="Self.FK_requisa_finca" FromRole="finca" ToRole="requisa" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_finca" FromRole="finca" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="grupo">
+          <Key>
+            <PropertyRef Name="id_grupo" />
+          </Key>
+          <Property Name="id_grupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_finca" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cable" Relationship="Self.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
+          <NavigationProperty Name="entrega" Relationship="Self.FK_entrega_grupo" FromRole="grupo" ToRole="entrega" />
+          <NavigationProperty Name="finca" Relationship="Self.FK_grupo_finca" FromRole="grupo" ToRole="finca" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="id_item" />
+          </Key>
+          <Property Name="id_item" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_item" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_categoria" Type="Int32" Nullable="false" />
+          <Property Name="id_unidad_medida" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cant_disponible" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="categoria" Relationship="Self.FK_item_categoria" FromRole="item" ToRole="categoria" />
+          <NavigationProperty Name="entrega_detalle" Relationship="Self.FK_entrega_detalle_item" FromRole="item" ToRole="entrega_detalle" />
+          <NavigationProperty Name="unidad_medida" Relationship="Self.FK_item_unidad_medida" FromRole="item" ToRole="unidad_medida" />
+          <NavigationProperty Name="mercaderia_detalle" Relationship="Self.FK_mercaderia_detalle_item" FromRole="item" ToRole="mercaderia_detalle" />
+          <NavigationProperty Name="movimiento_detalle" Relationship="Self.FK_movimiento_detalle_item" FromRole="item" ToRole="movimiento_detalle" />
+          <NavigationProperty Name="pedido_detalle" Relationship="Self.FK_pedido_detalle_item" FromRole="item" ToRole="pedido_detalle" />
+          <NavigationProperty Name="requisa_detalle" Relationship="Self.FK_requisa_detalle_item" FromRole="item" ToRole="requisa_detalle" />
+        </EntityType>
+        <EntityType Name="mercaderia">
+          <Key>
+            <PropertyRef Name="id_mercaderia" />
+          </Key>
+          <Property Name="id_mercaderia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_mercaderia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_pedido" Type="Int32" Nullable="false" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="mercaderia_detalle" Relationship="Self.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia" ToRole="mercaderia_detalle" />
+          <NavigationProperty Name="pedido" Relationship="Self.FK_mercaderia_pedido" FromRole="mercaderia" ToRole="pedido" />
+        </EntityType>
+        <EntityType Name="mercaderia_detalle">
+          <Key>
+            <PropertyRef Name="id_detalle_mercaderia" />
+          </Key>
+          <Property Name="id_detalle_mercaderia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_mercaderia" Type="Int32" Nullable="false" />
+          <Property Name="id_item" Type="Int32" Nullable="false" />
+          <Property Name="cant_recibida" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="item" Relationship="Self.FK_mercaderia_detalle_item" FromRole="mercaderia_detalle" ToRole="item" />
+          <NavigationProperty Name="mercaderia" Relationship="Self.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia_detalle" ToRole="mercaderia" />
+        </EntityType>
+        <EntityType Name="movimiento">
+          <Key>
+            <PropertyRef Name="id_movimiento" />
+          </Key>
+          <Property Name="id_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_movimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_requisa" Type="Int32" Nullable="false" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="movimiento_detalle" Relationship="Self.FK_movimiento_detalle_movimiento" FromRole="movimiento" ToRole="movimiento_detalle" />
+          <NavigationProperty Name="requisa" Relationship="Self.FK_movimiento_requisa" FromRole="movimiento" ToRole="requisa" />
+        </EntityType>
+        <EntityType Name="movimiento_detalle">
+          <Key>
+            <PropertyRef Name="id_detalle_movimiento" />
+          </Key>
+          <Property Name="id_detalle_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_movimiento" Type="Int32" Nullable="false" />
+          <Property Name="id_item" Type="Int32" Nullable="false" />
+          <Property Name="cant_enviada" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="item" Relationship="Self.FK_movimiento_detalle_item" FromRole="movimiento_detalle" ToRole="item" />
+          <NavigationProperty Name="movimiento" Relationship="Self.FK_movimiento_detalle_movimiento" FromRole="movimiento_detalle" ToRole="movimiento" />
+        </EntityType>
+        <EntityType Name="pedido">
+          <Key>
+            <PropertyRef Name="id_pedido" />
+          </Key>
+          <Property Name="id_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_pedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_finca" Type="Int32" Nullable="false" />
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="finca" Relationship="Self.FK_pedido_finca" FromRole="pedido" ToRole="finca" />
+          <NavigationProperty Name="mercaderia" Relationship="Self.FK_mercaderia_pedido" FromRole="pedido" ToRole="mercaderia" />
+          <NavigationProperty Name="pedido_detalle" Relationship="Self.FK_pedido_detalle_pedido" FromRole="pedido" ToRole="pedido_detalle" />
+          <NavigationProperty Name="proveedor" Relationship="Self.FK_pedido_proveedor" FromRole="pedido" ToRole="proveedor" />
+        </EntityType>
+        <EntityType Name="pedido_detalle">
+          <Key>
+            <PropertyRef Name="id_detalle_pedido" />
+          </Key>
+          <Property Name="id_detalle_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_pedido" Type="Int32" Nullable="false" />
+          <Property Name="id_item" Type="Int32" Nullable="false" />
+          <Property Name="cant_solicitada" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="item" Relationship="Self.FK_pedido_detalle_item" FromRole="pedido_detalle" ToRole="item" />
+          <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_detalle_pedido" FromRole="pedido_detalle" ToRole="pedido" />
+        </EntityType>
+        <EntityType Name="proveedor">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_proveedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_proveedor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rtn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contacto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="giro" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="razon_social" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ciudad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" />
+          <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_proveedor" FromRole="proveedor" ToRole="pedido" />
+        </EntityType>
+        <EntityType Name="requisa">
+          <Key>
+            <PropertyRef Name="id_requisa" />
+          </Key>
+          <Property Name="id_requisa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_requisa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_finca" Type="Int32" Nullable="false" />
+          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="semana" Type="Int32" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="finca" Relationship="Self.FK_requisa_finca" FromRole="requisa" ToRole="finca" />
+          <NavigationProperty Name="movimiento" Relationship="Self.FK_movimiento_requisa" FromRole="requisa" ToRole="movimiento" />
+          <NavigationProperty Name="requisa_detalle" Relationship="Self.FK_requisa_detalle_requisa" FromRole="requisa" ToRole="requisa_detalle" />
+        </EntityType>
+        <EntityType Name="requisa_detalle">
+          <Key>
+            <PropertyRef Name="id_detail_requisa" />
+          </Key>
+          <Property Name="id_detail_requisa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_requisa" Type="Int32" Nullable="false" />
+          <Property Name="id_item" Type="Int32" Nullable="false" />
+          <Property Name="cant_enviada" Type="Int32" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="item" Relationship="Self.FK_requisa_detalle_item" FromRole="requisa_detalle" ToRole="item" />
+          <NavigationProperty Name="requisa" Relationship="Self.FK_requisa_detalle_requisa" FromRole="requisa_detalle" ToRole="requisa" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -890,6 +1142,45 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tipo_usuario">
+          <Key>
+            <PropertyRef Name="id_tipo_usuario" />
+          </Key>
+          <Property Name="id_tipo_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_tipo_usuario" FromRole="tipo_usuario" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="unidad_medida">
+          <Key>
+            <PropertyRef Name="id_unidad_medida" />
+          </Key>
+          <Property Name="id_unidad_medida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="abreviatura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="item" Relationship="Self.FK_item_unidad_medida" FromRole="unidad_medida" ToRole="item" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAspnetUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_tipo_usuario" Type="Int32" />
+          <Property Name="id_finca" Type="Int32" />
+          <Property Name="identidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cuenta_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nro_telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_usuario_AspNetUsers" FromRole="usuario" ToRole="AspNetUsers" />
+          <NavigationProperty Name="finca" Relationship="Self.FK_usuario_finca" FromRole="usuario" ToRole="finca" />
+          <NavigationProperty Name="tipo_usuario" Relationship="Self.FK_usuario_tipo_usuario" FromRole="usuario" ToRole="tipo_usuario" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -919,354 +1210,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="dbcasmulEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="C__MigrationHistory" EntityType="dbcasmulModel.C__MigrationHistory" />
-          <EntitySet Name="configuracion" EntityType="dbcasmulModel.configuracion" />
-          <EntitySet Name="cable" EntityType="dbcasmulModel.cable" />
-          <EntitySet Name="cable_por_entrega" EntityType="dbcasmulModel.cable_por_entrega" />
-          <EntitySet Name="categoria" EntityType="dbcasmulModel.categoria" />
-          <EntitySet Name="finca" EntityType="dbcasmulModel.finca" />
-          <EntitySet Name="grupo" EntityType="dbcasmulModel.grupo" />
-          <EntitySet Name="mercaderia_detalle" EntityType="dbcasmulModel.mercaderia_detalle" />
-          <EntitySet Name="movimiento_detalle" EntityType="dbcasmulModel.movimiento_detalle" />
-          <EntitySet Name="pedido" EntityType="dbcasmulModel.pedido" />
-          <EntitySet Name="pedido_detalle" EntityType="dbcasmulModel.pedido_detalle" />
-          <EntitySet Name="requisa" EntityType="dbcasmulModel.requisa" />
-          <EntitySet Name="requisa_detalle" EntityType="dbcasmulModel.requisa_detalle" />
-          <EntitySet Name="tipo_usuario" EntityType="dbcasmulModel.tipo_usuario" />
-          <EntitySet Name="unidad_medida" EntityType="dbcasmulModel.unidad_medida" />
-          <EntitySet Name="usuario" EntityType="dbcasmulModel.usuario" />
-          <AssociationSet Name="FK_usuario_AspNetUsers" Association="dbcasmulModel.FK_usuario_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_cable_grupo" Association="dbcasmulModel.FK_cable_grupo">
-            <End Role="grupo" EntitySet="grupo" />
-            <End Role="cable" EntitySet="cable" />
-          </AssociationSet>
-          <AssociationSet Name="FK_cable_por_entrega_cable" Association="dbcasmulModel.FK_cable_por_entrega_cable">
-            <End Role="cable" EntitySet="cable" />
-            <End Role="cable_por_entrega" EntitySet="cable_por_entrega" />
-          </AssociationSet>
-          <AssociationSet Name="FK_grupo_finca" Association="dbcasmulModel.FK_grupo_finca">
-            <End Role="finca" EntitySet="finca" />
-            <End Role="grupo" EntitySet="grupo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_pedido_finca" Association="dbcasmulModel.FK_pedido_finca">
-            <End Role="finca" EntitySet="finca" />
-            <End Role="pedido" EntitySet="pedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK_requisa_finca" Association="dbcasmulModel.FK_requisa_finca">
-            <End Role="finca" EntitySet="finca" />
-            <End Role="requisa" EntitySet="requisa" />
-          </AssociationSet>
-          <AssociationSet Name="FK_usuario_finca" Association="dbcasmulModel.FK_usuario_finca">
-            <End Role="finca" EntitySet="finca" />
-            <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_pedido_detalle_pedido" Association="dbcasmulModel.FK_pedido_detalle_pedido">
-            <End Role="pedido" EntitySet="pedido" />
-            <End Role="pedido_detalle" EntitySet="pedido_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_requisa_detalle_requisa" Association="dbcasmulModel.FK_requisa_detalle_requisa">
-            <End Role="requisa" EntitySet="requisa" />
-            <End Role="requisa_detalle" EntitySet="requisa_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_usuario_tipo_usuario" Association="dbcasmulModel.FK_usuario_tipo_usuario">
-            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
-            <End Role="usuario" EntitySet="usuario" />
-          </AssociationSet>
-          <EntitySet Name="proveedor" EntityType="dbcasmulModel.proveedor" />
-          <AssociationSet Name="FK_pedido_proveedor" Association="dbcasmulModel.FK_pedido_proveedor">
-            <End Role="proveedor" EntitySet="proveedor" />
-            <End Role="pedido" EntitySet="pedido" />
-          </AssociationSet>
-          <EntitySet Name="item" EntityType="dbcasmulModel.item" />
-          <AssociationSet Name="FK_item_categoria" Association="dbcasmulModel.FK_item_categoria">
-            <End Role="categoria" EntitySet="categoria" />
-            <End Role="item" EntitySet="item" />
-          </AssociationSet>
-          <AssociationSet Name="FK_item_unidad_medida" Association="dbcasmulModel.FK_item_unidad_medida">
-            <End Role="unidad_medida" EntitySet="unidad_medida" />
-            <End Role="item" EntitySet="item" />
-          </AssociationSet>
-          <AssociationSet Name="FK_mercaderia_detalle_item" Association="dbcasmulModel.FK_mercaderia_detalle_item">
-            <End Role="item" EntitySet="item" />
-            <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movimiento_detalle_item" Association="dbcasmulModel.FK_movimiento_detalle_item">
-            <End Role="item" EntitySet="item" />
-            <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_pedido_detalle_item" Association="dbcasmulModel.FK_pedido_detalle_item">
-            <End Role="item" EntitySet="item" />
-            <End Role="pedido_detalle" EntitySet="pedido_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_requisa_detalle_item" Association="dbcasmulModel.FK_requisa_detalle_item">
-            <End Role="item" EntitySet="item" />
-            <End Role="requisa_detalle" EntitySet="requisa_detalle" />
-          </AssociationSet>
-          <EntitySet Name="mercaderia" EntityType="dbcasmulModel.mercaderia" />
-          <EntitySet Name="movimiento" EntityType="dbcasmulModel.movimiento" />
-          <AssociationSet Name="FK_mercaderia_detalle_mercaderia" Association="dbcasmulModel.FK_mercaderia_detalle_mercaderia">
-            <End Role="mercaderia" EntitySet="mercaderia" />
-            <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_mercaderia_pedido" Association="dbcasmulModel.FK_mercaderia_pedido">
-            <End Role="pedido" EntitySet="pedido" />
-            <End Role="mercaderia" EntitySet="mercaderia" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movimiento_detalle_movimiento" Association="dbcasmulModel.FK_movimiento_detalle_movimiento">
-            <End Role="movimiento" EntitySet="movimiento" />
-            <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movimiento_requisa" Association="dbcasmulModel.FK_movimiento_requisa">
-            <End Role="requisa" EntitySet="requisa" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <EntitySet Name="entrega" EntityType="dbcasmulModel.entrega" />
-          <EntitySet Name="entrega_detalle" EntityType="dbcasmulModel.entrega_detalle" />
-          <AssociationSet Name="FK_cable_por_entrega_entrega" Association="dbcasmulModel.FK_cable_por_entrega_entrega">
-            <End Role="entrega" EntitySet="entrega" />
-            <End Role="cable_por_entrega" EntitySet="cable_por_entrega" />
-          </AssociationSet>
-          <AssociationSet Name="FK_entrega_detalle_entrega" Association="dbcasmulModel.FK_entrega_detalle_entrega">
-            <End Role="entrega" EntitySet="entrega" />
-            <End Role="entrega_detalle" EntitySet="entrega_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_entrega_finca" Association="dbcasmulModel.FK_entrega_finca">
-            <End Role="finca" EntitySet="finca" />
-            <End Role="entrega" EntitySet="entrega" />
-          </AssociationSet>
-          <AssociationSet Name="FK_entrega_grupo" Association="dbcasmulModel.FK_entrega_grupo">
-            <End Role="grupo" EntitySet="grupo" />
-            <End Role="entrega" EntitySet="entrega" />
-          </AssociationSet>
-          <AssociationSet Name="FK_entrega_detalle_item" Association="dbcasmulModel.FK_entrega_detalle_item">
-            <End Role="item" EntitySet="item" />
-            <End Role="entrega_detalle" EntitySet="entrega_detalle" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="configuracion">
-          <Key>
-            <PropertyRef Name="id_configuracion" />
-          </Key>
-          <Property Name="id_configuracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="valor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="observacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="cable">
-          <Key>
-            <PropertyRef Name="id_cable" />
-          </Key>
-          <Property Name="id_cable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_grupo" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="hectaria" Type="Decimal" Nullable="false" Precision="8" Scale="4" />
-          <Property Name="acres" Type="Decimal" Nullable="false" Precision="8" Scale="4" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="cable" ToRole="grupo" />
-          <NavigationProperty Name="cable_por_entrega" Relationship="dbcasmulModel.FK_cable_por_entrega_cable" FromRole="cable" ToRole="cable_por_entrega" />
-        </EntityType>
-        <EntityType Name="cable_por_entrega">
-          <Key>
-            <PropertyRef Name="id_cablePorEntrega" />
-          </Key>
-          <Property Name="id_cablePorEntrega" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_entrega" Type="Int32" Nullable="false" />
-          <Property Name="id_cable" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_por_entrega_cable" FromRole="cable_por_entrega" ToRole="cable" />
-          <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_cable_por_entrega_entrega" FromRole="cable_por_entrega" ToRole="entrega" />
-        </EntityType>
-        <EntityType Name="categoria">
-          <Key>
-            <PropertyRef Name="id_categoria" />
-          </Key>
-          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="abreviatura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_item_categoria" FromRole="categoria" ToRole="item" />
-        </EntityType>
-        <EntityType Name="finca">
-          <Key>
-            <PropertyRef Name="id_finca" />
-          </Key>
-          <Property Name="id_finca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="finca" ToRole="grupo" />
-          <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_pedido_finca" FromRole="finca" ToRole="pedido" />
-          <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_requisa_finca" FromRole="finca" ToRole="requisa" />
-          <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_finca" FromRole="finca" ToRole="usuario" />
-          <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_finca" FromRole="finca" ToRole="entrega" />
-        </EntityType>
-        <EntityType Name="grupo">
-          <Key>
-            <PropertyRef Name="id_grupo" />
-          </Key>
-          <Property Name="id_grupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_finca" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="cable" Relationship="dbcasmulModel.FK_cable_grupo" FromRole="grupo" ToRole="cable" />
-          <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_grupo_finca" FromRole="grupo" ToRole="finca" />
-          <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_grupo" FromRole="grupo" ToRole="entrega" />
-        </EntityType>
-        <EntityType Name="mercaderia_detalle">
-          <Key>
-            <PropertyRef Name="id_detalle_mercaderia" />
-          </Key>
-          <Property Name="id_detalle_mercaderia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_mercaderia" Type="Int32" Nullable="false" />
-          <Property Name="id_item" Type="Int32" Nullable="false" />
-          <Property Name="cant_recibida" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_mercaderia_detalle_item" FromRole="mercaderia_detalle" ToRole="item" />
-          <NavigationProperty Name="mercaderia" Relationship="dbcasmulModel.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia_detalle" ToRole="mercaderia" />
-        </EntityType>
-        <EntityType Name="movimiento_detalle">
-          <Key>
-            <PropertyRef Name="id_detalle_movimiento" />
-          </Key>
-          <Property Name="id_detalle_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_movimiento" Type="Int32" Nullable="false" />
-          <Property Name="id_item" Type="Int32" Nullable="false" />
-          <Property Name="cant_enviada" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_movimiento_detalle_item" FromRole="movimiento_detalle" ToRole="item" />
-          <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_detalle_movimiento" FromRole="movimiento_detalle" ToRole="movimiento" />
-        </EntityType>
-        <EntityType Name="pedido">
-          <Key>
-            <PropertyRef Name="id_pedido" />
-          </Key>
-          <Property Name="id_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_pedido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id_finca" Type="Int32" Nullable="false" />
-          <Property Name="id_proveedor" Type="Int32" Nullable="false" />
-          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="semana" Type="Int32" Nullable="false" />
-          <Property Name="periodo" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_pedido_finca" FromRole="pedido" ToRole="finca" />
-          <NavigationProperty Name="pedido_detalle" Relationship="dbcasmulModel.FK_pedido_detalle_pedido" FromRole="pedido" ToRole="pedido_detalle" />
-          <NavigationProperty Name="proveedor" Relationship="dbcasmulModel.FK_pedido_proveedor" FromRole="pedido" ToRole="proveedor" />
-          <NavigationProperty Name="mercaderia" Relationship="dbcasmulModel.FK_mercaderia_pedido" FromRole="pedido" ToRole="mercaderia" />
-        </EntityType>
-        <EntityType Name="pedido_detalle">
-          <Key>
-            <PropertyRef Name="id_detalle_pedido" />
-          </Key>
-          <Property Name="id_detalle_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_pedido" Type="Int32" Nullable="false" />
-          <Property Name="id_item" Type="Int32" Nullable="false" />
-          <Property Name="cant_solicitada" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_pedido_detalle_pedido" FromRole="pedido_detalle" ToRole="pedido" />
-          <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_pedido_detalle_item" FromRole="pedido_detalle" ToRole="item" />
-        </EntityType>
-        <EntityType Name="requisa">
-          <Key>
-            <PropertyRef Name="id_requisa" />
-          </Key>
-          <Property Name="id_requisa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_requisa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id_finca" Type="Int32" Nullable="false" />
-          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="semana" Type="Int32" Nullable="false" />
-          <Property Name="periodo" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_requisa_finca" FromRole="requisa" ToRole="finca" />
-          <NavigationProperty Name="requisa_detalle" Relationship="dbcasmulModel.FK_requisa_detalle_requisa" FromRole="requisa" ToRole="requisa_detalle" />
-          <NavigationProperty Name="movimiento" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="requisa" ToRole="movimiento" />
-        </EntityType>
-        <EntityType Name="requisa_detalle">
-          <Key>
-            <PropertyRef Name="id_detail_requisa" />
-          </Key>
-          <Property Name="id_detail_requisa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_requisa" Type="Int32" Nullable="false" />
-          <Property Name="id_item" Type="Int32" Nullable="false" />
-          <Property Name="cant_enviada" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_requisa_detalle_requisa" FromRole="requisa_detalle" ToRole="requisa" />
-          <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_requisa_detalle_item" FromRole="requisa_detalle" ToRole="item" />
-        </EntityType>
-        <EntityType Name="tipo_usuario">
-          <Key>
-            <PropertyRef Name="id_tipo_usuario" />
-          </Key>
-          <Property Name="id_tipo_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="usuario" Relationship="dbcasmulModel.FK_usuario_tipo_usuario" FromRole="tipo_usuario" ToRole="usuario" />
-        </EntityType>
-        <EntityType Name="unidad_medida">
-          <Key>
-            <PropertyRef Name="id_unidad_medida" />
-          </Key>
-          <Property Name="id_unidad_medida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="abreviatura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_item_unidad_medida" FromRole="unidad_medida" ToRole="item" />
-        </EntityType>
-        <EntityType Name="usuario">
-          <Key>
-            <PropertyRef Name="id_usuario" />
-          </Key>
-          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdAspnetUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="id_tipo_usuario" Type="Int32" />
-          <Property Name="id_finca" Type="Int32" />
-          <Property Name="identidad" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="apellido" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="cuenta_usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="nro_telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="dbcasmulModel.FK_usuario_AspNetUsers" FromRole="usuario" ToRole="AspNetUsers" />
-          <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_usuario_finca" FromRole="usuario" ToRole="finca" />
-          <NavigationProperty Name="tipo_usuario" Relationship="dbcasmulModel.FK_usuario_tipo_usuario" FromRole="usuario" ToRole="tipo_usuario" />
-        </EntityType>
         <Association Name="FK_usuario_AspNetUsers">
-          <End Type="dbcasmulModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="dbcasmulModel.usuario" Role="usuario" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
@@ -1277,8 +1223,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_cable_grupo">
-          <End Type="dbcasmulModel.grupo" Role="grupo" Multiplicity="1" />
-          <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="*" />
+          <End Role="grupo" Type="Self.grupo" Multiplicity="1" />
+          <End Role="cable" Type="Self.cable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="grupo">
               <PropertyRef Name="id_grupo" />
@@ -1289,8 +1235,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_cable_por_entrega_cable">
-          <End Type="dbcasmulModel.cable" Role="cable" Multiplicity="1" />
-          <End Type="dbcasmulModel.cable_por_entrega" Role="cable_por_entrega" Multiplicity="*" />
+          <End Role="cable" Type="Self.cable" Multiplicity="1" />
+          <End Role="cable_por_entrega" Type="Self.cable_por_entrega" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cable">
               <PropertyRef Name="id_cable" />
@@ -1300,321 +1246,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_grupo_finca">
-          <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="1" />
-          <End Type="dbcasmulModel.grupo" Role="grupo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="finca">
-              <PropertyRef Name="id_finca" />
-            </Principal>
-            <Dependent Role="grupo">
-              <PropertyRef Name="id_finca" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_pedido_finca">
-          <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="1" />
-          <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="finca">
-              <PropertyRef Name="id_finca" />
-            </Principal>
-            <Dependent Role="pedido">
-              <PropertyRef Name="id_finca" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_requisa_finca">
-          <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="1" />
-          <End Type="dbcasmulModel.requisa" Role="requisa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="finca">
-              <PropertyRef Name="id_finca" />
-            </Principal>
-            <Dependent Role="requisa">
-              <PropertyRef Name="id_finca" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_usuario_finca">
-          <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="0..1" />
-          <End Type="dbcasmulModel.usuario" Role="usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="finca">
-              <PropertyRef Name="id_finca" />
-            </Principal>
-            <Dependent Role="usuario">
-              <PropertyRef Name="id_finca" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_pedido_detalle_pedido">
-          <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="1" />
-          <End Type="dbcasmulModel.pedido_detalle" Role="pedido_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="pedido">
-              <PropertyRef Name="id_pedido" />
-            </Principal>
-            <Dependent Role="pedido_detalle">
-              <PropertyRef Name="id_pedido" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_requisa_detalle_requisa">
-          <End Type="dbcasmulModel.requisa" Role="requisa" Multiplicity="1" />
-          <End Type="dbcasmulModel.requisa_detalle" Role="requisa_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="requisa">
-              <PropertyRef Name="id_requisa" />
-            </Principal>
-            <Dependent Role="requisa_detalle">
-              <PropertyRef Name="id_requisa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_usuario_tipo_usuario">
-          <End Type="dbcasmulModel.tipo_usuario" Role="tipo_usuario" Multiplicity="0..1" />
-          <End Type="dbcasmulModel.usuario" Role="usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tipo_usuario">
-              <PropertyRef Name="id_tipo_usuario" />
-            </Principal>
-            <Dependent Role="usuario">
-              <PropertyRef Name="id_tipo_usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="proveedor">
-          <Key>
-            <PropertyRef Name="id_proveedor" />
-          </Key>
-          <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cod_proveedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombre_proveedor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="rtn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="contacto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="giro" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="razon_social" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="ciudad" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" />
-          <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_pedido_proveedor" FromRole="proveedor" ToRole="pedido" />
-        </EntityType>
-        <Association Name="FK_pedido_proveedor">
-          <End Type="dbcasmulModel.proveedor" Role="proveedor" Multiplicity="1" />
-          <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="proveedor">
-              <PropertyRef Name="id_proveedor" />
-            </Principal>
-            <Dependent Role="pedido">
-              <PropertyRef Name="id_proveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="item">
-          <Key>
-            <PropertyRef Name="id_item" />
-          </Key>
-          <Property Name="id_item" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cod_item" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id_categoria" Type="Int32" Nullable="false" />
-          <Property Name="id_unidad_medida" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="cant_disponible" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="categoria" Relationship="dbcasmulModel.FK_item_categoria" FromRole="item" ToRole="categoria" />
-          <NavigationProperty Name="unidad_medida" Relationship="dbcasmulModel.FK_item_unidad_medida" FromRole="item" ToRole="unidad_medida" />
-          <NavigationProperty Name="mercaderia_detalle" Relationship="dbcasmulModel.FK_mercaderia_detalle_item" FromRole="item" ToRole="mercaderia_detalle" />
-          <NavigationProperty Name="movimiento_detalle" Relationship="dbcasmulModel.FK_movimiento_detalle_item" FromRole="item" ToRole="movimiento_detalle" />
-          <NavigationProperty Name="pedido_detalle" Relationship="dbcasmulModel.FK_pedido_detalle_item" FromRole="item" ToRole="pedido_detalle" />
-          <NavigationProperty Name="requisa_detalle" Relationship="dbcasmulModel.FK_requisa_detalle_item" FromRole="item" ToRole="requisa_detalle" />
-          <NavigationProperty Name="entrega_detalle" Relationship="dbcasmulModel.FK_entrega_detalle_item" FromRole="item" ToRole="entrega_detalle" />
-        </EntityType>
-        <Association Name="FK_item_categoria">
-          <End Type="dbcasmulModel.categoria" Role="categoria" Multiplicity="1" />
-          <End Type="dbcasmulModel.item" Role="item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="categoria">
-              <PropertyRef Name="id_categoria" />
-            </Principal>
-            <Dependent Role="item">
-              <PropertyRef Name="id_categoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_item_unidad_medida">
-          <End Type="dbcasmulModel.unidad_medida" Role="unidad_medida" Multiplicity="1" />
-          <End Type="dbcasmulModel.item" Role="item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="unidad_medida">
-              <PropertyRef Name="id_unidad_medida" />
-            </Principal>
-            <Dependent Role="item">
-              <PropertyRef Name="id_unidad_medida" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_mercaderia_detalle_item">
-          <End Type="dbcasmulModel.item" Role="item" Multiplicity="1" />
-          <End Type="dbcasmulModel.mercaderia_detalle" Role="mercaderia_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="item">
-              <PropertyRef Name="id_item" />
-            </Principal>
-            <Dependent Role="mercaderia_detalle">
-              <PropertyRef Name="id_item" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movimiento_detalle_item">
-          <End Type="dbcasmulModel.item" Role="item" Multiplicity="1" />
-          <End Type="dbcasmulModel.movimiento_detalle" Role="movimiento_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="item">
-              <PropertyRef Name="id_item" />
-            </Principal>
-            <Dependent Role="movimiento_detalle">
-              <PropertyRef Name="id_item" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_pedido_detalle_item">
-          <End Type="dbcasmulModel.item" Role="item" Multiplicity="1" />
-          <End Type="dbcasmulModel.pedido_detalle" Role="pedido_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="item">
-              <PropertyRef Name="id_item" />
-            </Principal>
-            <Dependent Role="pedido_detalle">
-              <PropertyRef Name="id_item" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_requisa_detalle_item">
-          <End Type="dbcasmulModel.item" Role="item" Multiplicity="1" />
-          <End Type="dbcasmulModel.requisa_detalle" Role="requisa_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="item">
-              <PropertyRef Name="id_item" />
-            </Principal>
-            <Dependent Role="requisa_detalle">
-              <PropertyRef Name="id_item" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="mercaderia">
-          <Key>
-            <PropertyRef Name="id_mercaderia" />
-          </Key>
-          <Property Name="id_mercaderia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_mercaderia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id_pedido" Type="Int32" Nullable="false" />
-          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="semana" Type="Int32" Nullable="false" />
-          <Property Name="periodo" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="mercaderia_detalle" Relationship="dbcasmulModel.FK_mercaderia_detalle_mercaderia" FromRole="mercaderia" ToRole="mercaderia_detalle" />
-          <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_mercaderia_pedido" FromRole="mercaderia" ToRole="pedido" />
-        </EntityType>
-        <EntityType Name="movimiento">
-          <Key>
-            <PropertyRef Name="id_movimiento" />
-          </Key>
-          <Property Name="id_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_movimiento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id_requisa" Type="Int32" Nullable="false" />
-          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="semana" Type="Int32" Nullable="false" />
-          <Property Name="periodo" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="movimiento_detalle" Relationship="dbcasmulModel.FK_movimiento_detalle_movimiento" FromRole="movimiento" ToRole="movimiento_detalle" />
-          <NavigationProperty Name="requisa" Relationship="dbcasmulModel.FK_movimiento_requisa" FromRole="movimiento" ToRole="requisa" />
-        </EntityType>
-        <Association Name="FK_mercaderia_detalle_mercaderia">
-          <End Type="dbcasmulModel.mercaderia" Role="mercaderia" Multiplicity="1" />
-          <End Type="dbcasmulModel.mercaderia_detalle" Role="mercaderia_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mercaderia">
-              <PropertyRef Name="id_mercaderia" />
-            </Principal>
-            <Dependent Role="mercaderia_detalle">
-              <PropertyRef Name="id_mercaderia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_mercaderia_pedido">
-          <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="1" />
-          <End Type="dbcasmulModel.mercaderia" Role="mercaderia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="pedido">
-              <PropertyRef Name="id_pedido" />
-            </Principal>
-            <Dependent Role="mercaderia">
-              <PropertyRef Name="id_pedido" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movimiento_detalle_movimiento">
-          <End Type="dbcasmulModel.movimiento" Role="movimiento" Multiplicity="1" />
-          <End Type="dbcasmulModel.movimiento_detalle" Role="movimiento_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movimiento">
-              <PropertyRef Name="id_movimiento" />
-            </Principal>
-            <Dependent Role="movimiento_detalle">
-              <PropertyRef Name="id_movimiento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movimiento_requisa">
-          <End Type="dbcasmulModel.requisa" Role="requisa" Multiplicity="1" />
-          <End Type="dbcasmulModel.movimiento" Role="movimiento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="requisa">
-              <PropertyRef Name="id_requisa" />
-            </Principal>
-            <Dependent Role="movimiento">
-              <PropertyRef Name="id_requisa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="entrega">
-          <Key>
-            <PropertyRef Name="id_entrega" />
-          </Key>
-          <Property Name="id_entrega" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nro_entrega" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fecha_transaccion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="id_finca" Type="Int32" Nullable="false" />
-          <Property Name="id_grupo" Type="Int32" />
-          <Property Name="confirmado" Type="Boolean" Nullable="false" />
-          <Property Name="solicitante" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="semana" Type="Int32" Nullable="false" />
-          <Property Name="periodo" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="cable_por_entrega" Relationship="dbcasmulModel.FK_cable_por_entrega_entrega" FromRole="entrega" ToRole="cable_por_entrega" />
-          <NavigationProperty Name="entrega_detalle" Relationship="dbcasmulModel.FK_entrega_detalle_entrega" FromRole="entrega" ToRole="entrega_detalle" />
-          <NavigationProperty Name="finca" Relationship="dbcasmulModel.FK_entrega_finca" FromRole="entrega" ToRole="finca" />
-          <NavigationProperty Name="grupo" Relationship="dbcasmulModel.FK_entrega_grupo" FromRole="entrega" ToRole="grupo" />
-        </EntityType>
-        <EntityType Name="entrega_detalle">
-          <Key>
-            <PropertyRef Name="id_detalle_entrega" />
-          </Key>
-          <Property Name="id_detalle_entrega" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_entrega" Type="Int32" Nullable="false" />
-          <Property Name="id_item" Type="Int32" Nullable="false" />
-          <Property Name="cant_aentregar" Type="Int32" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="entrega" Relationship="dbcasmulModel.FK_entrega_detalle_entrega" FromRole="entrega_detalle" ToRole="entrega" />
-          <NavigationProperty Name="item" Relationship="dbcasmulModel.FK_entrega_detalle_item" FromRole="entrega_detalle" ToRole="item" />
-        </EntityType>
         <Association Name="FK_cable_por_entrega_entrega">
-          <End Type="dbcasmulModel.entrega" Role="entrega" Multiplicity="1" />
-          <End Type="dbcasmulModel.cable_por_entrega" Role="cable_por_entrega" Multiplicity="*" />
+          <End Role="entrega" Type="Self.entrega" Multiplicity="1" />
+          <End Role="cable_por_entrega" Type="Self.cable_por_entrega" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="entrega">
               <PropertyRef Name="id_entrega" />
@@ -1624,9 +1258,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_item_categoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_entrega_detalle_entrega">
-          <End Type="dbcasmulModel.entrega" Role="entrega" Multiplicity="1" />
-          <End Type="dbcasmulModel.entrega_detalle" Role="entrega_detalle" Multiplicity="*" />
+          <End Role="entrega" Type="Self.entrega" Multiplicity="1" />
+          <End Role="entrega_detalle" Type="Self.entrega_detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="entrega">
               <PropertyRef Name="id_entrega" />
@@ -1637,8 +1283,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_entrega_finca">
-          <End Type="dbcasmulModel.finca" Role="finca" Multiplicity="1" />
-          <End Type="dbcasmulModel.entrega" Role="entrega" Multiplicity="*" />
+          <End Role="finca" Type="Self.finca" Multiplicity="1" />
+          <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="finca">
               <PropertyRef Name="id_finca" />
@@ -1649,8 +1295,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_entrega_grupo">
-          <End Type="dbcasmulModel.grupo" Role="grupo" Multiplicity="0..1" />
-          <End Type="dbcasmulModel.entrega" Role="entrega" Multiplicity="*" />
+          <End Role="grupo" Type="Self.grupo" Multiplicity="1" />
+          <End Role="entrega" Type="Self.entrega" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="grupo">
               <PropertyRef Name="id_grupo" />
@@ -1661,8 +1307,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_entrega_detalle_item">
-          <End Type="dbcasmulModel.item" Role="item" Multiplicity="1" />
-          <End Type="dbcasmulModel.entrega_detalle" Role="entrega_detalle" Multiplicity="*" />
+          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="entrega_detalle" Type="Self.entrega_detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="item">
               <PropertyRef Name="id_item" />
@@ -1672,12 +1318,375 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <Association Name="FK_grupo_finca">
+          <End Role="finca" Type="Self.finca" Multiplicity="1" />
+          <End Role="grupo" Type="Self.grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="finca">
+              <PropertyRef Name="id_finca" />
+            </Principal>
+            <Dependent Role="grupo">
+              <PropertyRef Name="id_finca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_finca">
+          <End Role="finca" Type="Self.finca" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="finca">
+              <PropertyRef Name="id_finca" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="id_finca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requisa_finca">
+          <End Role="finca" Type="Self.finca" Multiplicity="1" />
+          <End Role="requisa" Type="Self.requisa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="finca">
+              <PropertyRef Name="id_finca" />
+            </Principal>
+            <Dependent Role="requisa">
+              <PropertyRef Name="id_finca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_finca">
+          <End Role="finca" Type="Self.finca" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="finca">
+              <PropertyRef Name="id_finca" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="id_finca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_unidad_medida">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="id_unidad_medida" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="id_unidad_medida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mercaderia_detalle_item">
+          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="mercaderia_detalle" Type="Self.mercaderia_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id_item" />
+            </Principal>
+            <Dependent Role="mercaderia_detalle">
+              <PropertyRef Name="id_item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movimiento_detalle_item">
+          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="movimiento_detalle" Type="Self.movimiento_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id_item" />
+            </Principal>
+            <Dependent Role="movimiento_detalle">
+              <PropertyRef Name="id_item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_detalle_item">
+          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="pedido_detalle" Type="Self.pedido_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id_item" />
+            </Principal>
+            <Dependent Role="pedido_detalle">
+              <PropertyRef Name="id_item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requisa_detalle_item">
+          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id_item" />
+            </Principal>
+            <Dependent Role="requisa_detalle">
+              <PropertyRef Name="id_item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mercaderia_detalle_mercaderia">
+          <End Role="mercaderia" Type="Self.mercaderia" Multiplicity="1" />
+          <End Role="mercaderia_detalle" Type="Self.mercaderia_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mercaderia">
+              <PropertyRef Name="id_mercaderia" />
+            </Principal>
+            <Dependent Role="mercaderia_detalle">
+              <PropertyRef Name="id_mercaderia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mercaderia_pedido">
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="mercaderia" Type="Self.mercaderia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedido">
+              <PropertyRef Name="id_pedido" />
+            </Principal>
+            <Dependent Role="mercaderia">
+              <PropertyRef Name="id_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movimiento_detalle_movimiento">
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="1" />
+          <End Role="movimiento_detalle" Type="Self.movimiento_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movimiento">
+              <PropertyRef Name="id_movimiento" />
+            </Principal>
+            <Dependent Role="movimiento_detalle">
+              <PropertyRef Name="id_movimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movimiento_requisa">
+          <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requisa">
+              <PropertyRef Name="id_requisa" />
+            </Principal>
+            <Dependent Role="movimiento">
+              <PropertyRef Name="id_requisa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_detalle_pedido">
+          <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
+          <End Role="pedido_detalle" Type="Self.pedido_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedido">
+              <PropertyRef Name="id_pedido" />
+            </Principal>
+            <Dependent Role="pedido_detalle">
+              <PropertyRef Name="id_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pedido_proveedor">
+          <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requisa_detalle_requisa">
+          <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
+          <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requisa">
+              <PropertyRef Name="id_requisa" />
+            </Principal>
+            <Dependent Role="requisa_detalle">
+              <PropertyRef Name="id_requisa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_tipo_usuario">
+          <End Role="tipo_usuario" Type="Self.tipo_usuario" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_usuario">
+              <PropertyRef Name="id_tipo_usuario" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="id_tipo_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="dbcasmulEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="cable" EntityType="Self.cable" />
+          <EntitySet Name="cable_por_entrega" EntityType="Self.cable_por_entrega" />
+          <EntitySet Name="categoria" EntityType="Self.categoria" />
+          <EntitySet Name="configuracion" EntityType="Self.configuracion" />
+          <EntitySet Name="entrega" EntityType="Self.entrega" />
+          <EntitySet Name="entrega_detalle" EntityType="Self.entrega_detalle" />
+          <EntitySet Name="finca" EntityType="Self.finca" />
+          <EntitySet Name="grupo" EntityType="Self.grupo" />
+          <EntitySet Name="item" EntityType="Self.item" />
+          <EntitySet Name="mercaderia" EntityType="Self.mercaderia" />
+          <EntitySet Name="mercaderia_detalle" EntityType="Self.mercaderia_detalle" />
+          <EntitySet Name="movimiento" EntityType="Self.movimiento" />
+          <EntitySet Name="movimiento_detalle" EntityType="Self.movimiento_detalle" />
+          <EntitySet Name="pedido" EntityType="Self.pedido" />
+          <EntitySet Name="pedido_detalle" EntityType="Self.pedido_detalle" />
+          <EntitySet Name="proveedor" EntityType="Self.proveedor" />
+          <EntitySet Name="requisa" EntityType="Self.requisa" />
+          <EntitySet Name="requisa_detalle" EntityType="Self.requisa_detalle" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tipo_usuario" EntityType="Self.tipo_usuario" />
+          <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_AspNetUsers" Association="Self.FK_usuario_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cable_grupo" Association="Self.FK_cable_grupo">
+            <End Role="grupo" EntitySet="grupo" />
+            <End Role="cable" EntitySet="cable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cable_por_entrega_cable" Association="Self.FK_cable_por_entrega_cable">
+            <End Role="cable" EntitySet="cable" />
+            <End Role="cable_por_entrega" EntitySet="cable_por_entrega" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cable_por_entrega_entrega" Association="Self.FK_cable_por_entrega_entrega">
+            <End Role="entrega" EntitySet="entrega" />
+            <End Role="cable_por_entrega" EntitySet="cable_por_entrega" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_categoria" Association="Self.FK_item_categoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entrega_detalle_entrega" Association="Self.FK_entrega_detalle_entrega">
+            <End Role="entrega" EntitySet="entrega" />
+            <End Role="entrega_detalle" EntitySet="entrega_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entrega_finca" Association="Self.FK_entrega_finca">
+            <End Role="finca" EntitySet="finca" />
+            <End Role="entrega" EntitySet="entrega" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entrega_grupo" Association="Self.FK_entrega_grupo">
+            <End Role="grupo" EntitySet="grupo" />
+            <End Role="entrega" EntitySet="entrega" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entrega_detalle_item" Association="Self.FK_entrega_detalle_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="entrega_detalle" EntitySet="entrega_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_grupo_finca" Association="Self.FK_grupo_finca">
+            <End Role="finca" EntitySet="finca" />
+            <End Role="grupo" EntitySet="grupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_finca" Association="Self.FK_pedido_finca">
+            <End Role="finca" EntitySet="finca" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requisa_finca" Association="Self.FK_requisa_finca">
+            <End Role="finca" EntitySet="finca" />
+            <End Role="requisa" EntitySet="requisa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_finca" Association="Self.FK_usuario_finca">
+            <End Role="finca" EntitySet="finca" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_unidad_medida" Association="Self.FK_item_unidad_medida">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mercaderia_detalle_item" Association="Self.FK_mercaderia_detalle_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movimiento_detalle_item" Association="Self.FK_movimiento_detalle_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_detalle_item" Association="Self.FK_pedido_detalle_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="pedido_detalle" EntitySet="pedido_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requisa_detalle_item" Association="Self.FK_requisa_detalle_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="requisa_detalle" EntitySet="requisa_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mercaderia_detalle_mercaderia" Association="Self.FK_mercaderia_detalle_mercaderia">
+            <End Role="mercaderia" EntitySet="mercaderia" />
+            <End Role="mercaderia_detalle" EntitySet="mercaderia_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mercaderia_pedido" Association="Self.FK_mercaderia_pedido">
+            <End Role="pedido" EntitySet="pedido" />
+            <End Role="mercaderia" EntitySet="mercaderia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movimiento_detalle_movimiento" Association="Self.FK_movimiento_detalle_movimiento">
+            <End Role="movimiento" EntitySet="movimiento" />
+            <End Role="movimiento_detalle" EntitySet="movimiento_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movimiento_requisa" Association="Self.FK_movimiento_requisa">
+            <End Role="requisa" EntitySet="requisa" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_detalle_pedido" Association="Self.FK_pedido_detalle_pedido">
+            <End Role="pedido" EntitySet="pedido" />
+            <End Role="pedido_detalle" EntitySet="pedido_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pedido_proveedor" Association="Self.FK_pedido_proveedor">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requisa_detalle_requisa" Association="Self.FK_requisa_detalle_requisa">
+            <End Role="requisa" EntitySet="requisa" />
+            <End Role="requisa_detalle" EntitySet="requisa_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_tipo_usuario" Association="Self.FK_usuario_tipo_usuario">
+            <End Role="tipo_usuario" EntitySet="tipo_usuario" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbcasmulModelStoreContainer" CdmEntityContainer="dbcasmulEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="dbcasmulModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="dbcasmulModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -1724,6 +1733,220 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="cable">
+            <EntityTypeMapping TypeName="dbcasmulModel.cable">
+              <MappingFragment StoreEntitySet="cable">
+                <ScalarProperty Name="id_cable" ColumnName="id_cable" />
+                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="hectaria" ColumnName="hectaria" />
+                <ScalarProperty Name="acres" ColumnName="acres" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cable_por_entrega">
+            <EntityTypeMapping TypeName="dbcasmulModel.cable_por_entrega">
+              <MappingFragment StoreEntitySet="cable_por_entrega">
+                <ScalarProperty Name="id_cablePorEntrega" ColumnName="id_cablePorEntrega" />
+                <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
+                <ScalarProperty Name="id_cable" ColumnName="id_cable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="dbcasmulModel.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configuracion">
+            <EntityTypeMapping TypeName="dbcasmulModel.configuracion">
+              <MappingFragment StoreEntitySet="configuracion">
+                <ScalarProperty Name="id_configuracion" ColumnName="id_configuracion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="entrega">
+            <EntityTypeMapping TypeName="dbcasmulModel.entrega">
+              <MappingFragment StoreEntitySet="entrega">
+                <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
+                <ScalarProperty Name="nro_entrega" ColumnName="nro_entrega" />
+                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
+                <ScalarProperty Name="confirmado" ColumnName="confirmado" />
+                <ScalarProperty Name="solicitante" ColumnName="solicitante" />
+                <ScalarProperty Name="semana" ColumnName="semana" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="entrega_detalle">
+            <EntityTypeMapping TypeName="dbcasmulModel.entrega_detalle">
+              <MappingFragment StoreEntitySet="entrega_detalle">
+                <ScalarProperty Name="id_detalle_entrega" ColumnName="id_detalle_entrega" />
+                <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
+                <ScalarProperty Name="cant_aentregar" ColumnName="cant_aentregar" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="finca">
+            <EntityTypeMapping TypeName="dbcasmulModel.finca">
+              <MappingFragment StoreEntitySet="finca">
+                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grupo">
+            <EntityTypeMapping TypeName="dbcasmulModel.grupo">
+              <MappingFragment StoreEntitySet="grupo">
+                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
+                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item">
+            <EntityTypeMapping TypeName="dbcasmulModel.item">
+              <MappingFragment StoreEntitySet="item">
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
+                <ScalarProperty Name="cod_item" ColumnName="cod_item" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cant_disponible" ColumnName="cant_disponible" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mercaderia">
+            <EntityTypeMapping TypeName="dbcasmulModel.mercaderia">
+              <MappingFragment StoreEntitySet="mercaderia">
+                <ScalarProperty Name="id_mercaderia" ColumnName="id_mercaderia" />
+                <ScalarProperty Name="nro_mercaderia" ColumnName="nro_mercaderia" />
+                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+                <ScalarProperty Name="semana" ColumnName="semana" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mercaderia_detalle">
+            <EntityTypeMapping TypeName="dbcasmulModel.mercaderia_detalle">
+              <MappingFragment StoreEntitySet="mercaderia_detalle">
+                <ScalarProperty Name="id_detalle_mercaderia" ColumnName="id_detalle_mercaderia" />
+                <ScalarProperty Name="id_mercaderia" ColumnName="id_mercaderia" />
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
+                <ScalarProperty Name="cant_recibida" ColumnName="cant_recibida" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="movimiento">
+            <EntityTypeMapping TypeName="dbcasmulModel.movimiento">
+              <MappingFragment StoreEntitySet="movimiento">
+                <ScalarProperty Name="id_movimiento" ColumnName="id_movimiento" />
+                <ScalarProperty Name="nro_movimiento" ColumnName="nro_movimiento" />
+                <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
+                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+                <ScalarProperty Name="semana" ColumnName="semana" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="movimiento_detalle">
+            <EntityTypeMapping TypeName="dbcasmulModel.movimiento_detalle">
+              <MappingFragment StoreEntitySet="movimiento_detalle">
+                <ScalarProperty Name="id_detalle_movimiento" ColumnName="id_detalle_movimiento" />
+                <ScalarProperty Name="id_movimiento" ColumnName="id_movimiento" />
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
+                <ScalarProperty Name="cant_enviada" ColumnName="cant_enviada" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedido">
+            <EntityTypeMapping TypeName="dbcasmulModel.pedido">
+              <MappingFragment StoreEntitySet="pedido">
+                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+                <ScalarProperty Name="nro_pedido" ColumnName="nro_pedido" />
+                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+                <ScalarProperty Name="semana" ColumnName="semana" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedido_detalle">
+            <EntityTypeMapping TypeName="dbcasmulModel.pedido_detalle">
+              <MappingFragment StoreEntitySet="pedido_detalle">
+                <ScalarProperty Name="id_detalle_pedido" ColumnName="id_detalle_pedido" />
+                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
+                <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proveedor">
+            <EntityTypeMapping TypeName="dbcasmulModel.proveedor">
+              <MappingFragment StoreEntitySet="proveedor">
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+                <ScalarProperty Name="cod_proveedor" ColumnName="cod_proveedor" />
+                <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="rtn" ColumnName="rtn" />
+                <ScalarProperty Name="contacto" ColumnName="contacto" />
+                <ScalarProperty Name="giro" ColumnName="giro" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requisa">
+            <EntityTypeMapping TypeName="dbcasmulModel.requisa">
+              <MappingFragment StoreEntitySet="requisa">
+                <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
+                <ScalarProperty Name="nro_requisa" ColumnName="nro_requisa" />
+                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
+                <ScalarProperty Name="semana" ColumnName="semana" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requisa_detalle">
+            <EntityTypeMapping TypeName="dbcasmulModel.requisa_detalle">
+              <MappingFragment StoreEntitySet="requisa_detalle">
+                <ScalarProperty Name="id_detail_requisa" ColumnName="id_detail_requisa" />
+                <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
+                <ScalarProperty Name="cant_enviada" ColumnName="cant_enviada" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="dbcasmulModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1735,6 +1958,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tipo_usuario">
+            <EntityTypeMapping TypeName="dbcasmulModel.tipo_usuario">
+              <MappingFragment StoreEntitySet="tipo_usuario">
+                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="unidad_medida">
+            <EntityTypeMapping TypeName="dbcasmulModel.unidad_medida">
+              <MappingFragment StoreEntitySet="unidad_medida">
+                <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
+                <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="dbcasmulModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="IdAspnetUser" ColumnName="IdAspnetUser" />
+                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
+                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
+                <ScalarProperty Name="identidad" ColumnName="identidad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="cuenta_usuario" ColumnName="cuenta_usuario" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="nro_telefono" ColumnName="nro_telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="dbcasmulModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -1743,268 +2003,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="dbcasmulModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="configuracion">
-            <EntityTypeMapping TypeName="dbcasmulModel.configuracion">
-              <MappingFragment StoreEntitySet="configuracion">
-                <ScalarProperty Name="observacion" ColumnName="observacion" />
-                <ScalarProperty Name="valor" ColumnName="valor" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="id_configuracion" ColumnName="id_configuracion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cable">
-            <EntityTypeMapping TypeName="dbcasmulModel.cable">
-              <MappingFragment StoreEntitySet="cable">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="acres" ColumnName="acres" />
-                <ScalarProperty Name="hectaria" ColumnName="hectaria" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
-                <ScalarProperty Name="id_cable" ColumnName="id_cable" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cable_por_entrega">
-            <EntityTypeMapping TypeName="dbcasmulModel.cable_por_entrega">
-              <MappingFragment StoreEntitySet="cable_por_entrega">
-                <ScalarProperty Name="id_cable" ColumnName="id_cable" />
-                <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
-                <ScalarProperty Name="id_cablePorEntrega" ColumnName="id_cablePorEntrega" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="categoria">
-            <EntityTypeMapping TypeName="dbcasmulModel.categoria">
-              <MappingFragment StoreEntitySet="categoria">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="finca">
-            <EntityTypeMapping TypeName="dbcasmulModel.finca">
-              <MappingFragment StoreEntitySet="finca">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="grupo">
-            <EntityTypeMapping TypeName="dbcasmulModel.grupo">
-              <MappingFragment StoreEntitySet="grupo">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="mercaderia_detalle">
-            <EntityTypeMapping TypeName="dbcasmulModel.mercaderia_detalle">
-              <MappingFragment StoreEntitySet="mercaderia_detalle">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="cant_recibida" ColumnName="cant_recibida" />
-                <ScalarProperty Name="id_item" ColumnName="id_item" />
-                <ScalarProperty Name="id_mercaderia" ColumnName="id_mercaderia" />
-                <ScalarProperty Name="id_detalle_mercaderia" ColumnName="id_detalle_mercaderia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="movimiento_detalle">
-            <EntityTypeMapping TypeName="dbcasmulModel.movimiento_detalle">
-              <MappingFragment StoreEntitySet="movimiento_detalle">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="cant_enviada" ColumnName="cant_enviada" />
-                <ScalarProperty Name="id_item" ColumnName="id_item" />
-                <ScalarProperty Name="id_movimiento" ColumnName="id_movimiento" />
-                <ScalarProperty Name="id_detalle_movimiento" ColumnName="id_detalle_movimiento" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="pedido">
-            <EntityTypeMapping TypeName="dbcasmulModel.pedido">
-              <MappingFragment StoreEntitySet="pedido">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="periodo" ColumnName="periodo" />
-                <ScalarProperty Name="semana" ColumnName="semana" />
-                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
-                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-                <ScalarProperty Name="nro_pedido" ColumnName="nro_pedido" />
-                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="pedido_detalle">
-            <EntityTypeMapping TypeName="dbcasmulModel.pedido_detalle">
-              <MappingFragment StoreEntitySet="pedido_detalle">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="cant_solicitada" ColumnName="cant_solicitada" />
-                <ScalarProperty Name="id_item" ColumnName="id_item" />
-                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
-                <ScalarProperty Name="id_detalle_pedido" ColumnName="id_detalle_pedido" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="requisa">
-            <EntityTypeMapping TypeName="dbcasmulModel.requisa">
-              <MappingFragment StoreEntitySet="requisa">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="periodo" ColumnName="periodo" />
-                <ScalarProperty Name="semana" ColumnName="semana" />
-                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-                <ScalarProperty Name="nro_requisa" ColumnName="nro_requisa" />
-                <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="requisa_detalle">
-            <EntityTypeMapping TypeName="dbcasmulModel.requisa_detalle">
-              <MappingFragment StoreEntitySet="requisa_detalle">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="cant_enviada" ColumnName="cant_enviada" />
-                <ScalarProperty Name="id_item" ColumnName="id_item" />
-                <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
-                <ScalarProperty Name="id_detail_requisa" ColumnName="id_detail_requisa" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tipo_usuario">
-            <EntityTypeMapping TypeName="dbcasmulModel.tipo_usuario">
-              <MappingFragment StoreEntitySet="tipo_usuario">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="unidad_medida">
-            <EntityTypeMapping TypeName="dbcasmulModel.unidad_medida">
-              <MappingFragment StoreEntitySet="unidad_medida">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
-                <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="usuario">
-            <EntityTypeMapping TypeName="dbcasmulModel.usuario">
-              <MappingFragment StoreEntitySet="usuario">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="nro_telefono" ColumnName="nro_telefono" />
-                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
-                <ScalarProperty Name="cuenta_usuario" ColumnName="cuenta_usuario" />
-                <ScalarProperty Name="apellido" ColumnName="apellido" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="identidad" ColumnName="identidad" />
-                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
-                <ScalarProperty Name="IdAspnetUser" ColumnName="IdAspnetUser" />
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="proveedor">
-            <EntityTypeMapping TypeName="dbcasmulModel.proveedor">
-              <MappingFragment StoreEntitySet="proveedor">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
-                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
-                <ScalarProperty Name="giro" ColumnName="giro" />
-                <ScalarProperty Name="contacto" ColumnName="contacto" />
-                <ScalarProperty Name="rtn" ColumnName="rtn" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
-                <ScalarProperty Name="cod_proveedor" ColumnName="cod_proveedor" />
-                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="item">
-            <EntityTypeMapping TypeName="dbcasmulModel.item">
-              <MappingFragment StoreEntitySet="item">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="cant_disponible" ColumnName="cant_disponible" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id_unidad_medida" ColumnName="id_unidad_medida" />
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-                <ScalarProperty Name="cod_item" ColumnName="cod_item" />
-                <ScalarProperty Name="id_item" ColumnName="id_item" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="mercaderia">
-            <EntityTypeMapping TypeName="dbcasmulModel.mercaderia">
-              <MappingFragment StoreEntitySet="mercaderia">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="periodo" ColumnName="periodo" />
-                <ScalarProperty Name="semana" ColumnName="semana" />
-                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
-                <ScalarProperty Name="nro_mercaderia" ColumnName="nro_mercaderia" />
-                <ScalarProperty Name="id_mercaderia" ColumnName="id_mercaderia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="movimiento">
-            <EntityTypeMapping TypeName="dbcasmulModel.movimiento">
-              <MappingFragment StoreEntitySet="movimiento">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="periodo" ColumnName="periodo" />
-                <ScalarProperty Name="semana" ColumnName="semana" />
-                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-                <ScalarProperty Name="id_requisa" ColumnName="id_requisa" />
-                <ScalarProperty Name="nro_movimiento" ColumnName="nro_movimiento" />
-                <ScalarProperty Name="id_movimiento" ColumnName="id_movimiento" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="entrega">
-            <EntityTypeMapping TypeName="dbcasmulModel.entrega">
-              <MappingFragment StoreEntitySet="entrega">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="periodo" ColumnName="periodo" />
-                <ScalarProperty Name="semana" ColumnName="semana" />
-                <ScalarProperty Name="solicitante" ColumnName="solicitante" />
-                <ScalarProperty Name="confirmado" ColumnName="confirmado" />
-                <ScalarProperty Name="id_grupo" ColumnName="id_grupo" />
-                <ScalarProperty Name="id_finca" ColumnName="id_finca" />
-                <ScalarProperty Name="fecha_transaccion" ColumnName="fecha_transaccion" />
-                <ScalarProperty Name="nro_entrega" ColumnName="nro_entrega" />
-                <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="entrega_detalle">
-            <EntityTypeMapping TypeName="dbcasmulModel.entrega_detalle">
-              <MappingFragment StoreEntitySet="entrega_detalle">
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="cant_aentregar" ColumnName="cant_aentregar" />
-                <ScalarProperty Name="id_item" ColumnName="id_item" />
-                <ScalarProperty Name="id_entrega" ColumnName="id_entrega" />
-                <ScalarProperty Name="id_detalle_entrega" ColumnName="id_detalle_entrega" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

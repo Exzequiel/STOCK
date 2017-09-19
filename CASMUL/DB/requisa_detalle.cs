@@ -20,7 +20,7 @@ namespace CASMUL.DB
         public int cant_enviada { get; set; }
         public bool activo { get; set; }
     
-        public virtual requisa requisa { get; set; }
         public virtual item item { get; set; }
+        public virtual requisa requisa { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace CASMUL.DB
         public string nro_entrega { get; set; }
         public System.DateTime fecha_transaccion { get; set; }
         public int id_finca { get; set; }
-        public Nullable<int> id_grupo { get; set; }
+        public int id_grupo { get; set; }
         public bool confirmado { get; set; }
         public string solicitante { get; set; }
         public int semana { get; set; }
