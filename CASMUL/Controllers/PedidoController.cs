@@ -81,7 +81,7 @@ namespace CASMUL.Controllers
             using (var context = new dbcasmulEntities())
             {
                 ViewBag.ListaProveedor = context.proveedor.Where(x => x.activo ?? false).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
+                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible + " |" }).ToList();
                 return View(new CrearPedidoViewModel
                 {
                     fecha_transaccion = DateTime.Now,
@@ -132,7 +132,7 @@ namespace CASMUL.Controllers
             using (var context = new dbcasmulEntities())
             {
                 ViewBag.ListaProveedor = context.proveedor.Where(x=>x.activo??false).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
+                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible + " |" }).ToList();
                 var model = context.pedido.Find(Id);
                 return View("Crear", new CrearPedidoViewModel
                 {

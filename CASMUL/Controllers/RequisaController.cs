@@ -86,7 +86,7 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x=>new SelectListItem { Value = x.id_item.ToString(), Text =x.cod_item+" - "+ x.descripcion}).ToList();
+                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x=>new SelectListItem { Value = x.id_item.ToString(), Text =x.cod_item+" - "+ x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible + " |" }).ToList();
                 return View(new CrearRequisaViewModel {
                     fecha_transaccion = DateTime.Now,
                     nro_requisa = getConfiguracion("CorrelativoRequisa"),
@@ -132,7 +132,7 @@ namespace CASMUL.Controllers
         {
             using(var context = new dbcasmulEntities())
             {
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion }).ToList();
+                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible + " |" }).ToList();
                 var model = context.requisa.Find(Id);
                 return View("Crear",new CrearRequisaViewModel {
                     id_requisa = model.id_requisa,

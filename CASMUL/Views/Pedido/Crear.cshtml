@@ -41,7 +41,7 @@
         <form id="FormCrear" class="p-15">
             <fieldset>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <div class="form-group">
                             @Html.LabelFor(model => model.id_proveedor, htmlAttributes: new { @class = "control-label" })
                             @Html.DropDownListFor(model => model.id_proveedor, ViewBag.ListaProveedor as List<SelectListItem>, null, new { @class = "form-control select2", style = "width:100%;" })
