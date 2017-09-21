@@ -243,3 +243,5 @@ C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Securi
 C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveAssemblyReference.cache
 C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\obj\Debug\CASMUL.pdb
+C:\Users\IT\Documents\Github\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveAssemblyReference.cache
+C:\Users\IT\Documents\Github\Stock\CASMUL\obj\Debug\CASMUL.csproj.CoreCompileInputs.cache

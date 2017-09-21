@@ -11,8 +11,9 @@ namespace CASMUL.Models.Categorias
         [Display(Name = "Descripción")]
         [Required]
         public string Descripcion { get; set; }
-        [Display(Name = "Abreviatura")]
-        [Required]
-        public string Abreviatura { get; set; }
+
+        //[Display(Name = "Abreviatura")]
+        //[Required]
+        //public string Abreviatura { get; set; }
     }
 }
