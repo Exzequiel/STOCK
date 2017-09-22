@@ -14,13 +14,13 @@ namespace CASMUL.Models.Proveedores
         [Display(Name = "Nombre")]
         public string nombre_proveedor { get; set; }
 
-        [Display(Name = "Direccion")]
+        [Display(Name = "Dirección")]
         public string Direccion { get; set; }
 
-        [Display(Name = "Telefono")]
+        [Display(Name = "Teléfono")]
         public string Telefono { get; set; }
 
-        [Display(Name = "Correo Electronico")]
+        [Display(Name = "Correo Electrónico")]
         public string Email { get; set; }
 
         [Display(Name = "Contacto")]

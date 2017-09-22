@@ -8,7 +8,7 @@ namespace CASMUL.Models.Grupos
 {
     public class CreateGrupoViewModel
     {
-        [Display(Name = "Descripcion")]
+        [Display(Name = "N° de Grupo")]
         [Required]
         public string Description { get; set; }
 

@@ -88,7 +88,7 @@ namespace CASMUL.Controllers
                 var IdFinca = ObtenerIdFincaPorUsuario();
                 ViewBag.ListaGrupo = conexion.grupo.Where(x => x.activo && x.id_finca==IdFinca).Select(x => new SelectListItem { Value = x.id_grupo.ToString(), Text = x.descripcion }).ToList();
                 ViewBag.ListaCables = new List<SelectListItem>();
-                ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible +" |" }).ToList();
+                ViewBag.ListaItem = conexion.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
                 return View( new CrearEntregaViewModel {nro_entrega=getConfiguracion("CorrelativoEntrega"), fecha_transaccion=DateTime.Now, semana=ObtenerSemana(), periodo=ObtenerPeriodo(), NombreFinca = ObtenerNombreFincaPorUsuario() });
             }
         }
@@ -129,7 +129,7 @@ namespace CASMUL.Controllers
                 }
                 var resultado = context.SaveChanges() > 0;
                 if (resultado) SumarCorrelativo("CorrelativoEntrega");
-                return Json(EnviarResultado(resultado, "Crear Entrega"), JsonRequestBehavior.AllowGet);
+                return Json(EnviarResultado(resultado, "Entrega Creada Exitosamente"), JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -172,7 +172,7 @@ namespace CASMUL.Controllers
                 var ModelEntrega = context.entrega.Find(IdEntrega);
                 ViewBag.ListaGrupo = context.grupo.Where(x => x.activo && x.id_finca == ModelEntrega.id_finca).Select(x => new SelectListItem { Value = x.id_grupo.ToString(), Text = x.descripcion }).ToList();
                 ViewBag.ListaCables = context.cable.Where(x => x.activo && x.id_grupo==ModelEntrega.id_grupo).Select(x => new SelectListItem { Value = x.id_cable.ToString(), Text = x.descripcion}).ToList();
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text =x.cod_item+" - "+ x.descripcion }).ToList();
+                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
 
                 return View("CrearEntrega", new CrearEntregaViewModel
                 {

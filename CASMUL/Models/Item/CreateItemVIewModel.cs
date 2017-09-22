@@ -8,11 +8,11 @@ namespace CASMUL.Models.Item
 {
     public class CreateItemVIewModel
     {
-        [Display(Name = "Descripcion")]
+        [Display(Name = "Descripción")]
         [Required]
         public string Descripcion { get; set; }
 
-        [Display(Name = "Categoria")]
+        [Display(Name = "Categoría")]
         [Required]
         public int IdCategoria { get; set; }
 
@@ -24,7 +24,7 @@ namespace CASMUL.Models.Item
         [Required]
         public int CantidadDisponible { get; set; }
 
-        [Display(Name = "Cod Item")]
+        [Display(Name = "Código Producto")]
         [Required]
         public string cod_item { get; set; }
     }

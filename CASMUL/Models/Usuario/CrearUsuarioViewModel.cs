@@ -36,7 +36,7 @@ namespace CASMUL.Models.Usuario
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Correo Electronico")]
+        [Display(Name = "Correo Electrónico")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -47,7 +47,7 @@ namespace CASMUL.Models.Usuario
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar Contraseña")]
-        [Compare("Password", ErrorMessage = "La nueva contraseña y la confirmacion no son las mismas")]
+        [Compare("Password", ErrorMessage = "La nueva contraseña y la confirmación no son las mismas")]
         public string ConfirmPassword { get; set; }
 
         public string IdAspNetUser { get; set; }

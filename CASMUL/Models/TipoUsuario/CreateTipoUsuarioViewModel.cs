@@ -8,7 +8,7 @@ namespace CASMUL.Models.TipoUsuario
 {
     public class CreateTipoUsuarioViewModel
     {
-        [Display(Name ="Descripcion")]
+        [Display(Name ="Descripción")]
         [Required]
         public string Description { get; set; }
     }

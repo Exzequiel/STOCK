@@ -12,15 +12,15 @@ namespace CASMUL.Models.Cables
         [Required]
         public decimal Acres { get; set; }
 
-        [Display(Name = "Hectarias")]
+        [Display(Name = "Hectáreas")]
         [Required]
         public decimal Hectarias { get; set; }
 
-        [Display(Name = "Cable")]
+        [Display(Name = "N° Cable")]
         [Required]
         public string Descripcion { get; set; }
 
-        [Display(Name = "Grupo")]
+        [Display(Name = "N° Grupo")]
         [Required]
         public int IdGrupo { get; set; }
 

@@ -7,14 +7,14 @@ namespace CASMUL.Models.Usuario
         public int IdUser { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "La {0} debe de ser de por lo menos {2} caracteres de largo.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Nueva Contrasena")]
+        [Display(Name = "Nueva Contraseña")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Contrasena")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Confirmar Contraseña")]
+        [Compare("NewPassword", ErrorMessage = "La contraseña nueva y la contraseña de  confirmación no son iguales.")]
         public string ConfirmPassword { get; set; }
     }
 }

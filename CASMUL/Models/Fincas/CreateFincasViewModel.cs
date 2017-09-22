@@ -8,7 +8,7 @@ namespace CASMUL.Models.Fincas
 {
     public class CreateFincasViewModel
     {
-        [Display(Name = "Descripcion")]
+        [Display(Name = "Descripción")]
         [Required]
         public string Description { get; set; }
     }

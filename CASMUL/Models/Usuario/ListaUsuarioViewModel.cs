@@ -23,7 +23,7 @@ namespace CASMUL.Models.Usuario
         [Display(Name="Fecha de Nacimiento")]
         public DateTime? FechaNac { get; set; }
 
-        [Display(Name = "Correo Electronico")]
+        [Display(Name = "Correo Electrónico")]
         public string Email { get; set; }
 
         [Display(Name = "Estado")]

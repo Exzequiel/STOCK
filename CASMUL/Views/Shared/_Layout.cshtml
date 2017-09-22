@@ -169,9 +169,8 @@
                             <span>Gestión de Usuarios</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index", "Usuario")" title="Lista de Usuarios"><span>Usuarios</span></a></li>
-                            <li><a href="@Url.Action("CrearUsuario", "Usuario")" title="Crear"><span>Crear Usuario</span></a></li>
-                            <li><a href="@Url.Action("Index", "Role")" title="Tipos"><span>Tipo de Usuarios</span></a></li>
+                            <li><a href="@Url.Action("Index", "Usuario")" title="Lista de Usuarios"><span>Listar Usuarios</span></a></li>
+                            <li><a href="@Url.Action("Index", "Role")" title="Tipos"><span>Listar Tipo de Usuarios</span></a></li>
 
                         </ul>
                     </li>
@@ -184,8 +183,7 @@
                             <span>Proveedores</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index", "Proveedores")" title="Lista de Proveedores"><span>Proveedores</span></a></li>
-                            <li><a href="@Url.Action("Create", "Proveedores")" title="Crear Proveedor"><span>Crear Proveedores</span></a></li>
+                            <li><a href="@Url.Action("Index", "Proveedores")" title="Lista de Proveedores"><span>Lista de Proveedores</span></a></li>
                         </ul>
                     </li>
 
@@ -198,9 +196,9 @@
                             <span>Productos</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index", "Categorias")">Categoría</a></li>
-                            <li><a href="@Url.Action("Index", "UnidadDeMedida")">Unidad de Medida</a></li>
-                            <li><a href="@Url.Action("Index", "Item")">ítems</a></li>
+                            <li><a href="@Url.Action("Index", "Item")">Listar Productos</a></li>
+                            <li><a href="@Url.Action("Index", "Categorias")">Listar Categorías</a></li>
+                            <li><a href="@Url.Action("Index", "UnidadDeMedida")">Listar Unidad de Medida</a></li>
                         </ul>
                     </li>
 
@@ -213,9 +211,9 @@
                             <span>Zonas</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index", "Fincas")">Fincas</a></li>
-                            <li><a href="@Url.Action("Index", "Grupos")">Grupos</a></li>
-                            <li><a href="@Url.Action("Index", "Cables")">Cables</a></li>
+                            <li><a href="@Url.Action("Index", "Fincas")">Listar Fincas</a></li>
+                            <li><a href="@Url.Action("Index", "Grupos")">Listar Grupos</a></li>
+                            <li><a href="@Url.Action("Index", "Cables")">Listar Cables</a></li>
                         </ul>
                     </li>
                     }
@@ -230,8 +228,8 @@
                             <span>Compras</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="@Url.Action("Index", "Pedido")">Pedido</a></li>
-                            <li><a href="@Url.Action("Index", "Mercaderia")">Mercaderia</a></li>
+                            <li><a href="@Url.Action("Index", "Pedido")">Generar Pedido</a></li>
+                            <li><a href="@Url.Action("Index", "Mercaderia")">Recibir Mercaderia</a></li>
                         </ul>
                     </li>
 }
@@ -240,7 +238,7 @@
                         <a href="javascript:;">
                             <b class="caret pull-right"></b>
                             <i class="fa fa-align-left"></i>
-                            <span>Stock</span>
+                            <span>Inventario</span>
                         </a>
                         <ul class="sub-menu">
                             <li><a href="@Url.Action("Index","Requisa")">Requisas</a></li>

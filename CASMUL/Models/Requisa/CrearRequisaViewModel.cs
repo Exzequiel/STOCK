@@ -10,14 +10,14 @@ namespace CASMUL.Models.Requisa
     {
         public int id_requisa { get; set; }
         [Required]
-        [Display(Name ="Numero Requisa")]
+        [Display(Name ="Número Requisa")]
         public string nro_requisa { get; set; }
 
         [Required]
         [Display(Name = "Finca")]
         public int id_finca { get; set; }
         [Required]
-        [Display(Name = "Fecha Transaccio")]
+        [Display(Name = "Fecha Transacción")]
         public DateTime fecha_transaccion { get; set; }
 
         public int semana { get; set; }

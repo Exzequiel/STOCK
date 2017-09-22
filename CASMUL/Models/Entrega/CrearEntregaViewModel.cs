@@ -11,7 +11,7 @@ namespace CASMUL.Models.Entrega
         public int id_entrega { get; set; }
 
         public string nro_entrega { get; set; }
-        [Display(Name ="Fecha de Transaccion")]
+        [Display(Name ="Fecha de Transacción")]
         public DateTime fecha_transaccion { get; set; }
         [Required]
         [Display(Name = "Grupo")]
