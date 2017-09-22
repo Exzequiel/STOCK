@@ -31,7 +31,7 @@ namespace CASMUL.DB
         public string giro { get; set; }
         public string razon_social { get; set; }
         public string ciudad { get; set; }
-        public Nullable<bool> activo { get; set; }
+        public bool activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pedido> pedido { get; set; }

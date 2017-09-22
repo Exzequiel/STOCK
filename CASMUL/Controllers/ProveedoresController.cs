@@ -74,7 +74,7 @@ namespace CASMUL.Controllers
                         Direccion = x.direccion,
                         Telefono = x.telefono,
                         Contacto = x.contacto,
-                        Estado = x.activo ?? true,
+                        Estado = x.activo,
                         Email = x.email
                     }).ToList();
 

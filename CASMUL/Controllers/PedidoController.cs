@@ -80,7 +80,7 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                ViewBag.ListaProveedor = context.proveedor.Where(x => x.activo ?? false).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
+                ViewBag.ListaProveedor = context.proveedor.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
                 ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
                 return View(new CrearPedidoViewModel
                 {
@@ -131,7 +131,7 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                ViewBag.ListaProveedor = context.proveedor.Where(x=>x.activo??false).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
+                ViewBag.ListaProveedor = context.proveedor.Where(x=>x.activo).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
                 ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
                 var model = context.pedido.Find(Id);
                 return View("Crear", new CrearPedidoViewModel
