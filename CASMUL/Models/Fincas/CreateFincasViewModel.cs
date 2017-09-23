@@ -8,7 +8,7 @@ namespace CASMUL.Models.Fincas
 {
     public class CreateFincasViewModel
     {
-        [Display(Name = "Descripción")]
+        [Display(Name = "N° de Finca")]
         [Required]
         public string Description { get; set; }
     }

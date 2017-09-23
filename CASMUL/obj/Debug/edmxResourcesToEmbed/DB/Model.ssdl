@@ -233,6 +233,7 @@
     <Property Name="contacto" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="giro" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="razon_social" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="pais" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ciudad" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="activo" Type="bit" />
   </EntityType>
@@ -303,7 +304,9 @@
     <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="FK_cable_grupo">
-    <End Role="grupo" Type="Self.grupo" Multiplicity="1" />
+    <End Role="grupo" Type="Self.grupo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="cable" Type="Self.cable" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="grupo">
@@ -395,7 +398,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_entrega_detalle_entrega">
-    <End Role="entrega" Type="Self.entrega" Multiplicity="1" />
+    <End Role="entrega" Type="Self.entrega" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="entrega_detalle" Type="Self.entrega_detalle" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="entrega">
@@ -443,7 +448,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_grupo_finca">
-    <End Role="finca" Type="Self.finca" Multiplicity="1" />
+    <End Role="finca" Type="Self.finca" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="grupo" Type="Self.grupo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="finca">
@@ -455,7 +462,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_item_categoria">
-    <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+    <End Role="categoria" Type="Self.categoria" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="item" Type="Self.item" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="categoria">
@@ -527,7 +536,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_movimiento_detalle_movimiento">
-    <End Role="movimiento" Type="Self.movimiento" Multiplicity="1" />
+    <End Role="movimiento" Type="Self.movimiento" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="movimiento_detalle" Type="Self.movimiento_detalle" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="movimiento">
@@ -611,7 +622,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_requisa_detalle_requisa">
-    <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
+    <End Role="requisa" Type="Self.requisa" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="requisa">

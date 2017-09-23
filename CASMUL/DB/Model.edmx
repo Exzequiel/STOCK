@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbcasmulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbcasmulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -238,6 +238,7 @@
           <Property Name="contacto" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="giro" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="razon_social" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="pais" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ciudad" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="activo" Type="bit" />
         </EntityType>
@@ -308,7 +309,9 @@
           <Property Name="activo" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_cable_grupo">
-          <End Role="grupo" Type="Self.grupo" Multiplicity="1" />
+          <End Role="grupo" Type="Self.grupo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cable" Type="Self.cable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="grupo">
@@ -400,7 +403,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_entrega_detalle_entrega">
-          <End Role="entrega" Type="Self.entrega" Multiplicity="1" />
+          <End Role="entrega" Type="Self.entrega" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="entrega_detalle" Type="Self.entrega_detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="entrega">
@@ -448,7 +453,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_grupo_finca">
-          <End Role="finca" Type="Self.finca" Multiplicity="1" />
+          <End Role="finca" Type="Self.finca" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="grupo" Type="Self.grupo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="finca">
@@ -460,7 +467,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_item_categoria">
-          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="item" Type="Self.item" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="categoria">
@@ -532,7 +541,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_movimiento_detalle_movimiento">
-          <End Role="movimiento" Type="Self.movimiento" Multiplicity="1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="movimiento_detalle" Type="Self.movimiento_detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="movimiento">
@@ -616,7 +627,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_requisa_detalle_requisa">
-          <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
+          <End Role="requisa" Type="Self.requisa" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="requisa">
@@ -825,8 +838,7 @@
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbcasmulModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1074,7 +1086,7 @@
           <NavigationProperty Name="finca" Relationship="Self.FK_pedido_finca" FromRole="pedido" ToRole="finca" />
           <NavigationProperty Name="mercaderia" Relationship="Self.FK_mercaderia_pedido" FromRole="pedido" ToRole="mercaderia" />
           <NavigationProperty Name="pedido_detalle" Relationship="Self.FK_pedido_detalle_pedido" FromRole="pedido" ToRole="pedido_detalle" />
-          <NavigationProperty Name="proveedor" Relationship="Self.FK_pedido_proveedor" FromRole="pedido" ToRole="proveedor" />
+          <NavigationProperty Name="proveedor" Relationship="dbcasmulModel.FK_pedido_proveedor" FromRole="pedido" ToRole="proveedor" />
         </EntityType>
         <EntityType Name="pedido_detalle">
           <Key>
@@ -1087,24 +1099,6 @@
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="item" Relationship="Self.FK_pedido_detalle_item" FromRole="pedido_detalle" ToRole="item" />
           <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_detalle_pedido" FromRole="pedido_detalle" ToRole="pedido" />
-        </EntityType>
-        <EntityType Name="proveedor">
-          <Key>
-            <PropertyRef Name="id_proveedor" />
-          </Key>
-          <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cod_proveedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombre_proveedor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="rtn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contacto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="giro" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="razon_social" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ciudad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="activo" Type="Boolean" />
-          <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_proveedor" FromRole="proveedor" ToRole="pedido" />
         </EntityType>
         <EntityType Name="requisa">
           <Key>
@@ -1486,18 +1480,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_pedido_proveedor">
-          <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
-          <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="proveedor">
-              <PropertyRef Name="id_proveedor" />
-            </Principal>
-            <Dependent Role="pedido">
-              <PropertyRef Name="id_proveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_requisa_detalle_requisa">
           <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
           <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
@@ -1547,7 +1529,6 @@
           <EntitySet Name="movimiento_detalle" EntityType="Self.movimiento_detalle" />
           <EntitySet Name="pedido" EntityType="Self.pedido" />
           <EntitySet Name="pedido_detalle" EntityType="Self.pedido_detalle" />
-          <EntitySet Name="proveedor" EntityType="Self.proveedor" />
           <EntitySet Name="requisa" EntityType="Self.requisa" />
           <EntitySet Name="requisa_detalle" EntityType="Self.requisa_detalle" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -1654,10 +1635,6 @@
             <End Role="pedido" EntitySet="pedido" />
             <End Role="pedido_detalle" EntitySet="pedido_detalle" />
           </AssociationSet>
-          <AssociationSet Name="FK_pedido_proveedor" Association="Self.FK_pedido_proveedor">
-            <End Role="proveedor" EntitySet="proveedor" />
-            <End Role="pedido" EntitySet="pedido" />
-          </AssociationSet>
           <AssociationSet Name="FK_requisa_detalle_requisa" Association="Self.FK_requisa_detalle_requisa">
             <End Role="requisa" EntitySet="requisa" />
             <End Role="requisa_detalle" EntitySet="requisa_detalle" />
@@ -1670,7 +1647,43 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="proveedor" EntityType="dbcasmulModel.proveedor" />
+          <AssociationSet Name="FK_pedido_proveedor" Association="dbcasmulModel.FK_pedido_proveedor">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="pedido" EntitySet="pedido" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="proveedor">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_proveedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_proveedor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rtn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contacto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="giro" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="razon_social" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="pais" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ciudad" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_pedido_proveedor" FromRole="proveedor" ToRole="pedido" />
+        </EntityType>
+        <Association Name="FK_pedido_proveedor">
+          <End Type="dbcasmulModel.proveedor" Role="proveedor" Multiplicity="1" />
+          <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="pedido">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1905,24 +1918,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="proveedor">
-            <EntityTypeMapping TypeName="dbcasmulModel.proveedor">
-              <MappingFragment StoreEntitySet="proveedor">
-                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
-                <ScalarProperty Name="cod_proveedor" ColumnName="cod_proveedor" />
-                <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="rtn" ColumnName="rtn" />
-                <ScalarProperty Name="contacto" ColumnName="contacto" />
-                <ScalarProperty Name="giro" ColumnName="giro" />
-                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
-                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="requisa">
             <EntityTypeMapping TypeName="dbcasmulModel.requisa">
               <MappingFragment StoreEntitySet="requisa">
@@ -2003,6 +1998,25 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="proveedor">
+            <EntityTypeMapping TypeName="dbcasmulModel.proveedor">
+              <MappingFragment StoreEntitySet="proveedor">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="giro" ColumnName="giro" />
+                <ScalarProperty Name="contacto" ColumnName="contacto" />
+                <ScalarProperty Name="rtn" ColumnName="rtn" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="nombre_proveedor" ColumnName="nombre_proveedor" />
+                <ScalarProperty Name="cod_proveedor" ColumnName="cod_proveedor" />
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

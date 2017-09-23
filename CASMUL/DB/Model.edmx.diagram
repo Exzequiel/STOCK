@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="dbcasmulModel.movimiento_detalle" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.pedido" Width="1.5" PointX="3.75" PointY="22.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.pedido_detalle" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbcasmulModel.proveedor" Width="1.5" PointX="1.5" PointY="22.375" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.requisa" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.requisa_detalle" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="dbcasmulModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="0.875" IsExpanded="true" />
@@ -57,10 +56,11 @@
         <AssociationConnector Association="dbcasmulModel.FK_movimiento_detalle_movimiento" ManuallyRouted="false" />
         <AssociationConnector Association="dbcasmulModel.FK_movimiento_requisa" ManuallyRouted="false" />
         <AssociationConnector Association="dbcasmulModel.FK_pedido_detalle_pedido" ManuallyRouted="false" />
-        <AssociationConnector Association="dbcasmulModel.FK_pedido_proveedor" ManuallyRouted="false" />
         <AssociationConnector Association="dbcasmulModel.FK_requisa_detalle_requisa" ManuallyRouted="false" />
         <AssociationConnector Association="dbcasmulModel.FK_usuario_tipo_usuario" ManuallyRouted="false" />
         <AssociationConnector Association="dbcasmulModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbcasmulModel.proveedor" Width="1.5" PointX="7.375" PointY="12" />
+        <AssociationConnector Association="dbcasmulModel.FK_pedido_proveedor" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

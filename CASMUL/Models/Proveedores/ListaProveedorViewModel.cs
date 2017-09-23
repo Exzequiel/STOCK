@@ -26,6 +26,9 @@ namespace CASMUL.Models.Proveedores
         [Display(Name = "Contacto")]
         public string Contacto { get; set; }
 
+        [Display(Name = "País")]
+        public string Pais { get; set; }
+
         [Display(Name = "Estado")]
         public bool Estado { get; set; }
     }

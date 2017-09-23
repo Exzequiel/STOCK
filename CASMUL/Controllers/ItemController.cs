@@ -102,7 +102,7 @@ namespace CASMUL.Controllers
                     modelDb.descripcion = model.Descripcion;
                     modelDb.id_categoria = model.IdCategoria;
                     modelDb.id_unidad_medida = model.IdUnidad;
-                    modelDb.cant_disponible = model.CantidadDisponible;
+                    modelDb.cant_disponible = modelDb.cant_disponible;
                     modelDb.cod_item = model.cod_item;
                     var result = contextCm.SaveChanges() > 0;
                     if (result)

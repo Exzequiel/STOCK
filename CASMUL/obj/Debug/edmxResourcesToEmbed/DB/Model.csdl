@@ -244,7 +244,7 @@
     <NavigationProperty Name="finca" Relationship="Self.FK_pedido_finca" FromRole="pedido" ToRole="finca" />
     <NavigationProperty Name="mercaderia" Relationship="Self.FK_mercaderia_pedido" FromRole="pedido" ToRole="mercaderia" />
     <NavigationProperty Name="pedido_detalle" Relationship="Self.FK_pedido_detalle_pedido" FromRole="pedido" ToRole="pedido_detalle" />
-    <NavigationProperty Name="proveedor" Relationship="Self.FK_pedido_proveedor" FromRole="pedido" ToRole="proveedor" />
+    <NavigationProperty Name="proveedor" Relationship="dbcasmulModel.FK_pedido_proveedor" FromRole="pedido" ToRole="proveedor" />
   </EntityType>
   <EntityType Name="pedido_detalle">
     <Key>
@@ -257,24 +257,6 @@
     <Property Name="activo" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="item" Relationship="Self.FK_pedido_detalle_item" FromRole="pedido_detalle" ToRole="item" />
     <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_detalle_pedido" FromRole="pedido_detalle" ToRole="pedido" />
-  </EntityType>
-  <EntityType Name="proveedor">
-    <Key>
-      <PropertyRef Name="id_proveedor" />
-    </Key>
-    <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="cod_proveedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="nombre_proveedor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="rtn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="contacto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="giro" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="razon_social" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ciudad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="activo" Type="Boolean" />
-    <NavigationProperty Name="pedido" Relationship="Self.FK_pedido_proveedor" FromRole="proveedor" ToRole="pedido" />
   </EntityType>
   <EntityType Name="requisa">
     <Key>
@@ -656,18 +638,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_pedido_proveedor">
-    <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
-    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="proveedor">
-        <PropertyRef Name="id_proveedor" />
-      </Principal>
-      <Dependent Role="pedido">
-        <PropertyRef Name="id_proveedor" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_requisa_detalle_requisa">
     <End Role="requisa" Type="Self.requisa" Multiplicity="1" />
     <End Role="requisa_detalle" Type="Self.requisa_detalle" Multiplicity="*" />
@@ -717,7 +687,6 @@
     <EntitySet Name="movimiento_detalle" EntityType="Self.movimiento_detalle" />
     <EntitySet Name="pedido" EntityType="Self.pedido" />
     <EntitySet Name="pedido_detalle" EntityType="Self.pedido_detalle" />
-    <EntitySet Name="proveedor" EntityType="Self.proveedor" />
     <EntitySet Name="requisa" EntityType="Self.requisa" />
     <EntitySet Name="requisa_detalle" EntityType="Self.requisa_detalle" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -824,10 +793,6 @@
       <End Role="pedido" EntitySet="pedido" />
       <End Role="pedido_detalle" EntitySet="pedido_detalle" />
     </AssociationSet>
-    <AssociationSet Name="FK_pedido_proveedor" Association="Self.FK_pedido_proveedor">
-      <End Role="proveedor" EntitySet="proveedor" />
-      <End Role="pedido" EntitySet="pedido" />
-    </AssociationSet>
     <AssociationSet Name="FK_requisa_detalle_requisa" Association="Self.FK_requisa_detalle_requisa">
       <End Role="requisa" EntitySet="requisa" />
       <End Role="requisa_detalle" EntitySet="requisa_detalle" />
@@ -840,5 +805,41 @@
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="proveedor" EntityType="dbcasmulModel.proveedor" />
+    <AssociationSet Name="FK_pedido_proveedor" Association="dbcasmulModel.FK_pedido_proveedor">
+      <End Role="proveedor" EntitySet="proveedor" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="proveedor">
+    <Key>
+      <PropertyRef Name="id_proveedor" />
+    </Key>
+    <Property Name="id_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cod_proveedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_proveedor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="rtn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="contacto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="giro" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="razon_social" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="pedido" Relationship="dbcasmulModel.FK_pedido_proveedor" FromRole="proveedor" ToRole="pedido" />
+  </EntityType>
+  <Association Name="FK_pedido_proveedor">
+    <End Type="dbcasmulModel.proveedor" Role="proveedor" Multiplicity="1" />
+    <End Type="dbcasmulModel.pedido" Role="pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedor">
+        <PropertyRef Name="id_proveedor" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="id_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
