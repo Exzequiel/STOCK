@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Acciones</th>
+                    @*<th>Acciones</th>*@
                     <th># @ViewBag.ControllerName</th>
                     <th># Pedido</th>
                     <th>Fecha Transaccion</th>
@@ -95,16 +95,16 @@
                     "data": null,
                     "defaultContent": ''
                 },
-                {
-                    data: null,
-                    render: function (data) {
-                        var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
-                        opciones += !data.activo ? '' : '<li><a href="javascript:void(0);" onclick="Editar(' + data.id + ')" > Editar</a></li>';
-                        opciones += !data.activo? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id + ')"> Deshabilitar</a></li>';
-                        opciones += '</ul></div>';
-                        return opciones;
-                    }
-                },
+                //{
+                //    data: null,
+                //    render: function (data) {
+                //        var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
+                //        opciones += !data.activo ? '' : '<li><a href="javascript:void(0);" onclick="Editar(' + data.id + ')" > Editar</a></li>';
+                //        opciones += !data.activo? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id + ')"> Deshabilitar</a></li>';
+                //        opciones += '</ul></div>';
+                //        return opciones;
+                //    }
+                //},
                 {
                     data: "nro_mercaderia"
                 },

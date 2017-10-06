@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace CASMUL.Controllers
 {
-    [Authorize(Roles = "Administrador,UsuarioFincaPrincipal")]
+    [Authorize(Roles = "Administrador,UsuarioFincaPrincipal,UsuarioFincaNormal")]
     public class RequisaController : BaseController
     {
        public RequisaController()
@@ -68,7 +68,7 @@ namespace CASMUL.Controllers
                     id_detail_requisa = x.id_detail_requisa,
                     id_item = x.id_item,
                     cant_enviada = x.cant_enviada,
-                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false)? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar):0) - (x.item.requisa_detalle.Any(y => y.activo) ? x.item.requisa_detalle.Where(y => y.activo).Sum(z => z.cant_enviada) : 0),
+                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (x.item.requisa_detalle.Any(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)) ? x.item.requisa_detalle.Where(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)).Sum(z => z.cant_enviada) : 0),
                     categoria = x.item.categoria.descripcion,
                     descripcion = x.item.cod_item + " - " + x.item.descripcion,
                     unidad_medida = x.item.unidad_medida.descripcion,
@@ -86,7 +86,7 @@ namespace CASMUL.Controllers
         {
             using (var context = new dbcasmulEntities())
             {
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x=>new SelectListItem { Value = x.id_item.ToString(), Text =x.cod_item+" - "+ x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible + " |" }).ToList();
+                ViewBag.ListaItem = ObtenerListaItemParaSeleccionar();
                 return View(new CrearRequisaViewModel {
                     fecha_transaccion = DateTime.Now,
                     nro_requisa = getConfiguracion("CorrelativoRequisa"),
@@ -132,7 +132,7 @@ namespace CASMUL.Controllers
         {
             using(var context = new dbcasmulEntities())
             {
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + x.cant_disponible + " |" }).ToList();
+                ViewBag.ListaItem = ObtenerListaItemParaSeleccionar();
                 var model = context.requisa.Find(Id);
                 return View("Crear",new CrearRequisaViewModel {
                     id_requisa = model.id_requisa,
@@ -190,7 +190,7 @@ namespace CASMUL.Controllers
                     cant_enviada = 0,
                     id_requisa = 0,
                     id_item = IdItem,
-                    cant_disponible = model.cant_disponible - (model.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? model.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (model.requisa_detalle.Any(y => y.activo) ? model.requisa_detalle.Where(y => y.activo).Sum(z => z.cant_enviada) : 0),
+                    cant_disponible = ObtenerCantidadDisponible(model),
                     categoria = model.categoria.descripcion,
                     unidad_medida = model.unidad_medida.descripcion,
                     descripcion = model.cod_item + " - " + model.descripcion,

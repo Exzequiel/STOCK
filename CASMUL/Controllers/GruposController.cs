@@ -38,7 +38,7 @@ namespace CASMUL.Controllers
                 try
                 {
                     if (!ModelState.IsValid) return View(model);
-                    if (contextCm.grupo.Any(x => x.descripcion == model.Description.Trim()))
+                    if (contextCm.grupo.Any(x => x.descripcion == model.Description.Trim() && x.id_finca== model.IdFinca))
                     {
                         ModelState.AddModelError("", "Descripcion Grupo ya existente, escriba uno diferente");
                         return View(model);
@@ -81,8 +81,9 @@ namespace CASMUL.Controllers
             {
                 try
                 {
+                    ViewBag.SelectFincas = contextCm.finca.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
                     if (!ModelState.IsValid) return View(model);
-                    if (contextCm.grupo.Where(x => x.id_grupo != model.IdGrupo).Any(x => x.descripcion == model.Description.Trim()))
+                    if (contextCm.grupo.Where(x => x.id_grupo != model.IdGrupo).Any(x => x.descripcion == model.Description.Trim() && x.id_finca==model.IdFinca))
                     {
                         ModelState.AddModelError("", "Descripcion Grupo ya existente, escriba uno diferente");
                         return View(model);

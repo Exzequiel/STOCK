@@ -36,7 +36,8 @@ namespace CASMUL.Controllers
                     fecha_transaccion = x.fecha_transaccion,
                     semana = x.semana,
                     periodo = x.periodo,
-                    activo = x.activo
+                    activo = x.activo,
+                    NombreProveedor = x.pedido.proveedor.nombre_proveedor
 
                 }).ToList();
 

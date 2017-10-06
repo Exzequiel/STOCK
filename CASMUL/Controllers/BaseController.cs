@@ -1,5 +1,7 @@
-﻿using CASMUL.Models.Base;
+﻿using CASMUL.DB;
+using CASMUL.Models.Base;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -100,6 +102,21 @@ namespace CASMUL.Controllers
             decimal cantidadDias = (DateTime.Now - DateTime.Parse("2017-01-02")).Days;
             decimal semana= cantidadDias > 365 ? Convert.ToInt32(Math.Ceiling((cantidadDias % 365) / 7)) : Convert.ToInt32(Math.Ceiling(cantidadDias / 7));
             return Convert.ToInt32( Math.Ceiling(semana / 4));
+        }
+
+        public int ObtenerCantidadDisponible(item x)
+        {
+             return x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (x.requisa_detalle.Any(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)) ? x.requisa_detalle.Where(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)).Sum(z => z.cant_enviada) : 0);
+        }
+
+        public List<SelectListItem> ObtenerListaItemParaSeleccionar()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                var lista = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (x.requisa_detalle.Any(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)) ? x.requisa_detalle.Where(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)).Sum(z => z.cant_enviada) : 0)) + " |" }).ToList();
+                return lista;
+            }
+
         }
 
      
