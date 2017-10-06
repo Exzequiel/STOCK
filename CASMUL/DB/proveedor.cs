@@ -30,6 +30,7 @@ namespace CASMUL.DB
         public string contacto { get; set; }
         public string giro { get; set; }
         public string razon_social { get; set; }
+        public string pais { get; set; }
         public string ciudad { get; set; }
         public bool activo { get; set; }
     

@@ -29,7 +29,7 @@ namespace CASMUL.Controllers
             using (var contextCm = new dbcasmulEntities())
             {
                 //ViewBag.SelectFincas = contextCm.finca.Where(c => c.activo == true).ToList().Select(c => new SelectListItem { Value = c.id_finca.ToString(), Text = c.descripcion }).ToList();
-                ViewBag.SelectGrupos = contextCm.grupo.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_grupo.ToString(), Text = v.descripcion }).ToList();
+                ViewBag.SelectGrupos = contextCm.grupo.Where(v => v.activo == true).ToList().Select(v => new SelectListItem { Value = v.id_grupo.ToString(), Text = v.descripcion + " | Fincas: " + v.finca.descripcion  }).ToList();
 
                 return View();
             }

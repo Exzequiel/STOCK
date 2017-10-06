@@ -45,12 +45,12 @@ namespace CASMUL.DB
         public virtual DbSet<movimiento_detalle> movimiento_detalle { get; set; }
         public virtual DbSet<pedido> pedido { get; set; }
         public virtual DbSet<pedido_detalle> pedido_detalle { get; set; }
-        public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<requisa> requisa { get; set; }
         public virtual DbSet<requisa_detalle> requisa_detalle { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tipo_usuario> tipo_usuario { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<proveedor> proveedor { get; set; }
     }
 }
