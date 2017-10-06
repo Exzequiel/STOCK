@@ -152,7 +152,11 @@
                 type: "Get",
                 data: { IdItem:  IdItem},
                 success: function (data) {
-                    $.fn.dataTable.Api("#IdTabla").row.add(data).draw(false);
+                    if (data.cant_disponible > 0) {
+                        $.fn.dataTable.Api("#IdTabla").row.add(data).draw(false);
+                    } else {
+                        ShowNotification(false, "Item No Disponible", "Seleccione otro");
+                    }
                 },
                 error: function () { alert("Error de red"); }
             });

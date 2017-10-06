@@ -66,7 +66,7 @@ namespace CASMUL.Controllers
                     activo = x.activo,
                     id_item = x.id_item,
                     cant_recibida = x.cant_recibida,
-                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
+                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (x.item.requisa_detalle.Any(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)) ? x.item.requisa_detalle.Where(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)).Sum(z => z.cant_enviada) : 0),
                     categoria = x.item.categoria.descripcion,
                     descripcion = x.item.cod_item + " - " + x.item.descripcion,
                     unidad_medida = x.item.unidad_medida.descripcion,
@@ -86,7 +86,7 @@ namespace CASMUL.Controllers
                 {
                     id_item = x.id_item,
                     cant_recibida = x.cant_solicitada,
-                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
+                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (x.item.requisa_detalle.Any(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)) ? x.item.requisa_detalle.Where(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)).Sum(z => z.cant_enviada) : 0),
                     categoria = x.item.categoria.descripcion,
                     descripcion = x.item.cod_item + " - " + x.item.descripcion,
                     unidad_medida = x.item.unidad_medida.descripcion,

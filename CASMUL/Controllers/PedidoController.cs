@@ -63,7 +63,7 @@ namespace CASMUL.Controllers
                     id_detalle_pedido = x.id_detalle_pedido,
                     id_item = x.id_item,
                     cant_solicitada = x.cant_solicitada,
-                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
+                    cant_disponible = x.item.cant_disponible - (x.item.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.item.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0) - (x.item.requisa_detalle.Any(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)) ? x.item.requisa_detalle.Where(y => y.activo && !y.requisa.movimiento.Any(z => z.activo)).Sum(z => z.cant_enviada) : 0),
                     categoria = x.item.categoria.descripcion,
                     descripcion = x.item.cod_item + " - " + x.item.descripcion,
                     unidad_medida = x.item.unidad_medida.descripcion
@@ -81,7 +81,7 @@ namespace CASMUL.Controllers
             using (var context = new dbcasmulEntities())
             {
                 ViewBag.ListaProveedor = context.proveedor.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
+                ViewBag.ListaItem = ObtenerListaItemParaSeleccionar();//  context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
                 return View(new CrearPedidoViewModel
                 {
                     fecha_transaccion = DateTime.Now,
@@ -132,7 +132,7 @@ namespace CASMUL.Controllers
             using (var context = new dbcasmulEntities())
             {
                 ViewBag.ListaProveedor = context.proveedor.Where(x=>x.activo).Select(x => new SelectListItem { Value = x.id_proveedor.ToString(), Text = x.cod_proveedor + " - " + x.nombre_proveedor }).ToList();
-                ViewBag.ListaItem = context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
+                ViewBag.ListaItem = ObtenerListaItemParaSeleccionar();// context.item.Where(x => x.activo).Select(x => new SelectListItem { Value = x.id_item.ToString(), Text = x.cod_item + " - " + x.descripcion + " |Medida: " + x.unidad_medida.descripcion + " |Categoria: " + x.categoria.descripcion + " |Disponible: " + (x.cant_disponible - (x.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? x.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0)) + " |" }).ToList();
                 var model = context.pedido.Find(Id);
                 return View("Crear", new CrearPedidoViewModel
                 {
@@ -193,7 +193,7 @@ namespace CASMUL.Controllers
                     cant_solicitada = 0,
                     id_pedido = 0,
                     id_item = IdItem,
-                    cant_disponible = model.cant_disponible - (model.entrega_detalle.Any(y => y.activo && y.entrega.confirmado == false) ? model.entrega_detalle.Where(y => y.activo && y.entrega.confirmado == false).Sum(z => z.cant_aentregar) : 0),
+                    cant_disponible = ObtenerCantidadDisponible(model),
                     categoria = model.categoria.descripcion,
                     unidad_medida = model.unidad_medida.descripcion,
                     descripcion = model.cod_item + " - " + model.descripcion,

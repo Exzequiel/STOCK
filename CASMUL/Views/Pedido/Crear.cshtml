@@ -118,6 +118,7 @@
                 data: { IdItem:  IdItem},
                 success: function (data) {
                     $.fn.dataTable.Api("#IdTabla").row.add(data).draw(false);
+                   
                 },
                 error: function () { alert("Error de red"); }
             });
