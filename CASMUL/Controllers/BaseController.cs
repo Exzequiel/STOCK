@@ -88,6 +88,29 @@ namespace CASMUL.Controllers
             }
         }
 
+        public string GetCorrelativoEntrega()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                var IdFinca = context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_finca ?? 0;
+                if(IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca42"))) return getConfiguracion("CorrelativoEntregaFinca42");
+                else if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca41")))return getConfiguracion("CorrelativoEntregaFinca41");
+                else if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca40")))return getConfiguracion("CorrelativoEntregaFinca40");
+                return getConfiguracion("CorrelativoEntrega");
+            }
+        }
+
+        public string GetCorrelativoRequisa()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                var IdFinca = context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_finca ?? 0;
+               // if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca42"))) return getConfiguracion("CorrelativoEntregaFinca42");
+                if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca41"))) return getConfiguracion("CorrelativoRequisaFinca41");
+                else if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca40"))) return getConfiguracion("CorrelativoRequisaFinca40");
+                return getConfiguracion("CorrelativoRequisa");
+            }
+        }
 
 
         public int ObtenerSemana()

@@ -89,7 +89,7 @@ namespace CASMUL.Controllers
                 ViewBag.ListaItem = ObtenerListaItemParaSeleccionar();
                 return View(new CrearRequisaViewModel {
                     fecha_transaccion = DateTime.Now,
-                    nro_requisa = getConfiguracion("CorrelativoRequisa"),
+                    nro_requisa = GetCorrelativoRequisa(),
                     NombreFinca = ObtenerNombreFincaPorUsuario(),
                     semana = ObtenerSemana(),
                     periodo = ObtenerPeriodo(),

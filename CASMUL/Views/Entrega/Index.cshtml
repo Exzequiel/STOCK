@@ -114,7 +114,7 @@
                     data: null,
                     render: function (data) {
                         var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="ConfirmarEntrega(' + data.id_entrega + ')"> Confirmar Entrega</a></li>':"";
+                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="ConfirmarEntrega(' + data.id_entrega + ')"> Confirmar Entrega</a></li>';
                         opciones += !data.activo || data.confirmado ? '' : '<li><a href="/Entrega/EditarEntrega?IdEntrega=' + data.id_entrega + '"> Editar Entrega</a></li>';
                        // opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="DeshabilitarEntrega(' + data.id_entrega + ')"> Deshabilitar</a></li>';
                         opciones += '</ul></div>';
