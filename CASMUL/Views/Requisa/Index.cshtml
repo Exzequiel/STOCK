@@ -3,7 +3,7 @@
         <div class="panel-heading-btn">
             @if (User.IsInRole("Administrador") || User.IsInRole("UsuarioFincaNormal"))
             {
-                <a href="~/@ViewBag.ControllerName/Crear" class="btn btn-xs btn-primary" data-original-title="Crear" title="Crear"><i class="fa fa-plus"></i> Crear Nuevo</a>
+                <a href="@Url.Action("Crear",ViewBag.ControllerName)" class="btn btn-xs btn-primary" data-original-title="Crear" title="Crear"><i class="fa fa-plus"></i> Crear Nuevo</a>
             }
          
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
@@ -22,7 +22,7 @@
                     <th>Periodo</th>
                     <th>Semana</th>
                     <th>Movimiento</th>
-                    <th>Activo </th>
+                    @*<th>Activo </th>*@
                 </tr>
             </thead>
             <tbody></tbody>
@@ -46,7 +46,7 @@
                 allowOutsideClick: false
             }).then(function () {
                 $.ajax({
-                    url: '/'+'@ViewBag.ControllerName'+'/Deshabilitar',
+                    url: '@Url.Action("Deshabilitar","Requisa")',
                     type: "get",
                     data: { Id: Id },
                     success: function (data) {
@@ -65,7 +65,8 @@
 
         function CrearMovimiento(Id) {
             $.ajax({
-                url: '/Movimiento/Crear',
+                url: '@Url.Action("Crear", "Movimiento")',
+               // url: '/Movimiento/Crear',
                 type: "get",
                 data: { IdRequisa: Id },
                 success: function (data) {
@@ -84,7 +85,8 @@
        var table= $("#IdTabla").dataTable({
             responsive: true,
             ajax: {
-                url: '/' +'@ViewBag.ControllerName' +'/CargarTablaIndex',
+                url: '@Url.Action("CargarTablaIndex", ViewBag.ControllerName)',
+             
                 global:false,
                 type: "GET",
                 dataSrc: function (data) {
@@ -103,7 +105,7 @@
                     render: function (data) {
                         var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
                         opciones += str2bool('@User.IsInRole("Administrador")') || str2bool('@User.IsInRole("UsuarioFincaPrincipal")') ?!data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="CrearMovimiento(' + data.id_requisa + ')"> Confirmar Movimiento</a></li>':"";
-                        opciones += str2bool('@User.IsInRole("Administrador")') || str2bool('@User.IsInRole("UsuarioFincaNormal")') ? !data.activo || data.confirmado ? '' : '<li><a href="/' + '@ViewBag.ControllerName' + '/Editar?Id=' + data.id_requisa + '"> Editar</a></li>':"";
+                        opciones += str2bool('@User.IsInRole("Administrador")') || str2bool('@User.IsInRole("UsuarioFincaNormal")') ? !data.activo || data.confirmado ? '' : '<li><a href="/Requisa/Editar?Id=' + data.id_requisa + '"> Editar</a></li>':"";
                       //  opciones += str2bool('@User.IsInRole("Administrador")') || str2bool('@User.IsInRole("UsuarioFincaNormal")') ? !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id_requisa + ')"> Deshabilitar</a></li>':"";
                         opciones += '</ul></div>';
                         return opciones;
@@ -134,12 +136,12 @@
                           return data.confirmado ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i> Confirmado</span>' : '<span class="padding-5 label label-danger"><i class="fa fa-warning"></i> Pendiente</span>';
                       }
                   },
-                {
-                    data: null,
-                    render: function (data) {
-                        return data.activo ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
-                    }
-                }
+                //{
+                //    data: null,
+                //    render: function (data) {
+                //        return data.activo ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
+                //    }
+                //}
             ]
         });
 
@@ -154,7 +156,8 @@
         } else {
             tr.addClass('shown');
             $.ajax({
-                url: '/'+'@ViewBag.ControllerName'+'/VerDetalleIndex',
+                url: '@Url.Action("VerDetalleIndex","Requisa")',
+               // url: '/'+'@ViewBag.ControllerName'+'/VerDetalleIndex',
                 type: "get",
                 global: false,
                 data: { Id: row.data().id_requisa },

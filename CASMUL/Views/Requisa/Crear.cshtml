@@ -104,7 +104,8 @@
             if(!validate){  ShowNotification(false,"Item ya seleccionado", "Seleccione otro"); return;}
 
             $.ajax({
-                url: "/"+'@ViewBag.ControllerName'+"/ObtenerInfoItem",
+               // url: "/"+'@ViewBag.ControllerName'+"/ObtenerInfoItem",
+                url: '@Url.Action("ObtenerInfoItem","Requisa")',
                 type: "Get",
                 data: { IdItem:  IdItem},
                 success: function (data) {
@@ -113,7 +114,7 @@
                     } else {
                         ShowNotification(false, "Item No Disponible", "Seleccione otro");
                     }
-                   
+
                 },
                 error: function () { alert("Error de red"); }
             });
@@ -129,7 +130,8 @@
             responsive: true,
             sDom:"",
             ajax:{
-                url: "/"+'@ViewBag.ControllerName'+"/CargarTablaDetalle",
+                url: '@Url.Action("CargarTablaDetalle","Requisa")',
+               // url: "/"+'@ViewBag.ControllerName'+"/CargarTablaDetalle",
                 data: {Id: @Model.id_requisa},
                 type: "GET",
                 dataSrc: function (data) { return data; }
@@ -169,7 +171,7 @@
         $("#FormCrear").removeAttr("novalidate");
         $("#FormCrear").submit(function (event) {
             event.preventDefault();
-        
+
             var validate = true;
             validate = $("#FormCrear").valid();
             $("#FormCrear").removeAttr("novalidate");
@@ -191,9 +193,9 @@
                 ListaDetalle: Tablelist
             }
 
-            var url = '/'+'@ViewBag.ControllerName'+'/Crear';
+            var url ='@Url.Action("Crear", ViewBag.ControllerName)' //'/'+'@ViewBag.ControllerName'+'/Crear';
             if (str2bool('@Model.EsEditar')) {
-                url = '/'+'@ViewBag.ControllerName'+'/Editar';
+                url = '@Url.Action("Editar", ViewBag.ControllerName)'  // '/'+'@ViewBag.ControllerName'+'/Editar';
             }
             $.ajax({
                 url: url,
@@ -218,7 +220,7 @@
                         },
                          function (dismiss) {
                              if (dismiss === 'cancel') {
-                                 window.location.href = "/"+'@ViewBag.ControllerName'+"/Index";
+                                 window.location.href ='@Url.Action("Index", ViewBag.ControllerName)';// "/"+'@ViewBag.ControllerName'+"/Index";
                                  LoadWaitNotification();
                              }
                          });

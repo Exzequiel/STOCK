@@ -14,8 +14,9 @@
     $("#IdTabla-" + '@ViewBag.Id').dataTable({
         responsive: true,
         sDom:"",
-        ajax:{
-            url: "/" + '@ViewBag.ControllerName' + "/CargarTablaDetalle",
+        ajax: {
+           url: '@Url.Action("CargarTablaDetalle")',
+          //  url: "/" + '@ViewBag.ControllerName' + "/CargarTablaDetalle",
             data: {Id: '@ViewBag.Id'},
             type: "GET",
             global: false,

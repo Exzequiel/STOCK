@@ -328,3 +328,4 @@ C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveA
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csproj.CoreCompileInputs.cache
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.pdb
+C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll

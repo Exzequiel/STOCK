@@ -23,7 +23,7 @@
                     <th>Finca</th>
                     <th>Periodo</th>
                     <th>Semana</th>
-                    <th>Activo </th>
+                    @*<th>Activo </th>*@
                 </tr>
             </thead>
             <tbody></tbody>
@@ -129,12 +129,12 @@
                 {
                     data: "semana"
                 },
-                {
-                    data: null,
-                    render: function (data) {
-                        return data.activo ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
-                    }
-                }
+                //{
+                //    data: null,
+                //    render: function (data) {
+                //        return data.activo ? '<span class="padding-5 label label-success"><i class="fa fa-check"></i></span>' : '<span class="padding-5 label label-danger"><i class="fa fa-ban"></i></span>';
+                //    }
+                //}
             ]
         });
 
