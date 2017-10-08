@@ -54,7 +54,7 @@
             DataFilaActual.cant_enviada =  $(this).closest("tr").find("[name=InputCantidad]").val();
         });
 
-        var url =  "/Movimiento/CargarTablaDetalleRequisa";
+        var url =  "/CASMUL/Movimiento/CargarTablaDetalleRequisa";
         var data = {Id: @Model.id_requisa};
         if(str2bool('@Model.EsEditar')){
             url =  "/Movimiento/CargarTablaDetalle";

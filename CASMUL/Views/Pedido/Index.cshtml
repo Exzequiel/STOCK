@@ -43,7 +43,7 @@
                 allowOutsideClick: false
             }).then(function () {
                 $.ajax({
-                    url: '/'+'@ViewBag.ControllerName'+'/Deshabilitar',
+                    url: '@Url.Action("Deshabilitar", ViewBag.ControllerName)',
                     type: "get",
                     data: { Id: Id },
                     success: function (data) {
@@ -62,7 +62,8 @@
 
         function CrearMercaderia(Id) {
             $.ajax({
-                url: '/Mercaderia/Crear',
+                url: '@Url.Action("Crear", "Mercaderia")',
+             //   url: '/Mercaderia/Crear',
                 type: "get",
                 data: { IdPedido: Id },
                 success: function (data) {
@@ -81,7 +82,7 @@
        var table= $("#IdTabla").dataTable({
             responsive: true,
             ajax: {
-                url: '/' +'@ViewBag.ControllerName' +'/CargarTablaIndex',
+                url: '@Url.Action("CargarTablaIndex", ViewBag.ControllerName)',
                 global:false,
                 type: "GET",
                 dataSrc: function (data) {
@@ -154,7 +155,7 @@
         } else {
             tr.addClass('shown');
             $.ajax({
-                url: '/'+'@ViewBag.ControllerName'+'/VerDetalleIndex',
+                url: '@Url.Action("VerDetalleIndex", ViewBag.ControllerName)',
                 type: "get",
                 global: false,
                 data: { Id: row.data().id_pedido },
