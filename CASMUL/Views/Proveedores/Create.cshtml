@@ -144,8 +144,8 @@
 
             LoadWaitNotification();
             $.ajax({
-                url: "/Usuario/CrearUsuario",
-                type: 'POST',
+                url: '@Url.Action("CrearUsuario","Usuario")',
+                type: "Get",
                 dataType: 'json',
                 data: $('form').serialize(),
                 success: function (data) {

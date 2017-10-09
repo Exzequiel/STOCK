@@ -30,9 +30,9 @@
             if (!$("#FormCrearRole").valid()) { return false; }
 
             LoadWaitNotification();
-                $.ajax({
-                    url: "/Role/Crear",
-                    type: 'POST',
+            $.ajax({
+                    url: '@Url.Action("Crear","Role")',
+                    type: "Get",
                     dataType: 'json',
                     data: $('#FormCrearRole').serialize(),
                     success: function (data) {

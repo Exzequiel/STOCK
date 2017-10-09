@@ -74,9 +74,9 @@
             if (!$("#FormCuentaUsuario").valid()) { return false;}
 
             LoadWaitNotification();
-                $.ajax({
-                    url: "/Usuario/EditarCuentaUsuario",
-                    type: 'POST',
+            $.ajax({
+                    url: '@Url.Action("EditarCuentaUsuario", "Usuario")',
+                    type: "Get",
                     dataType: 'json',
                     data: $('#FormCuentaUsuario').serialize(),
                     success: function (data) {

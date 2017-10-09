@@ -329,3 +329,4 @@ C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csproj.CoreCom
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.pdb
 C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll
+C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll

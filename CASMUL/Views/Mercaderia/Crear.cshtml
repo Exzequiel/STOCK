@@ -55,10 +55,8 @@
             var tabla = $.fn.dataTable.Api("#IdTablaDetalle");
             DataFilaActual = tabla.row($(this).closest("tr")).data();
             DataFilaActual.cant_recibida =  $(this).closest("tr").find("[name=InputCantidad]").val();
-        });
+    });
 
-        var url =  "/Mercaderia/CargarTablaDetallePedido";
-        var data = {Id: @Model.id_pedido};
         if(str2bool('@Model.EsEditar')){
             url =  "/Mercaderia/CargarTablaDetalle";
             data = {Id: @Model.id};
@@ -67,10 +65,10 @@
         $("#IdTablaDetalle").dataTable({
             responsive: true,
             sDom:"",
-            ajax:{
-                url: url,
-                data: data,
-                type: "GET",
+            ajax: {
+                url: '@Url.Action("CargarTablaDetallePedido", "Mercaderia")',
+                type: "Get",
+                data: {Id: @Model.id_pedido},
                 dataSrc: function (data) { return data; }
             },
             columns: [

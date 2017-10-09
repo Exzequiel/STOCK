@@ -147,13 +147,13 @@
         });
 
         function CrearUsuario() {
-         
+
             if (!$("#FormCrearUsuario").valid()) { return false; }
 
             LoadWaitNotification();
             $.ajax({
-                url: "/Usuario/CrearUsuario",
-                type: 'POST',
+                url: '@Url.Action("CrearUsuario", "Usuario")',
+                type: "Get",
                 dataType: 'json',
                 data: $('form').serialize(),
                 success: function (data) {
@@ -161,7 +161,7 @@
                     if (data.Estado) {
                         document.location.href = '/Usuario/Index';
                     }
-                  
+
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert(textStatus + ": Problemas con la red");
@@ -171,8 +171,8 @@
             });
         };
 
-      
-     
+
+
     </script>
 
 }

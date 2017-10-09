@@ -40,9 +40,9 @@
     function EditarRole() {
             if (!$("#FormEditarRole").valid()) { return false; }
             LoadWaitNotification();
-                $.ajax({
-                    url: "/Role/Editar",
-                    type: 'POST',
+            $.ajax({
+                    url: '@Url.Action("Editar","Role")',
+                    type: "Get",
                     dataType: 'json',
                     data: $('#FormEditarRole').serialize(),
                     success: function (data) {
