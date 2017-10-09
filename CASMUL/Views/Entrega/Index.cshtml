@@ -1,7 +1,7 @@
 ﻿<div class="panel panel-inverse">
     <div class="panel-heading">
         <div class="panel-heading-btn">
-            <a href="~/Entrega/CrearEntrega" class="btn btn-xs btn-primary" data-original-title="Crear Usuario" title="Crear Usuario"><i class="fa fa-plus"></i> Crear Nuevo</a>
+            <a href="@Url.Action("CrearEntrega","Entrega")" class="btn btn-xs btn-primary" data-original-title="Crear Usuario" title="Crear"><i class="fa fa-plus"></i> Crear Nuevo</a>
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
 
         </div>
@@ -44,7 +44,8 @@
                 allowOutsideClick: false
             }).then(function () {
                 $.ajax({
-                    url: '/Entrega/ConfirmarEntrega',
+                   // url: '~/Entrega/ConfirmarEntrega',
+                    url: '@Url.Action("ConfirmarEntrega", "Entrega")',
                     type: "get",
                     data: { Id: Id },
                     success: function (data) {
@@ -72,7 +73,7 @@
                 allowOutsideClick: false
             }).then(function () {
                 $.ajax({
-                    url: '/Entrega/Deshabilitar',
+                    url:"@Url.Action("Deshabilitar", "Entrega")",
                     type: "get",
                     data: { Id: Id },
                     success: function (data) {
@@ -115,7 +116,7 @@
                     render: function (data) {
                         var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
                         opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="ConfirmarEntrega(' + data.id_entrega + ')"> Confirmar Entrega</a></li>';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="/Entrega/EditarEntrega?IdEntrega=' + data.id_entrega + '"> Editar Entrega</a></li>';
+                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="@Url.Action("EditarEntrega", "Entrega")?IdEntrega=' + data.id_entrega + '"> Editar Entrega</a></li>';
                        // opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="DeshabilitarEntrega(' + data.id_entrega + ')"> Deshabilitar</a></li>';
                         opciones += '</ul></div>';
                         return opciones;
@@ -170,7 +171,7 @@
         } else {
             tr.addClass('shown');
             $.ajax({
-                url: '/Entrega/VerDetalleEntrega',
+                url:'@Url.Action("VerDetalleEntrega", "Entrega")',
                 type: "get",
                 global: false,
                 data: { Id: row.data().id_entrega },

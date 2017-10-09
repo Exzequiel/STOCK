@@ -86,7 +86,6 @@
             responsive: true,
             ajax: {
                 url: '@Url.Action("CargarTablaIndex", ViewBag.ControllerName)',
-             
                 global:false,
                 type: "GET",
                 dataSrc: function (data) {
@@ -157,7 +156,6 @@
             tr.addClass('shown');
             $.ajax({
                 url: '@Url.Action("VerDetalleIndex","Requisa")',
-               // url: '/'+'@ViewBag.ControllerName'+'/VerDetalleIndex',
                 type: "get",
                 global: false,
                 data: { Id: row.data().id_requisa },

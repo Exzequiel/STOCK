@@ -8,7 +8,7 @@
 <div class="panel panel-inverse">
     <div class="panel-heading">
         <div class="panel-heading-btn">
-            <a href="~/Entrega/Index" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Ver Listado</a>
+            <a href="@Url.Action("Index","Entrega")" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Ver Listado</a>
         </div>
         @if (Model.EsEditar) { <h4 class="panel-title">Editar Entrega</h4> }
         else {  <h4 class="panel-title">Nueva Entrega</h4>}
@@ -125,7 +125,7 @@
         $("#id_grupo").on("select2:select", function (e) {
             var Id = $(this).val();
             $.ajax({
-                url: "/Entrega/ObtenerListaCablesPorGrupo",
+                url:'@Url.Action("ObtenerListaCablesPorGrupo", "Entrega")',// "/Entrega/ObtenerListaCablesPorGrupo",
                 type: "Get",
                 data: { IdGrupo:  Id},
                 success: function (data) {
@@ -148,7 +148,7 @@
             if(!validate){  ShowNotification(false,"Item ya seleccionado", "Seleccione otro"); return;}
 
             $.ajax({
-                url: "/Entrega/ObtenerInfoItem",
+                url:'@Url.Action("ObtenerInfoItem", "Entrega")',// "/Entrega/ObtenerInfoItem",
                 type: "Get",
                 data: { IdItem:  IdItem},
                 success: function (data) {
@@ -172,7 +172,7 @@
             responsive: true,
             sDom:"",
             ajax:{
-                url: "/Entrega/CargarTablaDetalleEntrega",
+                url:"@Url.Action("CargarTablaDetalleEntrega", "Entrega")",// "/Entrega/CargarTablaDetalleEntrega",
                 data: {IdEntrega: @Model.id_entrega},
                 type: "GET",
                 dataSrc: function (data) { return data; }
@@ -236,9 +236,9 @@
             }
 
             console.log(obj);
-            var url = '/Entrega/CrearEntrega';           
+            var url ="@Url.Action("CrearEntrega", "Entrega")";   
             if (str2bool('@Model.EsEditar')) {
-                url = '/Entrega/EditarEntrega';
+                url ="@Url.Action("EditarEntrega", "Entrega")";
             }
             $.ajax({
                 url: url,
@@ -263,7 +263,7 @@
                         },
                          function (dismiss) {
                              if (dismiss === 'cancel') {
-                                 window.location.href = "/Entrega/Index";
+                                 window.location.href = "@Url.Action("Index", "Entrega")";
                                  LoadWaitNotification();  
                              }
                          });

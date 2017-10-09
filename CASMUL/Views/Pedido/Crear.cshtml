@@ -9,7 +9,7 @@
 <div class="panel panel-inverse">
     <div class="panel-heading">
         <div class="panel-heading-btn">
-            <a href="~/@ViewBag.ControllerName/Index" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Ver Listado</a>
+            <a href="@Url.Action("Index",ViewBag.ControllerName)" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Ver Listado</a>
         </div>
         @if (Model.EsEditar)
         { <h4 class="panel-title">Editar @ViewBag.ControllerName</h4> }

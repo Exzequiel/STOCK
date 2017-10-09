@@ -100,6 +100,18 @@ namespace CASMUL.Controllers
             }
         }
 
+        public void SumarCorrelativoEntrega()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                var IdFinca = context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_finca ?? 0;
+                if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca42"))) SumarCorrelativo("CorrelativoEntregaFinca42");
+                else if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca41"))) SumarCorrelativo("CorrelativoEntregaFinca41");
+                else if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca40"))) SumarCorrelativo("CorrelativoEntregaFinca40");
+                else SumarCorrelativo("CorrelativoEntrega");
+            }
+        }
+
         public string GetCorrelativoRequisa()
         {
             using (var context = new CASMUL.DB.dbcasmulEntities())
@@ -111,6 +123,20 @@ namespace CASMUL.Controllers
                 return getConfiguracion("CorrelativoRequisa");
             }
         }
+
+        public void SumarCorrelativoRequisa()
+        {
+            using (var context = new CASMUL.DB.dbcasmulEntities())
+            {
+                var IdFinca = context.usuario.FirstOrDefault(x => x.AspNetUsers.UserName == User.Identity.Name)?.id_finca ?? 0;
+                // if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca42"))) return getConfiguracion("CorrelativoEntregaFinca42");
+                if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca41"))) SumarCorrelativo("CorrelativoRequisaFinca41");
+                else if (IdFinca == Convert.ToInt32(getConfiguracion("Finca_IdFinca40"))) SumarCorrelativo("CorrelativoRequisaFinca40");
+                else SumarCorrelativo("CorrelativoRequisa");
+            }
+
+        }
+
 
 
         public int ObtenerSemana()

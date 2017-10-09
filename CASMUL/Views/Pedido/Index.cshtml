@@ -1,7 +1,7 @@
 ﻿<div class="panel panel-inverse">
     <div class="panel-heading">
         <div class="panel-heading-btn">
-            <a href="~/@ViewBag.ControllerName/Crear" class="btn btn-xs btn-primary" data-original-title="Crear" title="Crear"><i class="fa fa-plus"></i> Crear Nuevo</a>
+            <a href="@Url.Action("Index",ViewBag.ControllerName)" class="btn btn-xs btn-primary" data-original-title="Crear" title="Crear"><i class="fa fa-plus"></i> Crear Nuevo</a>
             <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
         </div>
         <h4 class="panel-title">@ViewBag.ControllerName</h4>
@@ -101,7 +101,7 @@
                     render: function (data) {
                         var opciones='<div class="btn-group m-r-5 m-b-5 "><a href="javascript:;" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs" aria-expanded="false">Acciones <span class="caret"></span></a><ul class="dropdown-menu">';
                         opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="CrearMercaderia(' + data.id_pedido + ')"> Confirmar Mercaderia</a></li>';
-                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="/' + '@ViewBag.ControllerName' + '/Editar?Id=' + data.id_pedido + '"> Editar</a></li>';
+                        opciones += !data.activo || data.confirmado ? '' : '<li><a href="@Url.Action("Editar", ViewBag.ControllerName)?Id=' + data.id_pedido + '"> Editar</a></li>';
                       //  opciones += !data.activo || data.confirmado ? '' : '<li><a href="javascript:void(0);" onclick="Deshabilitar(' + data.id_pedido + ')"> Deshabilitar</a></li>';
                         opciones += '</ul></div>';
                         return opciones;

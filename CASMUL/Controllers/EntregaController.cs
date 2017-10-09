@@ -128,7 +128,7 @@ namespace CASMUL.Controllers
                     });
                 }
                 var resultado = context.SaveChanges() > 0;
-                if (resultado) SumarCorrelativo("CorrelativoEntrega");
+                if (resultado) SumarCorrelativoEntrega();
                 return Json(EnviarResultado(resultado, "Entrega Creada Exitosamente"), JsonRequestBehavior.AllowGet);
             }
         }

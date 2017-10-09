@@ -122,7 +122,7 @@ namespace CASMUL.Controllers
                 }
 
                 var resultado = context.SaveChanges() > 0;
-                if (resultado) SumarCorrelativo("CorrelativoRequisa");
+                if (resultado) SumarCorrelativoRequisa();
                 return Json(EnviarResultado(resultado, "Requisa creada exitosamente"), JsonRequestBehavior.AllowGet);
             }
         }
