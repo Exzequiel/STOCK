@@ -57,7 +57,7 @@
     {
        LoadWaitNotification();
         $.ajax({
-            url:  "/Role/Crear",
+            url: '@Url.Action("Crear","Role")',
             type: 'get',
             success: function (data) {
                 $("#MyModalTitle").html("Crear Tipo de Usuario");
@@ -76,7 +76,7 @@
     {
         LoadWaitNotification();
         $.ajax({
-            url: "/Role/Editar",
+            url: '@Url.Action("Editar","Role")',
             type: 'get',
             data: {Id : id},
         success: function (data) {

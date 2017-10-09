@@ -47,7 +47,7 @@
         function MostrarEditarCuenta(id) {
             LoadWaitNotification();
             $.ajax({
-                url: "/Proveedores/Edit",
+                url:"@Url.Action("Edit", "Proveedores")",
                 type: 'get',
                 data: { Id: id },
                 success: function (data) {
@@ -62,41 +62,6 @@
                 complete: function () { UnloadWaitNotification(); }
             });
         }
-
-
-    function GuardarSeleccion(idProveedor, IdTabla, ActionName) {
-        var listcheckedrows = [];
-        var table = new $.fn.dataTable.Api("#" + IdTabla);
-        table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-            var nodo = this.node();
-            if ($(nodo).find('input').is(':checked')) listcheckedrows.push($(nodo).attr("id"));
-        });
-        LoadWaitNotification();
-        $.ajax({
-            url: "/Proveedor/"+ActionName,
-            type: "POST",
-            data: { Lista: listcheckedrows, IdProveedor: idProveedor },
-            success: function (data) {
-                if (data.Estado) {
-                    ShowNotification(data.Estado, data.Titulo, data.Mensaje);
-                    new $.fn.dataTable.Api("#IdTabla").ajax.reload();
-                    $("#MyModal").modal("hide");
-                } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
-
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                ShowNotification(false, textStatus, ""); alert(textStatus);
-                UnloadWaitNotification();
-            },
-            complete: function () { UnloadWaitNotification(); }
-        });
-        }
-
-
-    function DeshabilitarUsuario() {
-    }
-
-
 
     $(document).ready(function () {
         $("#IdTabla").dataTable({

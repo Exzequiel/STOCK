@@ -36,7 +36,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>
-      
+
 
     function EditarContrasena() {
 
@@ -44,7 +44,7 @@
 
             LoadWaitNotification();
                 $.ajax({
-                    url: "/Usuario/ResetContrasena",
+                    url:'@Url.Action("ResetContrasena", "Usuario")',
                     type: 'POST',
                     dataType: 'json',
                     data: $('#FormContrasenaUsuario').serialize(),

@@ -73,7 +73,7 @@
 
             LoadWaitNotification();
                 $.ajax({
-                    url: "/Usuario/EditarInfoUsuario",
+                    url:'@Url.Action("EditarInfoUsuario", "Usuario")',
                     type: 'POST',
                     dataType: 'json',
                     data: $('#FormInfoUsuario').serialize(),

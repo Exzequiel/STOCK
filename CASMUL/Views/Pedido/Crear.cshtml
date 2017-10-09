@@ -113,12 +113,12 @@
             if(!validate){  ShowNotification(false,"Item ya seleccionado", "Seleccione otro"); return;}
 
             $.ajax({
-                url: "/"+'@ViewBag.ControllerName'+"/ObtenerInfoItem",
+                url:"@Url.Action("ObtenerInfoItem", ViewBag.ControllerName)",
                 type: "Get",
                 data: { IdItem:  IdItem},
                 success: function (data) {
                     $.fn.dataTable.Api("#IdTabla").row.add(data).draw(false);
-                   
+
                 },
                 error: function () { alert("Error de red"); }
             });
@@ -134,7 +134,7 @@
             responsive: true,
             sDom:"",
             ajax:{
-                url: "/"+'@ViewBag.ControllerName'+"/CargarTablaDetalle",
+                url:"@Url.Action("CargarTablaDetalle", ViewBag.ControllerName)",
                 data: {Id: @Model.id_pedido},
                 type: "GET",
                 dataSrc: function (data) { return data; }
@@ -195,10 +195,11 @@
                 ListaDetalle: Tablelist
             }
 
-            var url = '/'+'@ViewBag.ControllerName'+'/Crear';
+            var url ="@Url.Action("Crear", ViewBag.ControllerName)";
             if (str2bool('@Model.EsEditar')) {
-                url = '/'+'@ViewBag.ControllerName'+'/Editar';
+                url ="@Url.Action("Editar", ViewBag.ControllerName)";
             }
+
             $.ajax({
                 url: url,
                 type: 'POST',

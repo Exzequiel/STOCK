@@ -49,7 +49,7 @@
     {
         LoadWaitNotification();
         $.ajax({
-            url: "/Usuario/EditarCuentaUsuario",
+            url: "@Url.Action("EditarCuentaUsuario", "Usuario")",
             type: 'get',
             data: { Id: id },
             success: function (data) {
@@ -68,7 +68,7 @@
     function MostrarEditarInfo(id) {
         LoadWaitNotification();
         $.ajax({
-            url: "/Usuario/EditarInfoUsuario",
+            url:"@Url.Action("EditarInfoUsuario", "Usuario")",
             type: 'get',
             data: { Id: id },
             success: function (data) {
@@ -88,7 +88,7 @@
     {
         LoadWaitNotification();
         $.ajax({
-            url: "/Usuario/ResetContrasena",
+            url: "@Url.Action("ResetContrasena", "Usuario")",
             type: 'get',
             data: { Id: id },
             success: function (data) {
@@ -103,40 +103,6 @@
             complete: function () { UnloadWaitNotification(); }
         });
     }
-
-
-    function GuardarSeleccion(idPersona, IdTabla, ActionName) {
-        var listcheckedrows = [];
-        var table = new $.fn.dataTable.Api("#" + IdTabla);
-        table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-            var nodo = this.node();
-            if ($(nodo).find('input').is(':checked')) listcheckedrows.push($(nodo).attr("id"));
-        });
-        LoadWaitNotification();
-        $.ajax({
-            url: "/Usuario/"+ActionName,
-            type: "POST",
-            data: { Lista: listcheckedrows, IdPersona: idPersona },
-            success: function (data) {
-                if (data.Estado) {
-                    ShowNotification(data.Estado, data.Titulo, data.Mensaje);
-                    new $.fn.dataTable.Api("#IdTabla").ajax.reload();
-                    $("#MyModal").modal("hide");
-                } else ShowNotification(data.Estado, data.Titulo, data.Mensaje);
-
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                ShowNotification(false, textStatus, ""); alert(textStatus);
-                UnloadWaitNotification();
-            },
-            complete: function () { UnloadWaitNotification(); }
-        });
-        }
-
-
-    function DeshabilitarUsuario() {
-    }
-
 
 
     $(document).ready(function () {
@@ -157,7 +123,6 @@
                         opciones += ('<li><a href="javascript:void(0);" onclick="MostrarEditarCuenta(!' + data.Id + '!)"> Editar Cuenta</a></li>').replace(new RegExp("!", 'g'), "'");
                         opciones += ('<li><a href="javascript:void(0);" onclick="MostrarEditarInfo(!' + data.Id + '!)"> Editar Perfil</a></li>').replace(new RegExp("!", 'g'), "'");
                         opciones += ('<li><a href="javascript:void(0);" onclick="MostrarResetContrasena(!' + data.Id + '!)"> Cambiar Contraseña</a></li>').replace(new RegExp("!", 'g'), "'");
-                        //opciones += data.esDoctor ? ('<li><a href="javascript:void(0);" onclick="AgregarEspecialidad(!' + data.Id + '!)"> Agregar Especialidad</a></li>').replace(new RegExp("!", 'g'), "'") : "";
                         opciones += '</ul></div>';
                         return opciones;
                     }
@@ -197,5 +162,5 @@
         });
     });
 
-                            </script>
-                        }
+     </script>
+  }

@@ -15,8 +15,7 @@
         responsive: true,
         sDom:"",
         ajax: {
-           url: '@Url.Action("CargarTablaDetalle")',
-          //  url: "/" + '@ViewBag.ControllerName' + "/CargarTablaDetalle",
+           url: '@Url.Action("CargarTablaDetalle", ViewBag.ControllerName)',
             data: {Id: '@ViewBag.Id'},
             type: "GET",
             global: false,

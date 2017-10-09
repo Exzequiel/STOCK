@@ -159,7 +159,7 @@
                 success: function (data) {
                     ShowNotification(data.Estado, data.Titulo, data.Mensaje)
                     if (data.Estado) {
-                        document.location.href = '/Usuario/Index';
+                        document.location.href = '@Url.Action("Index", "Usuario")',
                     }
 
                 },

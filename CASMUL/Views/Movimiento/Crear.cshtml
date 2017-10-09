@@ -54,10 +54,10 @@
             DataFilaActual.cant_enviada =  $(this).closest("tr").find("[name=InputCantidad]").val();
         });
 
-        var url =  "/CASMUL/Movimiento/CargarTablaDetalleRequisa";
+        var url ="@Url.Action("CargarTablaDetalleRequisa", "Movimiento")";
         var data = {Id: @Model.id_requisa};
         if(str2bool('@Model.EsEditar')){
-            url =  "/Movimiento/CargarTablaDetalle";
+            url = "@Url.Action("CargarTablaDetalle", "Movimiento")";
             data = {Id: @Model.id};
         }
 
@@ -111,9 +111,9 @@
                 ListaDetalle: Tablelist
             }
 
-            var url = '/Movimiento/Crear';
+            var url ="@Url.Action("Crear", "Movimiento")";
             if (str2bool('@Model.EsEditar')) {
-                url = '/Movimiento/Editar';
+                url ="@Url.Action("Editar", "Movimiento")";
             }
             $.ajax({
                 url: url,

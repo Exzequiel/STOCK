@@ -57,8 +57,11 @@
             DataFilaActual.cant_recibida =  $(this).closest("tr").find("[name=InputCantidad]").val();
     });
 
+        var url = "@Url.Action("CargarTablaDetallePedido", "Mercaderia")";
+        var data = {Id: @Model.id_pedido};
+
         if(str2bool('@Model.EsEditar')){
-            url =  "/Mercaderia/CargarTablaDetalle";
+            url = "@Url.Action("CargarTablaDetalle", "Mercaderia")";
             data = {Id: @Model.id};
         }
 
@@ -66,9 +69,9 @@
             responsive: true,
             sDom:"",
             ajax: {
-                url: '@Url.Action("CargarTablaDetallePedido", "Mercaderia")',
+                url: url,
                 type: "Get",
-                data: {Id: @Model.id_pedido},
+                data:data,
                 dataSrc: function (data) { return data; }
             },
             columns: [
@@ -121,9 +124,9 @@
                 ListaDetalle: Tablelist
             }
 
-            var url = '/Mercaderia/Crear';
+            var url ="@Url.Action("Crear", "Mercaderia")"; 
             if (str2bool('@Model.EsEditar')) {
-                url = '/Mercaderia/Editar';
+                url ="@Url.Action("Editar", "Mercaderia")";
             }
             $.ajax({
                 url: url,

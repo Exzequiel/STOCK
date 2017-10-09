@@ -47,7 +47,7 @@
                 allowOutsideClick: false
             }).then(function () {
                 $.ajax({
-                    url: '/'+'@ViewBag.ControllerName'+'/Deshabilitar',
+                    url:"@Url.Action("Deshabilitar", ViewBag.ControllerName)",
                     type: "get",
                     data: { Id: Id },
                     success: function (data) {
@@ -66,7 +66,7 @@
 
         function Editar(Id) {
             $.ajax({
-                url: '/' + '@ViewBag.ControllerName' + '/Editar',
+                url:"@Url.Action("Editar", ViewBag.ControllerName)",
                 type: "get",
                 data: { Id: Id },
                 success: function (data) {
@@ -81,7 +81,7 @@
        var table= $("#IdTabla").dataTable({
             responsive: true,
             ajax: {
-                url: '/' +'@ViewBag.ControllerName' +'/CargarTablaIndex',
+                url:"@Url.Action("CargarTablaIndex", ViewBag.ControllerName)",
                 global:false,
                 type: "GET",
                 dataSrc: function (data) {
@@ -149,7 +149,7 @@
         } else {
             tr.addClass('shown');
             $.ajax({
-                url: '/'+'@ViewBag.ControllerName'+'/VerDetalleIndex',
+                url: "@Url.Action("VerDetalleIndex", ViewBag.ControllerName)",
                 type: "get",
                 global: false,
                 data: { Id: row.data().id },
