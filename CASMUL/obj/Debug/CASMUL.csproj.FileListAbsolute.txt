@@ -330,3 +330,4 @@ C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.Mic
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csproj.CoreCompileInputs.cache
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.pdb
+C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveAssemblyReference.cache
