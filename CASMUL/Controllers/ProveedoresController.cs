@@ -70,11 +70,13 @@ namespace CASMUL.Controllers
                     var listaProveedores = context.proveedor.Select(x => new ListaProveedorViewModel
                     {
                         Id = x.id_proveedor,
+                        cod_proveedor = x.cod_proveedor,
                         nombre_proveedor = x.nombre_proveedor,
                         Direccion = x.direccion,
                         Telefono = x.telefono,
                         Contacto = x.contacto,
                         Estado = x.activo,
+                        Pais = x.pais,
                         Email = x.email
                     }).ToList();
 
@@ -83,7 +85,7 @@ namespace CASMUL.Controllers
                     return jsonResult;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return View();
             }
@@ -110,7 +112,7 @@ namespace CASMUL.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_proveedor,nombre_proveedor,direccion,telefono,email,rtn,contacto,giro,razon_social,ciudad,activo")] proveedor proveedor)
+        public ActionResult Edit([Bind(Include = "id_proveedor,nombre_proveedor,direccion,telefono,email,rtn,contacto,giro,razon_social,ciudad,pais,activo")] proveedor proveedor)
         {
             if (ModelState.IsValid)
             {

@@ -10,7 +10,7 @@
         <div class="panel panel-inverse">
             <div class="panel-heading">
                 <div class="panel-heading-btn">
-                    <a href="~/Proveedores/Create" class="btn btn-xs btn-primary" data-original-title="Crear Proveedor" title="Crear Proveedor"><i class="fa fa-plus"></i> Crear Proveedor</a>
+                    <a href="@Url.Action("Create","Proveedores")" class="btn btn-xs btn-primary" data-original-title="Crear Proveedor" title="Crear Proveedor"><i class="fa fa-plus"></i> Crear Proveedor</a>
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title="" data-init="true"><i class="fa fa-expand"></i></a>
 
                 </div>
@@ -21,9 +21,10 @@
                     <thead>
                         <tr>
                             <th>Acciones</th>
+                            <th>Código</th>
                             <th>Proveedor</th>
                             <th>Dirección</th>
-                            <th>Telefono</th>
+                            <th>Teléfono</th>
                             <th>Correo Electrónico</th>
                             <th>Contacto </th>
                             <th>Estado </th>
@@ -47,7 +48,7 @@
         function MostrarEditarCuenta(id) {
             LoadWaitNotification();
             $.ajax({
-                url: "/Proveedores/Edit",
+                url: "@Url.Action("Edit", "Proveedores")", /*"/Proveedores/Edit", */
                 type: 'get',
                 data: { Id: id },
                 success: function (data) {
@@ -73,7 +74,7 @@
         });
         LoadWaitNotification();
         $.ajax({
-            url: "/Proveedor/"+ActionName,
+            url: "@Url.Action(ViewBag.ActionName, "Proveedores")",  /*"/Proveedor/"+ActionName,*/
             type: "POST",
             data: { Lista: listcheckedrows, IdProveedor: idProveedor },
             success: function (data) {
@@ -119,6 +120,9 @@
                     }
                 },
                 {
+                    data: "cod_proveedor"
+                },
+                {
                     data: "nombre_proveedor"
                 },
                 {
@@ -140,8 +144,8 @@
                     }
                 }
             ]
+            });
         });
-    });
 
     </script>
 }

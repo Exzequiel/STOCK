@@ -11,6 +11,9 @@ namespace CASMUL.Models.Proveedores
     {
         public int Id { get; set; }
 
+        [Display(Name = "Cód. Proveedor")]
+        public string cod_proveedor { get; set; }
+
         [Display(Name = "Nombre")]
         public string nombre_proveedor { get; set; }
 
@@ -31,5 +34,6 @@ namespace CASMUL.Models.Proveedores
 
         [Display(Name = "Estado")]
         public bool Estado { get; set; }
+
     }
 }
