@@ -1,6 +1,5 @@
 ﻿@model CASMUL.Models.Pedido.CrearPedidoViewModel
 
-
 @{
     ViewBag.Title = "Crear Pedido";
 }
@@ -21,10 +20,10 @@
         <table class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
                 <tr class="success">
-                    <th class="text-center">Numero @ViewBag.ControllerName</th>
+                    <th class="text-center"># @ViewBag.ControllerName</th>
                     <th class="text-center">Finca</th>
-                    <th class="text-center">Fecha Transaccion</th>
-                    <th class="text-center">Periodo</th>
+                    <th class="text-center">Fecha Transacción</th>
+                    <th class="text-center">Período</th>
                     <th class="text-center">Semana</th>
                 </tr>
             </thead>
@@ -44,7 +43,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.id_proveedor, htmlAttributes: new { @class = "control-label" })
-                            @Html.DropDownListFor(model => model.id_proveedor, ViewBag.ListaProveedor as List<SelectListItem>, null, new { @class = "form-control select2", style = "width:100%;" })
+                            @Html.DropDownListFor(model => model.id_proveedor, ViewBag.ListaProveedor as List<SelectListItem>, "", new { @class = "form-control select2", style = "width:100%;" })
                             @Html.ValidationMessageFor(model => model.id_proveedor, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -53,12 +52,12 @@
                     <hr />
                     <div class="col-md-8">
                         <div class="form-group">
-                            @Html.DropDownList("IdItem", ViewBag.ListaItem as List<SelectListItem>, null, new { @class = "form-control", style = "width:100%;" })
+                            @Html.DropDownList("IdItem", ViewBag.ListaItem as List<SelectListItem>, "", new { @class = "form-control", style = "width:100%;" })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary" onclick="AgregarFila()">+ Agregar Item</button>
+                            <button type="button" class="btn btn-primary" onclick="AgregarFila()">+ Agregar Ítem</button>
                         </div>
                     </div>
                 </div>
@@ -70,9 +69,9 @@
                     <tr>
                         <th>Acciones</th>
                         <th>Cantidad</th>
-                        <th>Descripcion Item</th>
+                        <th>Descripción Ítem</th>
                         <th>Cantidad Actual en Stock</th>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th>Unidad de Medida</th>
                     </tr>
                 </thead>
@@ -113,7 +112,7 @@
             if(!validate){  ShowNotification(false,"Item ya seleccionado", "Seleccione otro"); return;}
 
             $.ajax({
-                url:"@Url.Action("ObtenerInfoItem", ViewBag.ControllerName)",
+                url: "@Url.Action("ObtenerInfoItem", ViewBag.ControllerName)",
                 type: "Get",
                 data: { IdItem:  IdItem},
                 success: function (data) {
@@ -223,7 +222,7 @@
                         },
                          function (dismiss) {
                              if (dismiss === 'cancel') {
-                                 window.location.href = "/"+'@ViewBag.ControllerName'+"/Index";
+                                 window.location.href = '@Url.Action("Index", ViewBag.ControllerName)';
                                  LoadWaitNotification();
                              }
                          });

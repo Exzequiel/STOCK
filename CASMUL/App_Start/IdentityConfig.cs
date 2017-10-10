@@ -12,38 +12,38 @@ using CASMUL.Models;
 
 namespace CASMUL
 {
-    public class EmailService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return sendMail(message);
-           // return Task.FromResult(0);
-        }
+    //public class EmailService : IIdentityMessageService
+    //{
+    //    //public Task SendAsync(IdentityMessage message)
+        //{
+        //    // Plug in your email service here to send an email.
+        //    return sendMail(message);
+        //   // return Task.FromResult(0);
+        //}
 
-        async Task sendMail(IdentityMessage message)
-        {
-            #region formatter
-            string text = string.Format("Por favor hacer click en el link a {0}: {1}", message.Subject, message.Body);
-            string html = "Confirme su cuenta haciendo click en: <a href=\"" + message.Body + "\">link</a><br/>";
+    //    async Task sendMail(IdentityMessage message)
+    //    {
+    //        #region formatter
+    //        string text = string.Format("Por favor hacer click en el link a {0}: {1}", message.Subject, message.Body);
+    //        string html = "Confirme su cuenta haciendo click en: <a href=\"" + message.Body + "\">link</a><br/>";
 
-            #endregion
-            MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("soporte.cripco@gmail.com");
-            msg.To.Add(new MailAddress(message.Destination));
-            msg.Subject = message.Subject;
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+    //        #endregion
+    //        MailMessage msg = new MailMessage();
+    //        msg.From = new MailAddress("soporte.cripco@gmail.com");
+    //        msg.To.Add(new MailAddress(message.Destination));
+    //        msg.Subject = message.Subject;
+    //        msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+    //        msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("soporte.cripco@gmail.com", "Soporte123");
-            smtpClient.Credentials = credentials;
-            smtpClient.EnableSsl = true;
-            smtpClient.Send(msg);
-        }
+    //        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+    //        System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("soporte.cripco@gmail.com", "Soporte123");
+    //        smtpClient.Credentials = credentials;
+    //        smtpClient.EnableSsl = true;
+    //        smtpClient.Send(msg);
+    //    }
 
 
-    }
+    //}
 
     public class SmsService : IIdentityMessageService
     {
@@ -105,7 +105,7 @@ namespace CASMUL
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
-            manager.EmailService = new EmailService();
+            //manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)

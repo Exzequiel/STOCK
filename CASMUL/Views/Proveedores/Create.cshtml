@@ -113,7 +113,7 @@
                                 @Html.ValidationMessageFor(model => model.pais, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    
+
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
@@ -138,6 +138,30 @@
         $("#Telefono").mask("9999-9999");
         $("#RTN").mask("9999-9999-999999");
 
+        function CrearUsuario() {
+
+            if (!$("form").valid()) { return false; }
+
+            LoadWaitNotification();
+            $.ajax({
+                url: '@Url.Action("CrearUsuario", "Usuario")',  /*"/Usuario/CrearUsuario",*/
+                type: 'POST',
+                dataType: 'json',
+                data: $('form').serialize(),
+                success: function (data) {
+                    ShowNotification(data.Estado, data.Titulo, data.Mensaje)
+                    if (data.Estado) {
+                        document.location.href = '@Url.Action("Index", "Usuario")';  /*'/Usuario/Index';*/
+                    }
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus + ": Problemas con la red");
+                    UnloadWaitNotification();
+                },
+                complete: function () { UnloadWaitNotification(); }
+            });
+        };
 
 
 

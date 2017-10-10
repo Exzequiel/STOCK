@@ -49,7 +49,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
   }
 
   // http://blog.alexmaccaw.com/css-transitions
-  $.fn.emulateTransitionEnd = \1 => {
+  $.fn.emulateTransitionEnd = 1  
     var called = false, $el = this
     $(this).one($.support.transition.end, function () { called = true })
     var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
@@ -61,7 +61,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
     $.support.transition = transitionEnd()
   })
 
-}(jQuery);
+(jQuery);
 
 /* ========================================================================
  * Bootstrap: alert.js v3.0.3

@@ -3,11 +3,11 @@
         <table class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
                 <tr class="success">
-                    <th class="text-center">Numero Movimiento</th>
-                    <th  class="text-center">Numero Requisa</th>
+                    <th class="text-center"># Movimiento</th>
+                    <th  class="text-center"># Requisa</th>
                     <th class="text-center">Finca</th>
-                    <th class="text-center">Fecha Transaccion</th>
-                    <th class="text-center">Periodo</th>
+                    <th class="text-center">Fecha Transacción</th>
+                    <th class="text-center">Período</th>
                     <th class="text-center">Semana</th>
                 </tr>
             </thead>
@@ -26,10 +26,10 @@
             <table class="table table-bordered table-responsive" id="IdTablaDetalle" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th>Descripcion Item</th>
+                        <th>Descripción Ítem</th>
                         <th>Cantidad</th>
                         <th>Cantidad Disponible</th>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th>Unidad de Medida</th>
                     </tr>
                 </thead>
@@ -57,7 +57,7 @@
         var url ="@Url.Action("CargarTablaDetalleRequisa", "Movimiento")";
         var data = {Id: @Model.id_requisa};
         if(str2bool('@Model.EsEditar')){
-            url = "@Url.Action("CargarTablaDetalle", "Movimiento")";
+            url ="@Url.Action("CargarTablaDetalle", "Movimiento")";
             data = {Id: @Model.id};
         }
 

@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>Cantidad</th>
-            <th>Descripcion Item</th>
+            <th>Descripción Ítem</th>
             <th>Categoria</th>
             <th>Unidad de Medida</th>
         </tr>
@@ -16,7 +16,7 @@
         responsive: true,
         sDom:"",
         ajax:{
-            url: "@Url.Action("CargarTablaDetalleEntrega", "Entrega")",//"/Entrega/CargarTablaDetalleEntrega",
+            url: "@Url.Action("CargarTablaDetalleEntrega", "Entrega")", //"/Entrega/CargarTablaDetalleEntrega",
             data: {IdEntrega: '@ViewBag.Id'},
             type: "GET",
             global: false,

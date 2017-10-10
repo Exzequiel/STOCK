@@ -76,7 +76,7 @@
             LoadWaitNotification();
             $.ajax({
                     url: '@Url.Action("EditarCuentaUsuario", "Usuario")',
-                    type: "Get",
+                    type: "POST",
                     dataType: 'json',
                     data: $('#FormCuentaUsuario').serialize(),
                     success: function (data) {

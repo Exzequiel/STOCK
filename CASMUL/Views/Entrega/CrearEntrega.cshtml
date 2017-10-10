@@ -18,10 +18,10 @@
         <table class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
                 <tr class="success">
-                    <th class="text-center">Numero Entrega</th>
+                    <th class="text-center">Número Entrega</th>
                     <th class="text-center">Finca</th>
-                    <th class="text-center">Fecha Transaccion</th>
-                    <th class="text-center">Periodo</th>
+                    <th class="text-center">Fecha Transacción</th>
+                    <th class="text-center">Período</th>
                     <th class="text-center">Semana</th>
                 </tr>
             </thead>
@@ -85,9 +85,9 @@
                     <tr>
                         <th>Acciones</th>
                         <th>Cantidad</th>
-                        <th>Descripcion Item</th>
+                        <th>Descripción Ítem</th>
                         <th>Cantidad Disponible</th>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th>Unidad de Medida</th>
                     </tr>
                 </thead>
@@ -125,7 +125,7 @@
         $("#id_grupo").on("select2:select", function (e) {
             var Id = $(this).val();
             $.ajax({
-                url:'@Url.Action("ObtenerListaCablesPorGrupo", "Entrega")',// "/Entrega/ObtenerListaCablesPorGrupo",
+                url:'@Url.Action("ObtenerListaCablesPorGrupo", "Entrega")', // "/Entrega/ObtenerListaCablesPorGrupo",
                 type: "Get",
                 data: { IdGrupo:  Id},
                 success: function (data) {
@@ -148,7 +148,7 @@
             if(!validate){  ShowNotification(false,"Item ya seleccionado", "Seleccione otro"); return;}
 
             $.ajax({
-                url:'@Url.Action("ObtenerInfoItem", "Entrega")',// "/Entrega/ObtenerInfoItem",
+                url:'@Url.Action("ObtenerInfoItem", "Entrega")', // "/Entrega/ObtenerInfoItem",
                 type: "Get",
                 data: { IdItem:  IdItem},
                 success: function (data) {
@@ -172,7 +172,7 @@
             responsive: true,
             sDom:"",
             ajax:{
-                url:"@Url.Action("CargarTablaDetalleEntrega", "Entrega")",// "/Entrega/CargarTablaDetalleEntrega",
+                url:"@Url.Action("CargarTablaDetalleEntrega", "Entrega")", // "/Entrega/CargarTablaDetalleEntrega",
                 data: {IdEntrega: @Model.id_entrega},
                 type: "GET",
                 dataSrc: function (data) { return data; }
@@ -275,9 +275,6 @@
                     alert("Error en red");
                 }
             });
-
-
         }
     </script>
-
 }

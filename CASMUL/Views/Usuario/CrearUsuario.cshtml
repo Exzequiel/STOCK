@@ -152,14 +152,15 @@
 
             LoadWaitNotification();
             $.ajax({
+                //url: "/Usuario/CrearUsuario",
                 url: '@Url.Action("CrearUsuario", "Usuario")',
-                type: "Get",
+                type: 'POST',
                 dataType: 'json',
                 data: $('form').serialize(),
                 success: function (data) {
                     ShowNotification(data.Estado, data.Titulo, data.Mensaje)
                     if (data.Estado) {
-                        document.location.href = '@Url.Action("Index", "Usuario")',
+                        document.location.href = '@Url.Action("Index", "Usuario")';   /*'/Usuario/Index';*/
                     }
 
                 },

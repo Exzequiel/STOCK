@@ -20,10 +20,10 @@
         <table class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
                 <tr class="success">
-                    <th class="text-center">Numero @ViewBag.ControllerName</th>
+                    <th class="text-center"># @ViewBag.ControllerName</th>
                     <th class="text-center">Finca</th>
-                    <th class="text-center">Fecha Transaccion</th>
-                    <th class="text-center">Periodo</th>
+                    <th class="text-center">Fecha Transacción</th>
+                    <th class="text-center">Período</th>
                     <th class="text-center">Semana</th>
                 </tr>
             </thead>
@@ -43,7 +43,7 @@
                     <hr />
                     <div class="col-md-8">
                         <div class="form-group">
-                            @Html.DropDownList("IdItem", ViewBag.ListaItem as List<SelectListItem>, null, new { @class = "form-control", style = "width:100%;" })
+                            @Html.DropDownList("IdItem", ViewBag.ListaItem as List<SelectListItem>, "", new { @class = "form-control", style = "width:100%;" })
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -60,9 +60,9 @@
                     <tr>
                         <th>Acciones</th>
                         <th>Cantidad</th>
-                        <th>Descripcion Item</th>
+                        <th>Descripción Ítem</th>
                         <th>Cantidad Disponible</th>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th>Unidad de Medida</th>
                     </tr>
                 </thead>
@@ -80,17 +80,16 @@
             </div>
         </form>
     </div>
-</div>
+</div>s
 
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $("select").select2({ placeholder: "- - Seleccionar - -"});
-        //$("select").on("select2:select", function (e) {
-        //    $(this).valid();
-        //});
-
+        $("select").on("select2:select", function (e) {
+            $(this).valid();
+        });
 
         //funcion para obtener los datos del item al agregar la fila
         function AgregarFila()

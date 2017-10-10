@@ -245,6 +245,8 @@ C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\obj\Debug\CASMUL.pdb
 C:\Users\IT\Documents\Github\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveAssemblyReference.cache
 C:\Users\IT\Documents\Github\Stock\CASMUL\obj\Debug\CASMUL.csproj.CoreCompileInputs.cache
+C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll
+C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\ApplicationInsights.config
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\roslyn\csc.exe
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -287,6 +289,7 @@ C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.Twi
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Newtonsoft.Json.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Owin.dll
+C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\System.Web.Helpers.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\System.Web.Mvc.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\System.Web.Optimization.dll
@@ -324,9 +327,6 @@ C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.OAu
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csprojResolveAssemblyReference.cache
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.csproj.CoreCompileInputs.cache
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.dll
 C:\Users\DichterSS\Documents\GitHub\Stock\CASMUL\obj\Debug\CASMUL.pdb
-C:\Users\betty\Documents\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll
-C:\Users\jwarl\OneDrive\Documentos\GitHub\Stock\CASMUL\bin\System.Web.Extensions.dll

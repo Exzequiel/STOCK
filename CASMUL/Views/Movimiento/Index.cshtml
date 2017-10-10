@@ -13,9 +13,9 @@
                     @*<th>Acciones</th>*@
                     <th># @ViewBag.ControllerName</th>
                     <th># Requisa</th>
-                    <th>Fecha Transaccion</th>
+                    <th>Fecha Transacción</th>
                     <th>Finca</th>
-                    <th>Periodo</th>
+                    <th>Período</th>
                     <th>Semana</th>
                     @*<th>Activo </th>*@
                 </tr>
@@ -41,7 +41,7 @@
                 allowOutsideClick: false
             }).then(function () {
                 $.ajax({
-                    url:"@Url.Action("Deshabilitar", ViewBag.ControllerName)",
+                    url: "@Url.Action("Deshabilitar", ViewBag.ControllerName)",
                     type: "get",
                     data: { Id: Id },
                     success: function (data) {
@@ -71,8 +71,6 @@
                 },
             });
         }
-
-
 
 
        var table= $("#IdTabla").dataTable({
@@ -143,7 +141,7 @@
         } else {
             tr.addClass('shown');
             $.ajax({
-                url:"@Url.Action("VerDetalleIndex", ViewBag.ControllerName)",
+                url: "@Url.Action("VerDetalleIndex", ViewBag.ControllerName)",
                 type: "get",
                 global: false,
                 data: { Id: row.data().id },

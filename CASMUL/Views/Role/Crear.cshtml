@@ -32,7 +32,7 @@
             LoadWaitNotification();
             $.ajax({
                     url: '@Url.Action("Crear","Role")',
-                    type: "Get",
+                    type: "POST",
                     dataType: 'json',
                     data: $('#FormCrearRole').serialize(),
                     success: function (data) {
